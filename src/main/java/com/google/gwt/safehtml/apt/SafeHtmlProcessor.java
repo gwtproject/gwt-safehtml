@@ -122,6 +122,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
         }
         sourceWriter.close();
       } catch (IOException | UnableToCompleteException e) {
+        messager.printMessage(Kind.ERROR, e.getMessage());
         e.printStackTrace();
       }
     }

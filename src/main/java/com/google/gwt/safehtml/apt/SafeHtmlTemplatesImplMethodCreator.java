@@ -14,15 +14,14 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.safehtml.shared.UriUtils;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.annotation.processing.Messager;
+import javax.tools.Diagnostic;
 
 /**
  * Method body code generator for implementations of
  * {@link com.google.gwt.safehtml.client.SafeHtmlTemplates}.
  */
 public class SafeHtmlTemplatesImplMethodCreator {
-  private static final Logger LOGGER = Logger.getLogger(SafeHtmlTemplatesImplMethodCreator.class.getName());
 
   /**
    * Fully-qualified class name of the {@link String} class.
@@ -77,9 +76,11 @@ public class SafeHtmlTemplatesImplMethodCreator {
 
 
   private final SourceWriter writer;
+  private final Messager messager;
 
-  public SafeHtmlTemplatesImplMethodCreator(SourceWriter writer) {
+  public SafeHtmlTemplatesImplMethodCreator(SourceWriter writer, Messager messager) {
     this.writer = writer;
+    this.messager = messager;
   }
 
   public SourceWriter getWriter() {
@@ -295,7 +296,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
          * which would consist of SafeStyles inside of a CSS style rules found
          * in a style tag.
          */
-        LOGGER.log(Level.WARNING, "Template with variable in CSS context: "
+        messager.printMessage(Diagnostic.Kind.MANDATORY_WARNING, "Template with variable in CSS context: "
                 + "The template code generator cannot guarantee HTML-safety of "
                 + "the template -- please inspect manually");
         emitTextContextParameterExpression(formalParameterName, parameterType);
@@ -313,7 +314,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
          */
         if (!isSafeStyles(parameterType)) {
           // WARNING against using unsafe parameters in a CSS attribute context.
-          LOGGER.log(Level.WARNING,
+          messager.printMessage(Diagnostic.Kind.MANDATORY_WARNING,
                   "Template with variable in CSS attribute context: The template code generator cannot"
                           + " guarantee HTML-safety of the template -- please inspect manually or use "
                           + SAFE_STYLES_CN + " to specify arguments in a CSS attribute context");
@@ -330,7 +331,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
          */
         if (!isSafeUri(parameterType)) {
           // WARNING against using unsafe parameters in a URL attribute context.
-          LOGGER.log(Level.INFO,
+          messager.printMessage(Diagnostic.Kind.WARNING,
                   "Template with variable in URL attribute context: The template code generator will"
                           + " sanitize the URL.  Use " + SAFE_URI_CN
                           + " to specify arguments in a URL attribute context that should not be"
@@ -524,8 +525,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @param msg msg
    * @return the exception to throw
    */
-  protected static UnableToCompleteException error(String msg) {
-    LOGGER.log(Level.SEVERE, msg);
+  protected UnableToCompleteException error(String msg) {
+    messager.printMessage(Diagnostic.Kind.ERROR, msg);
     return new UnableToCompleteException();
   }
 
@@ -534,8 +535,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @param msg msg
    * @return the exception to throw
    */
-  protected static UnableToCompleteException error(String msg, Throwable cause) {
-    LOGGER.log(Level.SEVERE, msg, cause);
+  protected UnableToCompleteException error(String msg, Throwable cause) {
+    messager.printMessage(Diagnostic.Kind.ERROR, msg + ": " + cause.getMessage());
     return new UnableToCompleteException();
   }
 
@@ -544,8 +545,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @param e throwable
    * @return th exception to throw
    */
-  protected static UnableToCompleteException error(Throwable e) {
-    LOGGER.log(Level.SEVERE, e.getMessage(), e);
+  protected UnableToCompleteException error(Throwable e) {
+    messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage() + ": " + e.getMessage());
     return new UnableToCompleteException();
   }
 
