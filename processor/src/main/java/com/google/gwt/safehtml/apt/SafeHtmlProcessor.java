@@ -84,7 +84,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
 
         SourceWriter sourceWriter = writerBuilder.createSourceWriter();
 
-        SafeHtmlTemplatesImplMethodCreator methodCreator = new SafeHtmlTemplatesImplMethodCreator(sourceWriter);
+        SafeHtmlTemplatesImplMethodCreator methodCreator = new SafeHtmlTemplatesImplMethodCreator(sourceWriter, messager);
         for (Element element : templateType.getEnclosedElements()) {
           if (element instanceof ExecutableElement) {
             ExecutableElement method = (ExecutableElement) element;
