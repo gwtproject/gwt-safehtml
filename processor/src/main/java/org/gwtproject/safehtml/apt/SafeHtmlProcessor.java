@@ -1,4 +1,4 @@
-package com.google.gwt.safehtml.apt;
+package org.gwtproject.safehtml.apt;
 
 import com.google.gwt.codegen.server.AbortablePrintWriter;
 import com.google.gwt.codegen.server.JavaSourceWriterBuilder;

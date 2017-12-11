@@ -1,8 +1,21 @@
-package com.google.gwt.safehtml.apt;
+/*
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package org.gwtproject.safehtml.apt;
 
 import com.google.common.base.Preconditions;
-import com.google.gwt.safehtml.apt.ParsedHtmlTemplate.HtmlContext;
-import com.google.gwt.safehtml.apt.ParsedHtmlTemplate.ParameterChunk;
 import com.google.gwt.thirdparty.streamhtmlparser.HtmlParser;
 import com.google.gwt.thirdparty.streamhtmlparser.HtmlParserFactory;
 import com.google.gwt.thirdparty.streamhtmlparser.ParseException;
@@ -185,7 +198,7 @@ final class HtmlTemplateParser {
         lookAhead = 0;
       }
       parsedTemplate.addParameter(
-              new ParameterChunk(getHtmlContextFromParseState(), paramIndex));
+              new ParsedHtmlTemplate.ParameterChunk(getHtmlContextFromParseState(), paramIndex));
 
       endOfPreviousMatch = match.end();
     }
@@ -218,7 +231,7 @@ final class HtmlTemplateParser {
    * @throws UnableToCompleteException if an illegal/unuspported template
    *           construct is encountered
    */
-  private HtmlContext getHtmlContextFromParseState()
+  private ParsedHtmlTemplate.HtmlContext getHtmlContextFromParseState()
           throws UnableToCompleteException {
     // TODO(xtof): Consider refactoring such that state related to the position
     // of the template variable in an attribute is exposed separately (as
@@ -245,7 +258,7 @@ final class HtmlTemplateParser {
       throw new UnableToCompleteException();
     } else if (streamHtmlParser.getState().equals(HtmlParser.STATE_TEXT)
             && !streamHtmlParser.inCss()) {
-      return new HtmlContext(HtmlContext.Type.TEXT);
+      return new ParsedHtmlTemplate.HtmlContext(ParsedHtmlTemplate.HtmlContext.Type.TEXT);
     } else if (streamHtmlParser.getState().equals(HtmlParser.STATE_VALUE)) {
       final String tag = streamHtmlParser.getTag();
       final String attribute = streamHtmlParser.getAttribute();
@@ -280,22 +293,22 @@ final class HtmlTemplateParser {
         // a quote that matches the one that started the attribute, we know
         // that the parameter comprises the entire attribute.
         if (lookAhead == lookBehind) {
-          return new HtmlContext(HtmlContext.Type.URL_ATTRIBUTE_ENTIRE, tag, attribute);
+          return new ParsedHtmlTemplate.HtmlContext(ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_ENTIRE, tag, attribute);
         } else {
-          return new HtmlContext(HtmlContext.Type.URL_ATTRIBUTE_START, tag, attribute);
+          return new ParsedHtmlTemplate.HtmlContext(ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_START, tag, attribute);
         }
       } else if (streamHtmlParser.inCss()) {
         if (streamHtmlParser.getValueIndex() == 0) {
-          return new HtmlContext(HtmlContext.Type.CSS_ATTRIBUTE_START, tag, attribute);
+          return new ParsedHtmlTemplate.HtmlContext(ParsedHtmlTemplate.HtmlContext.Type.CSS_ATTRIBUTE_START, tag, attribute);
         } else {
-          return new HtmlContext(HtmlContext.Type.CSS_ATTRIBUTE, tag, attribute);
+          return new ParsedHtmlTemplate.HtmlContext(ParsedHtmlTemplate.HtmlContext.Type.CSS_ATTRIBUTE, tag, attribute);
         }
       } else {
-        return new HtmlContext(
-                HtmlContext.Type.ATTRIBUTE_VALUE, tag, attribute);
+        return new ParsedHtmlTemplate.HtmlContext(
+                ParsedHtmlTemplate.HtmlContext.Type.ATTRIBUTE_VALUE, tag, attribute);
       }
     } else if (streamHtmlParser.inCss()) {
-      return new HtmlContext(HtmlContext.Type.CSS);
+      return new ParsedHtmlTemplate.HtmlContext(ParsedHtmlTemplate.HtmlContext.Type.CSS);
     } else if (streamHtmlParser.getState().equals(HtmlParser.STATE_TAG)
             || streamHtmlParser.inAttribute()) {
       LOGGER.log(Level.SEVERE,

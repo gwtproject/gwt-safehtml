@@ -1,12 +1,23 @@
-package com.google.gwt.safehtml.apt;
+/*
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package org.gwtproject.safehtml.apt;
 
 import com.google.common.primitives.Primitives;
 import com.google.gwt.codegen.server.SourceWriter;
 import com.google.gwt.safecss.shared.SafeStyles;
-import com.google.gwt.safehtml.apt.ParsedHtmlTemplate.HtmlContext;
-import com.google.gwt.safehtml.apt.ParsedHtmlTemplate.LiteralChunk;
-import com.google.gwt.safehtml.apt.ParsedHtmlTemplate.ParameterChunk;
-import com.google.gwt.safehtml.apt.ParsedHtmlTemplate.TemplateChunk;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
 import com.google.gwt.safehtml.shared.OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtml;
@@ -128,7 +139,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @param parameterType the Java type of the corresponding template method's
    *        parameter
    */
-  private void emitAttributeContextParameterExpression(HtmlContext htmlContext,
+  private void emitAttributeContextParameterExpression(ParsedHtmlTemplate.HtmlContext htmlContext,
                                                        String formalParameterName, String parameterType) {
 
     /*
@@ -149,8 +160,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
         expression = "String.valueOf(" + expression + ")";
       }
 
-      if ((htmlContext.getType() == HtmlContext.Type.URL_ATTRIBUTE_START) ||
-              (htmlContext.getType() == HtmlContext.Type.URL_ATTRIBUTE_ENTIRE)) {
+      if ((htmlContext.getType() == ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_START) ||
+              (htmlContext.getType() == ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_ENTIRE)) {
         expression = URI_UTILS_FQCN + ".sanitizeUri(" + expression + ")";
       }
     }
@@ -186,14 +197,14 @@ public class SafeHtmlTemplatesImplMethodCreator {
           throws UnableToCompleteException {
     println("StringBuilder sb = new java.lang.StringBuilder();");
 
-    com.google.gwt.safehtml.apt.HtmlTemplateParser parser = new com.google.gwt.safehtml.apt.HtmlTemplateParser();
+    HtmlTemplateParser parser = new HtmlTemplateParser();
     parser.parseTemplate(template);
 
-    for (TemplateChunk chunk : parser.getParsedTemplate().getChunks()) {
-      if (chunk.getKind() == TemplateChunk.Kind.LITERAL) {
-        emitStringLiteral(((LiteralChunk) chunk).getLiteral());
-      } else if (chunk.getKind() == TemplateChunk.Kind.PARAMETER) {
-        ParameterChunk parameterChunk = (ParameterChunk) chunk;
+    for (ParsedHtmlTemplate.TemplateChunk chunk : parser.getParsedTemplate().getChunks()) {
+      if (chunk.getKind() == ParsedHtmlTemplate.TemplateChunk.Kind.LITERAL) {
+        emitStringLiteral(((ParsedHtmlTemplate.LiteralChunk) chunk).getLiteral());
+      } else if (chunk.getKind() == ParsedHtmlTemplate.TemplateChunk.Kind.PARAMETER) {
+        ParsedHtmlTemplate.ParameterChunk parameterChunk = (ParsedHtmlTemplate.ParameterChunk) chunk;
 
         int formalParameterIndex = parameterChunk.getParameterIndex();
         if (formalParameterIndex < 0 || formalParameterIndex >= params.length) {
@@ -230,15 +241,15 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @throws UnableToCompleteException if the parameterType is not valid for the
    *           htmlContext
    */
-  private void emitParameterExpression(HtmlContext htmlContext,
+  private void emitParameterExpression(ParsedHtmlTemplate.HtmlContext htmlContext,
                                        String formalParameterName, String parameterType) throws UnableToCompleteException {
 
     /*
      * Verify that the parameter type is used in the correct context. Safe
      * expressions are only safe in specific contexts.
      */
-    HtmlContext.Type contextType = htmlContext.getType();
-    if (isSafeHtml(parameterType) && HtmlContext.Type.TEXT != contextType) {
+    ParsedHtmlTemplate.HtmlContext.Type contextType = htmlContext.getType();
+    if (isSafeHtml(parameterType) && ParsedHtmlTemplate.HtmlContext.Type.TEXT != contextType) {
       /*
        * SafeHtml used in a non-text context. SafeHtml is escaped for a text
        * context. In a non-text context, the string is not guaranteed to be
@@ -246,8 +257,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
        */
       throw error(SAFE_HTML_CN + " used in a non-text context. Did you mean to use "
               + JAVA_LANG_STRING_FQCN + " or " + SAFE_STYLES_CN + " instead?");
-    } else if (isSafeStyles(parameterType) && HtmlContext.Type.CSS_ATTRIBUTE_START != contextType) {
-      if (HtmlContext.Type.CSS_ATTRIBUTE == contextType) {
+    } else if (isSafeStyles(parameterType) && ParsedHtmlTemplate.HtmlContext.Type.CSS_ATTRIBUTE_START != contextType) {
+      if (ParsedHtmlTemplate.HtmlContext.Type.CSS_ATTRIBUTE == contextType) {
         // SafeStyles can only be used at the start of a CSS attribute.
         throw error(SAFE_STYLES_CN + " cannot be used in the middle of a CSS attribute. "
                 + "It must be used at the start a CSS attribute.");
@@ -262,9 +273,9 @@ public class SafeHtmlTemplatesImplMethodCreator {
                 + " used in a non-CSS attribute context. Did you mean to use " + JAVA_LANG_STRING_FQCN
                 + " or " + SAFE_HTML_CN + " instead?");
       }
-    } else if (isSafeUri(parameterType) && HtmlContext.Type.URL_ATTRIBUTE_ENTIRE != contextType) {
+    } else if (isSafeUri(parameterType) && ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_ENTIRE != contextType) {
       // TODO(xtof): refactor HtmlContext with isStart/isEnd/isEntire accessors and simplified type.
-      if (HtmlContext.Type.URL_ATTRIBUTE_START == contextType) {
+      if (ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_START == contextType) {
         // SafeUri can only be used as the entire value of an URL attribute.
         throw error(SAFE_URI_CN + " cannot be used in a URL attribute if it isn't the "
                 + "entire attribute value.");
