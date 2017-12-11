@@ -18,12 +18,11 @@ package org.gwtproject.safehtml.apt;
 import com.google.common.primitives.Primitives;
 import com.google.gwt.codegen.server.SourceWriter;
 import com.google.gwt.safecss.shared.SafeStyles;
-import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
-import com.google.gwt.safehtml.shared.OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml;
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.safehtml.shared.SafeUri;
-import com.google.gwt.safehtml.shared.UriUtils;
+import org.gwtproject.safehtml.shared.SafeHtml;
+import org.gwtproject.safehtml.shared.SafeHtmlUtils;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.UriUtils;
+import org.gwtproject.safehtml.shared.OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml;
 
 import javax.annotation.processing.Messager;
 import javax.tools.Diagnostic;
@@ -98,9 +97,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
     return writer;
   }
 
-  public void createMethodFor(Template templateAnnotation, String[] params) throws UnableToCompleteException {
-    String template = templateAnnotation.value();
-    emitMethodBodyFromTemplate(template, params);
+  public void createMethodFor(String templateString, String[] params) throws UnableToCompleteException {
+    emitMethodBodyFromTemplate(templateString, params);
   }
 
   /**

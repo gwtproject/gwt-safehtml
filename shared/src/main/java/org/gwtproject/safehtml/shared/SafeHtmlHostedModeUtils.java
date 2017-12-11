@@ -20,6 +20,8 @@ import com.google.gwt.thirdparty.streamhtmlparser.HtmlParser;
 import com.google.gwt.thirdparty.streamhtmlparser.HtmlParserFactory;
 import com.google.gwt.thirdparty.streamhtmlparser.ParseException;
 
+import org.gwtproject.safehtml.shared.annotations.GwtIncompatible;
+
 /**
  * SafeHtml utilities whose implementation differs between Development and
  * Production Mode.
@@ -29,6 +31,57 @@ import com.google.gwt.thirdparty.streamhtmlparser.ParseException;
  * implementation.
  */
 public class SafeHtmlHostedModeUtils {
+  private static class JsImpl {
+    public boolean isCompleteHtml(String html) {
+      return true;
+    }
+    public void maybeCheckCompleteHtml(String html) {
+    }
+
+    public boolean getForceCheckCompleteHtmlFromProperty() {
+      return false;
+    }
+  }
+  private static class JreImpl extends JsImpl {
+    @GwtIncompatible
+    @Override
+    public boolean isCompleteHtml(String html) {
+      HtmlParser htmlParser = HtmlParserFactory.createParser();
+      try {
+        htmlParser.parse(html);
+      } catch (ParseException e) {
+        return false;
+      }
+      return htmlParser.getState() == HtmlParser.STATE_TEXT
+              && !htmlParser.inJavascript() && !htmlParser.inCss();
+    }
+
+    @GwtIncompatible
+    @Override
+    public void maybeCheckCompleteHtml(String html) {
+      if (GWT.isClient() || forceCheckCompleteHtml) {
+        checkArgument(isCompleteHtml(html),
+                "String is not complete HTML (ends in non-inner-HTML context): " +
+                        html);
+      } else {
+        assert isCompleteHtml(html) :
+                "String is not complete HTML (ends in non-inner-HTML context): "
+                        + html;
+      }
+    }
+
+    private static void checkArgument(boolean completeHtml, String message) {
+      if (!completeHtml) {
+        throw new IllegalArgumentException(message);
+      }
+    }
+
+    @GwtIncompatible
+    @Override
+    public boolean getForceCheckCompleteHtmlFromProperty() {
+      return System.getProperty(FORCE_CHECK_COMPLETE_HTML) != null;
+    }
+  }
 
   /**
    * Name of system property that if set, enables checks in server-side code
@@ -38,6 +91,8 @@ public class SafeHtmlHostedModeUtils {
       "com.google.gwt.safehtml.ForceCheckCompleteHtml";
 
   private static boolean forceCheckCompleteHtml;
+
+  private static final JreImpl impl = new JreImpl();
 
   static {
     setForceCheckCompleteHtmlFromProperty();
@@ -78,14 +133,7 @@ public class SafeHtmlHostedModeUtils {
    * @return true if the provided HTML string is complete.
    */
   public static boolean isCompleteHtml(String html) {
-    HtmlParser htmlParser = HtmlParserFactory.createParser();
-    try {
-      htmlParser.parse(html);
-    } catch (ParseException e) {
-      return false;
-    }
-    return htmlParser.getState() == HtmlParser.STATE_TEXT
-        && !htmlParser.inJavascript() && !htmlParser.inCss();
+    return impl.isCompleteHtml(html);
   }
 
   /**
@@ -115,21 +163,7 @@ public class SafeHtmlHostedModeUtils {
    * @see #isCompleteHtml(String)
    */
   public static void maybeCheckCompleteHtml(String html) {
-    if (GWT.isClient() || forceCheckCompleteHtml) {
-      checkArgument(isCompleteHtml(html),
-          "String is not complete HTML (ends in non-inner-HTML context): " +
-          html);
-    } else {
-      assert isCompleteHtml(html) :
-          "String is not complete HTML (ends in non-inner-HTML context): "
-          + html;
-    }
-  }
-
-  private static void checkArgument(boolean completeHtml, String message) {
-    if (!completeHtml) {
-      throw new IllegalArgumentException(message);
-    }
+    impl.maybeCheckCompleteHtml(html);
   }
 
   /**
@@ -156,7 +190,6 @@ public class SafeHtmlHostedModeUtils {
   //
   // @VisibleForTesting
   public static void setForceCheckCompleteHtmlFromProperty() {
-    forceCheckCompleteHtml =
-        System.getProperty(FORCE_CHECK_COMPLETE_HTML) != null;
+    forceCheckCompleteHtml = impl.getForceCheckCompleteHtmlFromProperty();
   }
 }

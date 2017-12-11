@@ -17,6 +17,8 @@ package org.gwtproject.safehtml.shared;
 
 import com.google.gwt.core.shared.GWT;
 
+import org.gwtproject.safehtml.shared.annotations.GwtIncompatible;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -31,6 +33,39 @@ import java.net.URISyntaxException;
  * future.
  */
 public class SafeUriHostedModeUtils {
+  private static class JsImpl {
+    public boolean isValidUri(String uri) {
+      return true;
+    }
+
+    public boolean getForceCheckValieUriFromProperty() {
+      return false;
+    }
+  }
+  private static class JreImpl extends JsImpl {
+    @GwtIncompatible
+    @Override
+    public boolean isValidUri(String uri) {
+      if (!isValidUriCharset(uri)) {
+        return false;
+      }
+
+      // pre-process to turn href-ucschars into ucschars, and encode to URI.
+      uri = UriUtils.encodeAllowEscapes(uri);
+      try {
+        new URI(uri);
+        return true;
+      } catch (URISyntaxException e) {
+        return false;
+      }
+    }
+
+    @GwtIncompatible
+    @Override
+    public boolean getForceCheckValieUriFromProperty() {
+      return System.getProperty(FORCE_CHECK_VALID_URI) != null;
+    }
+  }
 
   /**
    * All valid Web Addresses discrete characters, i.e. the reserved, iunreserved, href-ucschar, and
@@ -52,6 +87,8 @@ public class SafeUriHostedModeUtils {
   public static final String FORCE_CHECK_VALID_URI = "com.google.gwt.safehtml.ForceCheckValidUri";
 
   private static boolean forceCheckValidUri;
+
+  private static final JreImpl impl = new JreImpl();
 
   static {
     setForceCheckValidUriFromProperty();
@@ -95,9 +132,9 @@ public class SafeUriHostedModeUtils {
    */
   public static void maybeCheckValidUri(String uri) {
     if (GWT.isClient() || forceCheckValidUri) {
-      checkArgument(isValidUri(uri), "String is not a valid URI: " + uri);
+      checkArgument(impl.isValidUri(uri), "String is not a valid URI: " + uri);
     } else {
-      assert isValidUri(uri) : "String is not a valid URI: " + uri;
+      assert impl.isValidUri(uri) : "String is not a valid URI: " + uri;
     }
   }
 
@@ -129,21 +166,6 @@ public class SafeUriHostedModeUtils {
   //
   // @VisibleForTesting
   public static void setForceCheckValidUriFromProperty() {
-    forceCheckValidUri = System.getProperty(FORCE_CHECK_VALID_URI) != null;
-  }
-
-  private static boolean isValidUri(String uri) {
-    if (!isValidUriCharset(uri)) {
-      return false;
-    }
-
-    // pre-process to turn href-ucschars into ucschars, and encode to URI.
-    uri = UriUtils.encodeAllowEscapes(uri);
-    try {
-      new URI(uri);
-      return true;
-    } catch (URISyntaxException e) {
-      return false;
-    }
+    forceCheckValidUri = impl.getForceCheckValieUriFromProperty();
   }
 }

@@ -3,9 +3,8 @@ package org.gwtproject.safehtml.apt;
 import com.google.gwt.codegen.server.AbortablePrintWriter;
 import com.google.gwt.codegen.server.JavaSourceWriterBuilder;
 import com.google.gwt.codegen.server.SourceWriter;
-import com.google.gwt.safehtml.client.SafeHtmlTemplates;
-import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
-import com.google.gwt.safehtml.shared.SafeHtml;
+import org.gwtproject.safehtml.client.SafeHtmlTemplates;
+import org.gwtproject.safehtml.shared.SafeHtml;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,7 +34,11 @@ public class SafeHtmlProcessor extends AbstractProcessor {
 
   private class T {
     DeclaredType jlObject = (DeclaredType) processingEnv.getElementUtils().getTypeElement(Object.class.getCanonicalName()).asType();
+    @Deprecated
+    DeclaredType safeHtmlOld = (DeclaredType) processingEnv.getElementUtils().getTypeElement(com.google.gwt.safehtml.shared.SafeHtml.class.getCanonicalName()).asType();
     DeclaredType safeHtml = (DeclaredType) processingEnv.getElementUtils().getTypeElement(SafeHtml.class.getCanonicalName()).asType();
+    @Deprecated
+    DeclaredType safeHtmlTemplatesOld = (DeclaredType) processingEnv.getElementUtils().getTypeElement(com.google.gwt.safehtml.client.SafeHtmlTemplates.class.getCanonicalName()).asType();
     DeclaredType safeHtmlTemplates = (DeclaredType) processingEnv.getElementUtils().getTypeElement(SafeHtmlTemplates.class.getCanonicalName()).asType();
 
     boolean isSameType(TypeMirror t1, TypeMirror t2) {
@@ -55,7 +58,10 @@ public class SafeHtmlProcessor extends AbstractProcessor {
 
     @Override
     public Void visitType(TypeElement e, Set<TypeElement> templateTypes) {
-      if (e.getKind().equals(ElementKind.INTERFACE) && types.isAssignable(e.asType(), types.safeHtmlTemplates)) {
+      if (e.getKind().equals(ElementKind.INTERFACE) &&
+              (types.isAssignable(e.asType(), types.safeHtmlTemplates)
+                      || types.isAssignable(e.asType(), types.safeHtmlTemplatesOld)
+              )) {
         templateTypes.add(e);
       }
       return super.visitType(e, templateTypes);
@@ -93,18 +99,33 @@ public class SafeHtmlProcessor extends AbstractProcessor {
               continue;
             }
 
-            Template template = method.getAnnotation(Template.class);
-            if (template == null) {
+            SafeHtmlTemplates.Template template = method.getAnnotation(SafeHtmlTemplates.Template.class);
+            com.google.gwt.safehtml.client.SafeHtmlTemplates.Template templateOld = method.getAnnotation(com.google.gwt.safehtml.client.SafeHtmlTemplates.Template.class);
+            if (template == null && templateOld == null) {
               messager.printMessage(Kind.ERROR, "SafeHtmlTemplates method is missing @Template annotation", method);
+              continue;
+            }
+            if (template != null && templateOld != null) {
+              messager.printMessage(Kind.ERROR, "Cannot use both old and new template");
+              continue;
+            }
+            String templateString;
+            if (templateOld != null) {
+              messager.printMessage(Kind.MANDATORY_WARNING, "Using old @Template, please update to new");
+              templateString = templateOld.value();
+            } else {
+              templateString = template.value();
             }
 
-            if (!types.isSameType(method.getReturnType(), types.safeHtml)) {
+            if (!types.isSameType(method.getReturnType(), types.safeHtml) &&
+                    !types.isSameType(method.getReturnType(), types.safeHtmlOld)) {
               messager.printMessage(Kind.ERROR, "SafeHtmlTemplates method must return SafeHtml", method);
+              continue;
             }
 
             sourceWriter.beginJavaDocComment();
             sourceWriter.print("@Template(");
-            sourceWriter.print("\"" + escape(template.value()) + "\"");
+            sourceWriter.print("\"" + escape(templateString) + "\"");
             sourceWriter.print(")");
             sourceWriter.endJavaDocComment();
 
@@ -112,7 +133,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
             sourceWriter.println(" {");
             sourceWriter.indent();
 
-            methodCreator.createMethodFor(template, getParamTypes(method));
+            methodCreator.createMethodFor(templateString, getParamTypes(method));
 
             sourceWriter.outdent();
             sourceWriter.println("}");
