@@ -1,14 +1,15 @@
-This project is a quick attempt at beginning to replace built-in GWT generators
-with APT code generation, allowing the javac process to do the code generation
-up front and out of the gwtc process. In theory this should give compilation
-to JS a bit less to worry about.
+Migration of GWT 2.x's SafeHtml packages to an external project, including rewriting
+the Generator into an annotation process for use in general Java, not just within
+GWT client code. 
 
-This code relies on the `<generate-with>` statements to remain in GWT, and
-assumes that they will continue to generate to the same class. That assumption
-lets us generate code, and lets the old GWT Generator see that its work has
-already been done - use code does not need to change at all, it can still
-call `GWT.create(MyTemplate.class)` to get a real implementation.
+The processor was written before I really knew what I was doing, and it needs another
+look before usage in real projects.
 
-Projects that use this will need to be sure that their
-`target/generated-sources/annotations` directory is available for gwtc
-compilation.
+Before this gets to 1.0, a deep look should be taken at the differences and 
+similarities between this and https://github.com/google/safe-html-types/, looking for
+opportunities for reuse and code sharing.
+
+At this point, tests pass and it appears usable, but additional GwtTestCases would
+be good to have. SafeCss needs to be migrated out as well, and this annotation
+processor should switch to generally available versions of the html parser to 
+properly eliminated dependencies on upstream GWT.
