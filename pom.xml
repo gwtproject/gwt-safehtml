@@ -19,6 +19,11 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- CI -->
+    <vertispan.snapshot.repo.id>vertispan-snapshot-repository</vertispan.snapshot.repo.id>
+    <vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>
+    <vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>
   </properties>
 
   <dependencyManagement>
@@ -67,5 +72,13 @@
       </plugin>
     </plugins>
   </build>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>${vertispan.snapshot.repo.id}</id>
+      <name>${vertispan.snapshot.repo.name}</name>
+      <url>${vertispan.snapshot.repo.url}</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>
