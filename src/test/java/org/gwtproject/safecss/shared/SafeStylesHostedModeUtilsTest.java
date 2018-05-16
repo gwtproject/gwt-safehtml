@@ -16,7 +16,7 @@
 package org.gwtproject.safecss.shared;
 
 /**
- * JUnit tests for {@link SafeStylesHostedModeUtils}.
+ * JUnit tests for {@link SafeStylesHostedModeUtilsJvm}.
  */
 public class SafeStylesHostedModeUtilsTest extends GwtSafeStylesHostedModeUtilsTest {
 
@@ -30,7 +30,7 @@ public class SafeStylesHostedModeUtilsTest extends GwtSafeStylesHostedModeUtilsT
   protected void gwtSetUp() throws Exception {
     super.gwtSetUp();
     // Since we can't assume assertions are enabled, force
-    // SafeStylesHostedModeUtils to perform its check when running in JRE.
-    SafeStylesHostedModeUtils.setForceCheckValidStyle(true);
+    // SafeStylesHostedModeUtilsJvm to perform its check when running in JRE.
+    SafeStylesHostedModeUtilsJvm.setForceCheckValidStyle(true);
   }
 }

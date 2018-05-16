@@ -530,7 +530,7 @@ public final class SafeStylesUtils {
    * @return a {@link SafeStyles} instance
    */
   public static SafeStyles fromTrustedNameAndValue(String name, double value, Unit unit) {
-    SafeStylesHostedModeUtils.maybeCheckValidStyleName(name);
+    SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleName(name);
     return new SafeStylesString(name + ":" + value + unit.getType() + ";");
   }
 
@@ -561,8 +561,8 @@ public final class SafeStylesUtils {
    * @return a {@link SafeStyles} instance
    */
   public static SafeStyles fromTrustedNameAndValue(String name, String value) {
-    SafeStylesHostedModeUtils.maybeCheckValidStyleName(name);
-    SafeStylesHostedModeUtils.maybeCheckValidStyleValue(value);
+    SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleName(name);
+    SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleValue(value);
     return fromTrustedString(name + ":" + value + ";");
   }
 

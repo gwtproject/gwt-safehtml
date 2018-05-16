@@ -74,7 +74,7 @@
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-dev</artifactId>
     </dependency>
-    
+  
     <!-- only for test -->
     <dependency>
       <groupId>junit</groupId>
@@ -91,13 +91,6 @@
         <artifactId>gwt-maven-plugin</artifactId>
         <version>1.0-rc-9</version>
         <extensions>true</extensions>
-        <executions>
-          <execution>
-            <goals>
-              <goal>add-test-super-sources</goal>
-            </goals>
-          </execution>
-        </executions>
         <configuration>
           <moduleName>org.gwtproject.safecss.SafeCss</moduleName>
         </configuration>

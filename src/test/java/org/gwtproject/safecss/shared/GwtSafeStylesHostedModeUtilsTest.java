@@ -15,11 +15,10 @@
  */
 package org.gwtproject.safecss.shared;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
 
 /**
- * GWT Unit tests for {@link SafeStylesHostedModeUtils}.
+ * GWT Unit tests for {@link SafeStylesHostedModeUtilsJvm}.
  */
 public class GwtSafeStylesHostedModeUtilsTest extends GWTTestCase {
 
@@ -32,61 +31,61 @@ public class GwtSafeStylesHostedModeUtilsTest extends GWTTestCase {
   }
 
   public void testIsValidStyleName() {
-    if (GWT.isProdMode()) {
+    if (isProdMode()) {
       // isValidStyleName always returns true in prod mode.
       return;
     }
 
     // Valid names.
     for (String s : GwtSafeStylesUtilsTest.VALID_STYLE_NAMES) {
-      String error = SafeStylesHostedModeUtils.isValidStyleValue(s);
+      String error = SafeStylesHostedModeUtilsJvm.isValidStyleValue(s);
       assertNull("'" + s + "' incorrectly reported as an invalid style name: " + error, error);
     }
 
     // Invalid names.
     for (String s : GwtSafeStylesUtilsTest.INVALID_STYLE_NAMES) {
       assertNotNull("'" + s + "' incorrectly reported as an valid style name",
-          SafeStylesHostedModeUtils.isValidStyleName(s));
+          SafeStylesHostedModeUtilsJvm.isValidStyleName(s));
     }
   }
 
   public void testIsValidStyleValue() {
-    if (GWT.isProdMode()) {
+    if (isProdMode()) {
       // isValidStyleValue always returns true in prod mode.
       return;
     }
 
     // Valid values.
     for (String s : GwtSafeStylesUtilsTest.VALID_STYLE_VALUES) {
-      String error = SafeStylesHostedModeUtils.isValidStyleValue(s);
+      String error = SafeStylesHostedModeUtilsJvm.isValidStyleValue(s);
       assertNull("'" + s + "' incorrectly reported as an invalid style value: " + error, error);
     }
 
     // Invalid values.
     for (String s : GwtSafeStylesUtilsTest.INVALID_STYLE_VALUES) {
       assertNotNull("'" + s + "' incorrectly reported as an valid style value",
-          SafeStylesHostedModeUtils.isValidStyleValue(s));
+          SafeStylesHostedModeUtilsJvm.isValidStyleValue(s));
     }
   }
 
   public void testMaybeCheckValidStyleName() {
-    if (GWT.isProdMode()) {
+    if (isProdMode()) {
       /*
-       * SafeStylesHostedModeUtils.maybeCheckValidStyleName is a no-op in prod
+       * SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleName is a no-op in prod
        * mode.
        */
-      SafeStylesHostedModeUtils.maybeCheckValidStyleName(GwtSafeStylesUtilsTest.INVALID_STYLE_NAME);
+      SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleName(GwtSafeStylesUtilsTest.INVALID_STYLE_NAME);
     } else {
       // Check a valid name.
-      SafeStylesHostedModeUtils.maybeCheckValidStyleName("name");
+      SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleName("name");
 
       // Check an invalid name.
       String expectedError =
-          SafeStylesHostedModeUtils.isValidStyleName(GwtSafeStylesUtilsTest.INVALID_STYLE_NAME);
+          SafeStylesHostedModeUtilsJvm.isValidStyleName(GwtSafeStylesUtilsTest.INVALID_STYLE_NAME);
       assertNotNull(expectedError);
       boolean caught = false;
       try {
-        SafeStylesHostedModeUtils
+        SafeStylesHostedModeUtilsJvm
             .maybeCheckValidStyleName(GwtSafeStylesUtilsTest.INVALID_STYLE_NAME);
       } catch (IllegalArgumentException e) {
         /*
@@ -110,23 +109,23 @@ public class GwtSafeStylesHostedModeUtilsTest extends GWTTestCase {
   }
 
   public void testMaybeCheckValidStyleValue() {
-    if (GWT.isProdMode()) {
+    if (isProdMode()) {
       /*
-       * SafeStylesHostedModeUtils.maybeCheckValidStyleValue is a no-op in prod
+       * SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleValue is a no-op in prod
        * mode.
        */
-      SafeStylesHostedModeUtils
+      SafeStylesHostedModeUtilsJvm
           .maybeCheckValidStyleValue(GwtSafeStylesUtilsTest.INVALID_STYLE_VALUE);
     } else {
       // Check a valid value.
-      SafeStylesHostedModeUtils.maybeCheckValidStyleValue("value");
+      SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleValue("value");
 
       String expectedError =
-          SafeStylesHostedModeUtils.isValidStyleValue(GwtSafeStylesUtilsTest.INVALID_STYLE_VALUE);
+          SafeStylesHostedModeUtilsJvm.isValidStyleValue(GwtSafeStylesUtilsTest.INVALID_STYLE_VALUE);
       assertNotNull(expectedError);
       boolean caught = false;
       try {
-        SafeStylesHostedModeUtils
+        SafeStylesHostedModeUtilsJvm
             .maybeCheckValidStyleValue(GwtSafeStylesUtilsTest.INVALID_STYLE_VALUE);
       } catch (IllegalArgumentException e) {
         /*
@@ -148,4 +147,9 @@ public class GwtSafeStylesHostedModeUtilsTest extends GWTTestCase {
       }
     }
   }
+
+  private boolean isProdMode() {
+    return System.getProperty("superdevmode") != null;
+  }
+
 }

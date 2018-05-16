@@ -19,11 +19,6 @@
 <module>
   <inherits name="org.gwtproject.dom.DOM"/>
   <inherits name="org.gwtproject.safehtml.SafeHtml"/>
-  
-  <inherits name="com.google.gwt.core.Core"/>
-  <inherits name="com.google.gwt.dom.DOM" />
-  <inherits name="com.google.gwt.useragent.UserAgent"/>
 
   <source path="shared"/>
-  <super-source path="super"/>
 </module>
