@@ -17,10 +17,13 @@
 <!-- SafeCss - facilities for avoiding XSS attacks                         -->
 <!--                                                                       -->
 <module>
+  <inherits name="org.gwtproject.dom.DOM"/>
+  <inherits name="org.gwtproject.safehtml.SafeHtml"/>
+  
   <inherits name="com.google.gwt.core.Core"/>
   <inherits name="com.google.gwt.dom.DOM" />
   <inherits name="com.google.gwt.useragent.UserAgent"/>
-
+  
   <replace-with class="org.gwtproject.safecss.shared.SafeStylesUtils.ImplIE8">
     <when-type-is class="org.gwtproject.safecss.shared.SafeStylesUtils.Impl" />
     <when-property-is name="user.agent" value="ie8" />

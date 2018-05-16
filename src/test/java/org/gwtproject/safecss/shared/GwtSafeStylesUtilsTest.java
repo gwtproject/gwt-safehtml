@@ -15,18 +15,17 @@
  */
 package org.gwtproject.safecss.shared;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Clear;
-import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.dom.client.Style.TextAlign;
-import com.google.gwt.dom.client.Style.TextDecoration;
-import com.google.gwt.dom.client.Style.TextJustify;
-import com.google.gwt.dom.client.Style.TextOverflow;
-import com.google.gwt.dom.client.Style.TextTransform;
-import com.google.gwt.dom.client.Style.WhiteSpace;
+import org.gwtproject.dom.client.Style.Clear;
+import org.gwtproject.dom.client.Style.Display;
+import org.gwtproject.dom.client.Style.TextAlign;
+import org.gwtproject.dom.client.Style.TextDecoration;
+import org.gwtproject.dom.client.Style.TextJustify;
+import org.gwtproject.dom.client.Style.TextOverflow;
+import org.gwtproject.dom.client.Style.TextTransform;
+import org.gwtproject.dom.client.Style.WhiteSpace;
 import com.google.gwt.junit.client.GWTTestCase;
-import com.google.gwt.safehtml.shared.SafeUri;
-import com.google.gwt.safehtml.shared.UriUtils;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.UriUtils;
 
 /**
  * GWT Unit tests for {@link SafeStylesUtils}.

@@ -15,77 +15,33 @@
  */
 package org.gwtproject.safecss.shared;
 
-import com.google.gwt.core.shared.GWT;
-import com.google.gwt.dom.client.Style.BorderStyle;
-import com.google.gwt.dom.client.Style.Clear;
-import com.google.gwt.dom.client.Style.Cursor;
-import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.dom.client.Style.Float;
-import com.google.gwt.dom.client.Style.FontStyle;
-import com.google.gwt.dom.client.Style.FontWeight;
-import com.google.gwt.dom.client.Style.ListStyleType;
-import com.google.gwt.dom.client.Style.OutlineStyle;
-import com.google.gwt.dom.client.Style.Overflow;
-import com.google.gwt.dom.client.Style.Position;
-import com.google.gwt.dom.client.Style.TableLayout;
-import com.google.gwt.dom.client.Style.TextAlign;
-import com.google.gwt.dom.client.Style.TextDecoration;
-import com.google.gwt.dom.client.Style.TextJustify;
-import com.google.gwt.dom.client.Style.TextOverflow;
-import com.google.gwt.dom.client.Style.TextTransform;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.dom.client.Style.VerticalAlign;
-import com.google.gwt.dom.client.Style.Visibility;
-import com.google.gwt.dom.client.Style.WhiteSpace;
-import com.google.gwt.safehtml.shared.SafeUri;
+import org.gwtproject.dom.client.Style.BorderStyle;
+import org.gwtproject.dom.client.Style.Clear;
+import org.gwtproject.dom.client.Style.Cursor;
+import org.gwtproject.dom.client.Style.Display;
+import org.gwtproject.dom.client.Style.Float;
+import org.gwtproject.dom.client.Style.FontStyle;
+import org.gwtproject.dom.client.Style.FontWeight;
+import org.gwtproject.dom.client.Style.ListStyleType;
+import org.gwtproject.dom.client.Style.OutlineStyle;
+import org.gwtproject.dom.client.Style.Overflow;
+import org.gwtproject.dom.client.Style.Position;
+import org.gwtproject.dom.client.Style.TableLayout;
+import org.gwtproject.dom.client.Style.TextAlign;
+import org.gwtproject.dom.client.Style.TextDecoration;
+import org.gwtproject.dom.client.Style.TextJustify;
+import org.gwtproject.dom.client.Style.TextOverflow;
+import org.gwtproject.dom.client.Style.TextTransform;
+import org.gwtproject.dom.client.Style.Unit;
+import org.gwtproject.dom.client.Style.VerticalAlign;
+import org.gwtproject.dom.client.Style.Visibility;
+import org.gwtproject.dom.client.Style.WhiteSpace;
+import org.gwtproject.safehtml.shared.SafeUri;
 
 /**
  * Utility class containing static methods for creating {@link SafeStyles}.
  */
 public final class SafeStylesUtils {
-
-  /**
-   * Standard implementation of this class.
-   */
-  static class Impl {
-    public SafeStyles forOpacity(double value) {
-      return new SafeStylesString("opacity: " + value + ";");
-    }
-  }
-
-  /**
-   * Server implementation of this class.
-   *
-   * <p>
-   * The server doesn't necessarily know the user agent of the client, so we
-   * combine the results of all other implementations.
-   * </p>
-   */
-  static class ImplServer extends Impl {
-
-    private ImplIE8 implIE = new ImplIE8();
-
-    @Override
-    public SafeStyles forOpacity(double value) {
-      SafeStylesBuilder sb = new SafeStylesBuilder();
-      sb.append(super.forOpacity(value));
-      sb.append(implIE.forOpacity(value));
-      return sb.toSafeStyles();
-    }
-  }
-
-  /**
-   * IE8 implementation of this class.
-   */
-  static class ImplIE8 extends Impl {
-    @Override
-    public SafeStyles forOpacity(double value) {
-      // IE8 uses an alpha filter instead of opacity.
-      return new SafeStylesString("filter: alpha(opacity=" + (value * 100) + ");");
-    }
-  }
-
-  private static Impl impl;
 
   /**
    * Sets the background-image CSS property.
@@ -235,7 +191,7 @@ public final class SafeStylesUtils {
    * Set the opacity css property.
    */
   public static SafeStyles forOpacity(double value) {
-    return impl().forOpacity(value);
+    return fromTrustedNameAndValue("opacity", Double.toString(value));
   }
 
   /**
@@ -679,17 +635,6 @@ public final class SafeStylesUtils {
         + styles + "'. CSS properties must be an empty string or end with a semi-colon (;).";
     assert !styles.contains("<") && !styles.contains(">") : "Invalid CSS Property: '" + styles
         + "'. CSS should not contain brackets (< or >).";
-  }
-
-  private static Impl impl() {
-    if (impl == null) {
-      if (GWT.isClient()) {
-        impl = GWT.create(Impl.class);
-      } else {
-        impl = new ImplServer();
-      }
-    }
-    return impl;
   }
 
   // prevent instantiation

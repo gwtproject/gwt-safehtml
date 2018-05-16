@@ -18,7 +18,6 @@ package org.gwtproject.safecss.shared;
 import java.util.HashMap;
 import java.util.Stack;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.thirdparty.guava.common.annotations.VisibleForTesting;
 import com.google.gwt.thirdparty.guava.common.base.Preconditions;
 

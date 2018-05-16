@@ -15,27 +15,27 @@
  */
 package org.gwtproject.safecss.shared;
 
-import com.google.gwt.dom.client.Style.BorderStyle;
-import com.google.gwt.dom.client.Style.Clear;
-import com.google.gwt.dom.client.Style.Cursor;
-import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.dom.client.Style.Float;
-import com.google.gwt.dom.client.Style.FontStyle;
-import com.google.gwt.dom.client.Style.FontWeight;
-import com.google.gwt.dom.client.Style.ListStyleType;
-import com.google.gwt.dom.client.Style.Overflow;
-import com.google.gwt.dom.client.Style.Position;
-import com.google.gwt.dom.client.Style.TableLayout;
-import com.google.gwt.dom.client.Style.TextAlign;
-import com.google.gwt.dom.client.Style.TextDecoration;
-import com.google.gwt.dom.client.Style.TextJustify;
-import com.google.gwt.dom.client.Style.TextOverflow;
-import com.google.gwt.dom.client.Style.TextTransform;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.dom.client.Style.VerticalAlign;
-import com.google.gwt.dom.client.Style.Visibility;
-import com.google.gwt.dom.client.Style.WhiteSpace;
-import com.google.gwt.safehtml.shared.SafeUri;
+import org.gwtproject.safehtml.shared.SafeUri;
+import org.gwtproject.dom.client.Style.BorderStyle;
+import org.gwtproject.dom.client.Style.Clear;
+import org.gwtproject.dom.client.Style.Cursor;
+import org.gwtproject.dom.client.Style.Display;
+import org.gwtproject.dom.client.Style.Float;
+import org.gwtproject.dom.client.Style.FontStyle;
+import org.gwtproject.dom.client.Style.FontWeight;
+import org.gwtproject.dom.client.Style.ListStyleType;
+import org.gwtproject.dom.client.Style.Overflow;
+import org.gwtproject.dom.client.Style.Position;
+import org.gwtproject.dom.client.Style.TableLayout;
+import org.gwtproject.dom.client.Style.TextAlign;
+import org.gwtproject.dom.client.Style.TextDecoration;
+import org.gwtproject.dom.client.Style.TextJustify;
+import org.gwtproject.dom.client.Style.TextOverflow;
+import org.gwtproject.dom.client.Style.TextTransform;
+import org.gwtproject.dom.client.Style.Unit;
+import org.gwtproject.dom.client.Style.VerticalAlign;
+import org.gwtproject.dom.client.Style.Visibility;
+import org.gwtproject.dom.client.Style.WhiteSpace;
 
 /**
  * A builder that facilitates the building up of XSS-safe CSS attribute strings
