@@ -15,6 +15,7 @@
  */
 package org.gwtproject.safecss.shared;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
 
 /**

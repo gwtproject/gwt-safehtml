@@ -16,6 +16,9 @@
   
     <dom.version>1.0-SNAPSHOT</dom.version>
     <safehtml.version>1.0-SNAPSHOT</safehtml.version>
+    
+    <guava.version>25.0-jre</guava.version>
+    <junit.version>4.11</junit.version>
   
     <!-- GWT 2.8 requires 1.8 -->
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -52,6 +55,16 @@
       <artifactId>safehtml</artifactId>
       <version>${safehtml.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava-gwt</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
   
     <dependency>
       <groupId>com.google.gwt</groupId>
@@ -61,14 +74,16 @@
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-dev</artifactId>
     </dependency>
+    
+    <!-- only for test -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-
+  
   <build>
     <plugins>
       <plugin>
@@ -76,6 +91,13 @@
         <artifactId>gwt-maven-plugin</artifactId>
         <version>1.0-rc-9</version>
         <extensions>true</extensions>
+        <executions>
+          <execution>
+            <goals>
+              <goal>add-test-super-sources</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <moduleName>org.gwtproject.safecss.SafeCss</moduleName>
         </configuration>

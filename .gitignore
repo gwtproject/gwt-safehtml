@@ -105,3 +105,4 @@ buildNumber.properties
 gwt-unitCache/
 *.rpc
 .idea
+war

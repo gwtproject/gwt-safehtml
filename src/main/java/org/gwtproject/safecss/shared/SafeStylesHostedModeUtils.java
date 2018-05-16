@@ -15,11 +15,10 @@
  */
 package org.gwtproject.safecss.shared;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Preconditions;
 import java.util.HashMap;
 import java.util.Stack;
-
-import com.google.gwt.thirdparty.guava.common.annotations.VisibleForTesting;
-import com.google.gwt.thirdparty.guava.common.base.Preconditions;
 
 /**
  * SafeStyles utilities whose implementation differs between Development and
@@ -250,7 +249,7 @@ public class SafeStylesHostedModeUtils {
    *      2.1 identifiers</a>
    */
   public static void maybeCheckValidStyleName(String name) {
-    if (GWT.isClient() || forceCheck) {
+    if (isClient() || forceCheck) {
       String errorText = isValidStyleName(name);
       Preconditions.checkArgument(errorText == null, errorText);
     } else {
@@ -266,7 +265,7 @@ public class SafeStylesHostedModeUtils {
    *      declarations and properties</a>
    */
   public static void maybeCheckValidStyleValue(String value) {
-    if (GWT.isClient() || forceCheck) {
+    if (isClient() || forceCheck) {
       String errorText = isValidStyleValue(value);
       Preconditions.checkArgument(errorText == null, errorText);
     } else {
@@ -295,5 +294,12 @@ public class SafeStylesHostedModeUtils {
    */
   static void setForceCheckValidStyleFromProperty() {
     forceCheck = System.getProperty(FORCE_CHECK_VALID_STYLES) != null;
+  }
+
+  private static boolean isClient() {
+    if (System.getProperty("superdevmode") == null) {
+      return false;
+    }
+    return System.getProperty("superdevmode").equals("on");
   }
 }
