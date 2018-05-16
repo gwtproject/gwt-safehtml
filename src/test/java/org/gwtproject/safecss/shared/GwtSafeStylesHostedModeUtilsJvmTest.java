@@ -20,14 +20,14 @@ import com.google.gwt.junit.client.GWTTestCase;
 /**
  * GWT Unit tests for {@link SafeStylesHostedModeUtilsJvm}.
  */
-public class GwtSafeStylesHostedModeUtilsTest extends GWTTestCase {
+public class GwtSafeStylesHostedModeUtilsJvmTest extends GWTTestCase {
 
   private static final String ERROR_MESSAGE_MISMATCH =
       "Expected error message does not match actual error message";
 
   @Override
   public String getModuleName() {
-    return "org.gwtproject.safecss.SafeCss";
+    return "org.gwtproject.safecss.SafeCssTest";
   }
 
   public void testIsValidStyleName() {
@@ -74,7 +74,8 @@ public class GwtSafeStylesHostedModeUtilsTest extends GWTTestCase {
        * SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleName is a no-op in prod
        * mode.
        */
-      SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleName(GwtSafeStylesUtilsTest.INVALID_STYLE_NAME);
+      SafeStylesHostedModeUtilsJvm
+          .maybeCheckValidStyleName(GwtSafeStylesUtilsTest.INVALID_STYLE_NAME);
     } else {
       // Check a valid name.
       SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleName("name");
@@ -121,7 +122,8 @@ public class GwtSafeStylesHostedModeUtilsTest extends GWTTestCase {
       SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleValue("value");
 
       String expectedError =
-          SafeStylesHostedModeUtilsJvm.isValidStyleValue(GwtSafeStylesUtilsTest.INVALID_STYLE_VALUE);
+          SafeStylesHostedModeUtilsJvm
+              .isValidStyleValue(GwtSafeStylesUtilsTest.INVALID_STYLE_VALUE);
       assertNotNull(expectedError);
       boolean caught = false;
       try {

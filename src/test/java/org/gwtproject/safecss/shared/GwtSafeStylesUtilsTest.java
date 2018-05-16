@@ -15,6 +15,7 @@
  */
 package org.gwtproject.safecss.shared;
 
+import com.google.gwt.junit.client.GWTTestCase;
 import org.gwtproject.dom.client.Style.Clear;
 import org.gwtproject.dom.client.Style.Display;
 import org.gwtproject.dom.client.Style.TextAlign;
@@ -23,7 +24,6 @@ import org.gwtproject.dom.client.Style.TextJustify;
 import org.gwtproject.dom.client.Style.TextOverflow;
 import org.gwtproject.dom.client.Style.TextTransform;
 import org.gwtproject.dom.client.Style.WhiteSpace;
-import com.google.gwt.junit.client.GWTTestCase;
 import org.gwtproject.safehtml.shared.SafeUri;
 import org.gwtproject.safehtml.shared.UriUtils;
 
@@ -84,7 +84,7 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
 
   @Override
   public String getModuleName() {
-    return "org.gwtproject.safecss.SafeCss";
+    return "org.gwtproject.safecss.SafeCssTest";
   }
 
   public void testForBackgroundImage() {
@@ -113,18 +113,25 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
 
   public void testForTextDecoration() {
     assertEquals("text-decoration:blink;", SafeStylesUtils.forTextDecoration(TextDecoration.BLINK));
-    assertEquals("text-decoration:line-through;", SafeStylesUtils.forTextDecoration(TextDecoration.LINE_THROUGH));
+    assertEquals("text-decoration:line-through;",
+        SafeStylesUtils.forTextDecoration(TextDecoration.LINE_THROUGH));
     assertEquals("text-decoration:none;", SafeStylesUtils.forTextDecoration(TextDecoration.NONE));
-    assertEquals("text-decoration:overline;", SafeStylesUtils.forTextDecoration(TextDecoration.OVERLINE));
-    assertEquals("text-decoration:underline;", SafeStylesUtils.forTextDecoration(TextDecoration.UNDERLINE));
+    assertEquals("text-decoration:overline;",
+        SafeStylesUtils.forTextDecoration(TextDecoration.OVERLINE));
+    assertEquals("text-decoration:underline;",
+        SafeStylesUtils.forTextDecoration(TextDecoration.UNDERLINE));
   }
 
   public void testForTextJustify() {
     assertEquals("text-justify:auto;", SafeStylesUtils.forTextJustify(TextJustify.AUTO));
-    assertEquals("text-justify:distribute;", SafeStylesUtils.forTextJustify(TextJustify.DISTRIBUTE));
-    assertEquals("text-justify:inter-cluster;", SafeStylesUtils.forTextJustify(TextJustify.INTER_CLUSTER));
-    assertEquals("text-justify:inter-ideograph;", SafeStylesUtils.forTextJustify(TextJustify.INTER_IDEOGRAPH));
-    assertEquals("text-justify:inter-word;", SafeStylesUtils.forTextJustify(TextJustify.INTER_WORD));
+    assertEquals("text-justify:distribute;",
+        SafeStylesUtils.forTextJustify(TextJustify.DISTRIBUTE));
+    assertEquals("text-justify:inter-cluster;",
+        SafeStylesUtils.forTextJustify(TextJustify.INTER_CLUSTER));
+    assertEquals("text-justify:inter-ideograph;",
+        SafeStylesUtils.forTextJustify(TextJustify.INTER_IDEOGRAPH));
+    assertEquals("text-justify:inter-word;",
+        SafeStylesUtils.forTextJustify(TextJustify.INTER_WORD));
     assertEquals("text-justify:kashida;", SafeStylesUtils.forTextJustify(TextJustify.KASHIDA));
     assertEquals("text-justify:none;", SafeStylesUtils.forTextJustify(TextJustify.NONE));
   }
@@ -135,10 +142,13 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
   }
 
   public void testForTextTransform() {
-    assertEquals("text-transform:capitalize;", SafeStylesUtils.forTextTransform(TextTransform.CAPITALIZE));
-    assertEquals("text-transform:lowercase;", SafeStylesUtils.forTextTransform(TextTransform.LOWERCASE));
+    assertEquals("text-transform:capitalize;",
+        SafeStylesUtils.forTextTransform(TextTransform.CAPITALIZE));
+    assertEquals("text-transform:lowercase;",
+        SafeStylesUtils.forTextTransform(TextTransform.LOWERCASE));
     assertEquals("text-transform:none;", SafeStylesUtils.forTextTransform(TextTransform.NONE));
-    assertEquals("text-transform:uppercase;", SafeStylesUtils.forTextTransform(TextTransform.UPPERCASE));
+    assertEquals("text-transform:uppercase;",
+        SafeStylesUtils.forTextTransform(TextTransform.UPPERCASE));
   }
 
   public void testForWhiteSpace() {
@@ -158,7 +168,8 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
   }
 
   public void testFromTrustedNameAndValue() {
-    assertEquals("name:value;", SafeStylesUtils.fromTrustedNameAndValue("name", "value").asString());
+    assertEquals("name:value;",
+        SafeStylesUtils.fromTrustedNameAndValue("name", "value").asString());
     assertEquals("name-top:value;", SafeStylesUtils.fromTrustedNameAndValue("name-top", "value")
         .asString());
     assertEquals("-name-top:value;", SafeStylesUtils.fromTrustedNameAndValue("-name-top", "value")
@@ -264,6 +275,6 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
     if (System.getProperty("superdevmode") == null) {
       return false;
     }
-    return System.getProperty("superdevmode").equals("on");
+    return System.getProperty("superdevmode").equals("on") || System.getProperty("superdevmode").equals("off");
   }
 }

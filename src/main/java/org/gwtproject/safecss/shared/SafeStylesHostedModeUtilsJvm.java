@@ -17,28 +17,28 @@ package org.gwtproject.safecss.shared;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
-import java.util.HashMap;
-import java.util.Stack;
+
 import org.gwtproject.safehtml.shared.annotations.GwtIncompatible;
 
+import java.util.HashMap;
+import java.util.Stack;
+
 /**
- * SafeStyles utilities whose implementation differs between Development and
- * Production Mode.
+ * SafeStyles utilities whose implementation differs between Development and Production Mode.
  *
  * <p>
- * This class has a super-source peer that provides the Production Mode
- * implementation.
+ * This class has a super-source peer that provides the Production Mode implementation.
  *
  * <p>
- * Do not use this class - it is used for implementation only, and its methods
- * may change in the future.
+ * Do not use this class - it is used for implementation only, and its methods may change in the
+ * future.
  */
 public class SafeStylesHostedModeUtilsJvm
-  extends SafeStylesHostedModeUtils {
+    extends SafeStylesHostedModeUtils {
 
   /**
-   * Name of system property that if set, enables checks in server-side code
-   * (even if assertions are disabled).
+   * Name of system property that if set, enables checks in server-side code (even if assertions are
+   * disabled).
    */
   public static final String FORCE_CHECK_VALID_STYLES =
       "org.gwtproject.safecss.ForceCheckValidStyles";
@@ -53,17 +53,15 @@ public class SafeStylesHostedModeUtilsJvm
    * Check if the specified style property name is valid.
    *
    * <p>
-   * NOTE: This method does <em>NOT</em> guarantee the safety of a style name.
-   * It looks for common errors, but does not check for every possible error. It
-   * is intended to help validate a string that the user has already asserted is
-   * safe.
+   * NOTE: This method does <em>NOT</em> guarantee the safety of a style name. It looks for common
+   * errors, but does not check for every possible error. It is intended to help validate a string
+   * that the user has already asserted is safe.
    * </p>
    *
    * @param name the name to check
    * @return null if valid, an error string if not
-   * @see <a
-   *      href="http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier">CSS
-   *      2.1 identifiers</a>
+   * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier">CSS 2.1
+   * identifiers</a>
    */
   @VisibleForTesting
   @GwtIncompatible
@@ -105,16 +103,15 @@ public class SafeStylesHostedModeUtilsJvm
    * Check if the specified style property value is valid.
    *
    * <p>
-   * NOTE: This method does <em>NOT</em> guarantee the safety of a style value.
-   * It looks for common errors, but does not check for every possible error. It
-   * is intended to help validate a string that the user has already asserted is
-   * safe.
+   * NOTE: This method does <em>NOT</em> guarantee the safety of a style value. It looks for common
+   * errors, but does not check for every possible error. It is intended to help validate a string
+   * that the user has already asserted is safe.
    * </p>
    *
    * @param value the value to check
    * @return null if valid, an error string if not
    * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#declaration">CSS 2.1
-   *      declarations and properties</a>
+   * declarations and properties</a>
    */
   @VisibleForTesting
   @GwtIncompatible
@@ -248,9 +245,8 @@ public class SafeStylesHostedModeUtilsJvm
    * Checks if the provided string is a valid style property name.
    *
    * @param name the style name
-   * @see <a
-   *      href="http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier">CSS
-   *      2.1 identifiers</a>
+   * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier">CSS 2.1
+   * identifiers</a>
    */
   @GwtIncompatible
   public static void maybeCheckValidStyleName(String name) {
@@ -267,7 +263,7 @@ public class SafeStylesHostedModeUtilsJvm
    *
    * @param value the style value
    * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#declaration">CSS 2.1
-   *      declarations and properties</a>
+   * declarations and properties</a>
    */
   @GwtIncompatible
   public static void maybeCheckValidStyleValue(String value) {
@@ -280,10 +276,9 @@ public class SafeStylesHostedModeUtilsJvm
   }
 
   /**
-   * Sets a global flag that controls whether or not
-   * {@link #maybeCheckValidStyleName(String)} and
-   * {@link #maybeCheckValidStyleValue(String)} should perform their checks in a
-   * server-side environment.
+   * Sets a global flag that controls whether or not {@link #maybeCheckValidStyleName(String)} and
+   * {@link #maybeCheckValidStyleValue(String)} should perform their checks in a server-side
+   * environment.
    *
    * @param check if true, perform server-side checks.
    */
@@ -293,11 +288,9 @@ public class SafeStylesHostedModeUtilsJvm
   }
 
   /**
-   * Sets a global flag that controls whether or not
-   * {@link #maybeCheckValidStyleName(String)} and
-   * {@link #maybeCheckValidStyleValue(String)} should perform their checks in a
-   * server-side environment from the value of the
-   * {@value #FORCE_CHECK_VALID_STYLES} property.
+   * Sets a global flag that controls whether or not {@link #maybeCheckValidStyleName(String)} and
+   * {@link #maybeCheckValidStyleValue(String)} should perform their checks in a server-side
+   * environment from the value of the {@value #FORCE_CHECK_VALID_STYLES} property.
    */
   @GwtIncompatible
   static void setForceCheckValidStyleFromProperty() {
@@ -309,6 +302,7 @@ public class SafeStylesHostedModeUtilsJvm
     if (System.getProperty("superdevmode") == null) {
       return false;
     }
-    return System.getProperty("superdevmode").equals("on") || System.getProperty("superdevmode").equals("off");
+    return System.getProperty("superdevmode").equals("on") || System.getProperty("superdevmode")
+        .equals("off");
   }
 }

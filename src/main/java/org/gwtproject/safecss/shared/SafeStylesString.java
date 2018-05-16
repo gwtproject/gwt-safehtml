@@ -19,22 +19,21 @@ package org.gwtproject.safecss.shared;
  * A string wrapped as an object of type {@link SafeStyles}.
  *
  * <p>
- * This class is package-private and intended for internal use by the
- * {@link com.google.gwt.safecss} package.
+ * This class is package-private and intended for internal use by the {@link com.google.gwt.safecss}
+ * package.
  *
  * <p>
- * All implementors must implement .equals and .hashCode so that they operate
- * just like String.equals() and String.hashCode().
+ * All implementors must implement .equals and .hashCode so that they operate just like
+ * String.equals() and String.hashCode().
  */
 class SafeStylesString implements SafeStyles {
 
   private String css;
 
   /**
-   * Constructs a {@link SafeStylesString} from a string. Callers are
-   * responsible for ensuring that the string passed as the argument to this
-   * constructor satisfies the constraints of the contract imposed by the
-   * {@link SafeStyles} interface.
+   * Constructs a {@link SafeStylesString} from a string. Callers are responsible for ensuring that
+   * the string passed as the argument to this constructor satisfies the constraints of the contract
+   * imposed by the {@link SafeStyles} interface.
    *
    * @param css the string to be wrapped as a {@link SafeStyles}
    */

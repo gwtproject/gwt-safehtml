@@ -28,7 +28,7 @@ public class GwtSafeStylesBuilderTest extends GWTTestCase {
 
   @Override
   public String getModuleName() {
-    return "org.gwtproject.safecss.SafeCss";
+    return "org.gwtproject.safecss.SafeCssTest";
   }
 
   public void testAppendSafeStyles() {

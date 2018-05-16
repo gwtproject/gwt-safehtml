@@ -15,19 +15,21 @@
  */
 package org.gwtproject.safecss;
 
+import com.google.gwt.junit.tools.GWTTestSuite;
+import junit.framework.Test;
 import org.gwtproject.safecss.shared.SafeStylesBuilderTest;
 import org.gwtproject.safecss.shared.SafeStylesHostedModeUtilsTest;
 import org.gwtproject.safecss.shared.SafeStylesStringTest;
 import org.gwtproject.safecss.shared.SafeStylesUtilsTest;
 
-import com.google.gwt.junit.tools.GWTTestSuite;
-
-import junit.framework.Test;
-
 /**
  * Test suite for SafeCss GWTTestCases.
  */
 public class SafeCssJreSuite {
+
+  private SafeCssJreSuite() {
+  }
+
   public static Test suite() {
     GWTTestSuite suite = new GWTTestSuite("Test suite for safe css tests that require the JRE");
 
@@ -37,8 +39,5 @@ public class SafeCssJreSuite {
     suite.addTestSuite(SafeStylesUtilsTest.class);
 
     return suite;
-  }
-
-  private SafeCssJreSuite() {
   }
 }

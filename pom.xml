@@ -87,12 +87,95 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+  
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.17</version>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <configuration>
+              <encoding>UTF-8</encoding>
+              <consoleOutput>true</consoleOutput>
+              <failsOnError>true</failsOnError>
+              <configLocation>checkstyle.xml</configLocation>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+  
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.20.1</version>
+        <configuration>
+          <excludes>
+            <exclude>**/client/*.java</exclude>
+          </excludes>
+          <excludedGroups>
+            org.gwtproject.safecss.SafeCssGwtSuite
+          </excludedGroups>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+  
+      <plugin>
+        <!--
+        The integration-test phase runs after regular test phase (but before verify/install).
+        We use this to our advantage to peak at the compiled output from the GWTTestSuite
+         -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.20.1</version>
+        <configuration>
+          <includes>
+            <include>**/*.class</include>
+          </includes>
+          <groups>
+            org.gwtproject.typedarrays.shared.IntegrationTest
+          </groups>
+        </configuration>
+      </plugin>
+  
+      <plugin>
         <groupId>net.ltgt.gwt.maven</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
         <version>1.0-rc-9</version>
         <extensions>true</extensions>
         <configuration>
           <moduleName>org.gwtproject.safecss.SafeCss</moduleName>
+          <!--
+        Because we expressly disable asserts in tests to avoid a compiler bug, we also must run surefire manually
+        on the JRE tests
+         -->
+          <includes>
+            <include>**/SafeCssGwtSuite.java</include>
+          </includes>
+  
+          <!-- disable JVM asserts, but enable JS asserts for tests -->
+          <enableAssertions>false</enableAssertions>
+          <testArgs>
+            <testArg>-checkAssertions</testArg>
+          </testArgs>
         </configuration>
       </plugin>
     </plugins>

@@ -18,7 +18,7 @@ package org.gwtproject.safecss.shared;
 /**
  * JUnit tests for {@link SafeStylesHostedModeUtilsJvm}.
  */
-public class SafeStylesHostedModeUtilsTest extends GwtSafeStylesHostedModeUtilsTest {
+public class SafeStylesHostedModeUtilsTest extends GwtSafeStylesHostedModeUtilsJvmTest {
 
   // This forces a GWTTestCase to run as a vanilla JUnit TestCase.
   @Override

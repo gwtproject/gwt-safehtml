@@ -15,30 +15,29 @@
  */
 package org.gwtproject.safecss;
 
+import com.google.gwt.junit.tools.GWTTestSuite;
+import junit.framework.Test;
 import org.gwtproject.safecss.shared.GwtSafeStylesBuilderTest;
-import org.gwtproject.safecss.shared.GwtSafeStylesHostedModeUtilsTest;
+import org.gwtproject.safecss.shared.GwtSafeStylesHostedModeUtilsJvmTest;
 import org.gwtproject.safecss.shared.GwtSafeStylesStringTest;
 import org.gwtproject.safecss.shared.GwtSafeStylesUtilsTest;
-
-import com.google.gwt.junit.tools.GWTTestSuite;
-
-import junit.framework.Test;
 
 /**
  * Test suite for SafeCss GWTTestCases.
  */
 public class SafeCssGwtSuite {
+
+  private SafeCssGwtSuite() {
+  }
+
   public static Test suite() {
     GWTTestSuite suite = new GWTTestSuite("Test suite for safe css  GWTTestCases");
 
     suite.addTestSuite(GwtSafeStylesBuilderTest.class);
-    suite.addTestSuite(GwtSafeStylesHostedModeUtilsTest.class);
+    suite.addTestSuite(GwtSafeStylesHostedModeUtilsJvmTest.class);
     suite.addTestSuite(GwtSafeStylesStringTest.class);
     suite.addTestSuite(GwtSafeStylesUtilsTest.class);
 
     return suite;
-  }
-
-  private SafeCssGwtSuite() {
   }
 }

@@ -19,4 +19,5 @@ package org.gwtproject.safecss.shared.annotations;
  * Marks some Java type or member as not compatible with the browser.
  */
 public @interface GwtIncompatible {
+
 }

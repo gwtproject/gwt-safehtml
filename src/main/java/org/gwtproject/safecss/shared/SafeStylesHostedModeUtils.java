@@ -20,31 +20,62 @@ package org.gwtproject.safecss.shared;
  */
 public class SafeStylesHostedModeUtils {
 
-  // Unused in super-source; only defined to avoid compiler warnings
+  /**
+   * Unused in super-source; only defined to avoid compiler warnings.
+   */
   public static final String FORCE_CHECK_VALID_STYLES = null;
 
-  // Unused in super-source; only defined to avoid compiler warnings
+  /**
+   * Unused in super-source; only defined to avoid compiler warnings.
+   *
+   * @param name really unimportant here!
+   * @return always null
+   */
   public static String isValidStyleName(String name) {
     return null;
   }
 
-  // Unused in super-source; only defined to avoid compiler warnings
+  /**
+   * Unused in super-source; only defined to avoid compiler warnings.
+   *
+   * @param value really unimportant here!
+   * @return always null
+   */
   public static String isValidStyleValue(String value) {
     return null;
   }
 
+  /**
+   * ...
+   *
+   * @param html really unimportant here!
+   */
   public static void maybeCheckValidStyleName(String html) {
     // This check is a noop in web mode.
   }
 
+  /**
+   * ...
+   *
+   * @param html really unimportant here!
+   */
   public static void maybeCheckValidStyleValue(String html) {
     // This check is a noop in web mode.
   }
 
   // Unused in super-source; only defined to avoid compiler warnings
+
+  /**
+   * ...
+   *
+   * @param check it does not matter
+   */
   public static void setForceCheckValidStyle(boolean check) {
   }
 
+  /**
+   * ...
+   */
   static void setForceCheckCompleteHtmlFromProperty() {
   }
 }

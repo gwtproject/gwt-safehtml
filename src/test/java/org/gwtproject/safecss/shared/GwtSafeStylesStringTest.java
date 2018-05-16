@@ -24,12 +24,11 @@ public class GwtSafeStylesStringTest extends GWTTestCase {
 
   @Override
   public String getModuleName() {
-    return "org.gwtproject.safecss.SafeCss";
+    return "org.gwtproject.safecss.SafeCssTest";
   }
 
   /**
-   * Test that {@link SafeStyles} throws an assertion error if the string
-   * contains a bracket.
+   * Test that {@link SafeStyles} throws an assertion error if the string contains a bracket.
    */
   public void testCloseBracket() {
     if (!GwtSafeStylesUtilsTest.isAssertionEnabled()) {
@@ -67,8 +66,7 @@ public class GwtSafeStylesStringTest extends GWTTestCase {
   }
 
   /**
-   * Test that {@link SafeStyles} throws an assertion error if the string is
-   * missing a semi-colon.
+   * Test that {@link SafeStyles} throws an assertion error if the string is missing a semi-colon.
    */
   public void testMissingSemiColon() {
     if (!GwtSafeStylesUtilsTest.isAssertionEnabled()) {
@@ -102,8 +100,7 @@ public class GwtSafeStylesStringTest extends GWTTestCase {
   }
 
   /**
-   * Test that {@link SafeStyles} throws an assertion error if the string
-   * contains a bracket.
+   * Test that {@link SafeStyles} throws an assertion error if the string contains a bracket.
    */
   public void testOpenBracket() {
     if (!GwtSafeStylesUtilsTest.isAssertionEnabled()) {

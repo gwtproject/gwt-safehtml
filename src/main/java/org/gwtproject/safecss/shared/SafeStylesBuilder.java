@@ -15,7 +15,6 @@
  */
 package org.gwtproject.safecss.shared;
 
-import org.gwtproject.safehtml.shared.SafeUri;
 import org.gwtproject.dom.client.Style.BorderStyle;
 import org.gwtproject.dom.client.Style.Clear;
 import org.gwtproject.dom.client.Style.Cursor;
@@ -36,15 +35,16 @@ import org.gwtproject.dom.client.Style.Unit;
 import org.gwtproject.dom.client.Style.VerticalAlign;
 import org.gwtproject.dom.client.Style.Visibility;
 import org.gwtproject.dom.client.Style.WhiteSpace;
+import org.gwtproject.safehtml.shared.SafeUri;
 
 /**
- * A builder that facilitates the building up of XSS-safe CSS attribute strings
- * from {@link SafeStyles}. It is used essentially like a {@link StringBuilder},
- * but access {@link SafeStyles} instead of Strings.
+ * A builder that facilitates the building up of XSS-safe CSS attribute strings from {@link
+ * SafeStyles}. It is used essentially like a {@link StringBuilder}, but access {@link SafeStyles}
+ * instead of Strings.
  *
  * <p>
- * The accumulated XSS-safe {@link SafeStyles} can be obtained in the form of a
- * {@link SafeStyles} via the {@link #toSafeStyles()} method.
+ * The accumulated XSS-safe {@link SafeStyles} can be obtained in the form of a {@link SafeStyles}
+ * via the {@link #toSafeStyles()} method.
  *
  * <p>
  * This class is not thread-safe.
@@ -60,8 +60,8 @@ public final class SafeStylesBuilder {
   }
 
   /**
-   * Appends the contents of another {@link SafeStyles} object, without applying
-   * any escaping or sanitization to it.
+   * Appends the contents of another {@link SafeStyles} object, without applying any escaping or
+   * sanitization to it.
    *
    * @param styles the {@link SafeStyles} to append
    * @return a reference to this object
@@ -73,24 +73,21 @@ public final class SafeStylesBuilder {
 
   /**
    * <p>
-   * Appends {@link SafeStyles} constructed from a trusted string, i.e., without
-   * escaping the string. Only minimal checks are performed. The calling code
-   * should be carefully reviewed to ensure the argument meets the
-   * {@link SafeStyles} contract.
+   * Appends {@link SafeStyles} constructed from a trusted string, i.e., without escaping the
+   * string. Only minimal checks are performed. The calling code should be carefully reviewed to
+   * ensure the argument meets the {@link SafeStyles} contract.
    *
    * <p>
-   * Generally, {@link SafeStyles} should be of the form
-   * {@code cssPropertyName:value;}, where neither the name nor the value
-   * contain malicious scripts.
+   * Generally, {@link SafeStyles} should be of the form {@code cssPropertyName:value;}, where
+   * neither the name nor the value contain malicious scripts.
    *
    * <p>
-   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
-   * could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
-   * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
-   * containing "
+   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it could be unsafe to
+   * place a {@link SafeStyles} into a &lt;style&gt; tag (where it can't be HTML escaped). For
+   * example, if the {@link SafeStyles} containing "
    * <code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
-   * used in a style sheet in a &lt;style&gt; tag, this could then break out of
-   * the style context into HTML.
+   * used in a style sheet in a &lt;style&gt; tag, this could then break out of the style context
+   * into HTML.
    *
    * <p>
    * The following example values comply with this type's contract:
@@ -103,8 +100,7 @@ public final class SafeStylesBuilder {
    * In addition, the empty string is safe for use in a CSS attribute.
    *
    * <p>
-   * The following example values do <em>not</em> comply with this type's
-   * contract:
+   * The following example values do <em>not</em> comply with this type's contract:
    * <ul>
    * <li><code>background: red</code> (missing a trailing semi-colon)</li>
    * <li><code>background:</code> (missing a value and a trailing semi-colon)</li>
@@ -177,9 +173,8 @@ public final class SafeStylesBuilder {
    * Append the float css property.
    *
    * <p>
-   * Note: This method has the suffix "prop" to avoid Java compilation errors.
-   * The term "float" is a reserved word in Java representing the primitive
-   * float.
+   * Note: This method has the suffix "prop" to avoid Java compilation errors. The term "float" is a
+   * reserved word in Java representing the primitive float.
    * </p>
    */
   public SafeStylesBuilder floatprop(Float value) {
@@ -397,8 +392,7 @@ public final class SafeStylesBuilder {
   }
 
   /**
-   * Returns the safe CSS properties accumulated in the builder as a
-   * {@link SafeStyles}.
+   * Returns the safe CSS properties accumulated in the builder as a {@link SafeStyles}.
    *
    * @return a {@link SafeStyles} instance
    */
@@ -408,19 +402,17 @@ public final class SafeStylesBuilder {
 
   /**
    * <p>
-   * Append the trusted background color, i.e., without escaping the value. No
-   * checks are performed. The calling code should be carefully reviewed to
-   * ensure the argument will satisfy the {@link SafeStyles} contract when they
-   * are composed into the form: "&lt;name&gt;:&lt;value&gt;;".
+   * Append the trusted background color, i.e., without escaping the value. No checks are performed.
+   * The calling code should be carefully reviewed to ensure the argument will satisfy the {@link
+   * SafeStyles} contract when they are composed into the form: "&lt;name&gt;:&lt;value&gt;;".
    *
    * <p>
-   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
-   * could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
-   * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
-   * containing "
+   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it could be unsafe to
+   * place a {@link SafeStyles} into a &lt;style&gt; tag (where it can't be HTML escaped). For
+   * example, if the {@link SafeStyles} containing "
    * <code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
-   * used in a style sheet in a &lt;style&gt; tag, this could then break out of
-   * the style context into HTML.
+   * used in a style sheet in a &lt;style&gt; tag, this could then break out of the style context
+   * into HTML.
    *
    * @param value the property value
    * @return a {@link SafeStyles} instance
@@ -431,19 +423,17 @@ public final class SafeStylesBuilder {
 
   /**
    * <p>
-   * Append the trusted background image, i.e., without escaping the value. No
-   * checks are performed. The calling code should be carefully reviewed to
-   * ensure the argument will satisfy the {@link SafeStyles} contract when they
-   * are composed into the form: "&lt;name&gt;:&lt;value&gt;;".
+   * Append the trusted background image, i.e., without escaping the value. No checks are performed.
+   * The calling code should be carefully reviewed to ensure the argument will satisfy the {@link
+   * SafeStyles} contract when they are composed into the form: "&lt;name&gt;:&lt;value&gt;;".
    *
    * <p>
-   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
-   * could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
-   * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
-   * containing "
+   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it could be unsafe to
+   * place a {@link SafeStyles} into a &lt;style&gt; tag (where it can't be HTML escaped). For
+   * example, if the {@link SafeStyles} containing "
    * <code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
-   * used in a style sheet in a &lt;style&gt; tag, this could then break out of
-   * the style context into HTML.
+   * used in a style sheet in a &lt;style&gt; tag, this could then break out of the style context
+   * into HTML.
    *
    * @param value the property value
    * @return a {@link SafeStyles} instance
@@ -455,19 +445,17 @@ public final class SafeStylesBuilder {
 
   /**
    * <p>
-   * Append the trusted border color, i.e., without escaping the value. No
-   * checks are performed. The calling code should be carefully reviewed to
-   * ensure the argument will satisfy the {@link SafeStyles} contract when they
-   * are composed into the form: "&lt;name&gt;:&lt;value&gt;;".
+   * Append the trusted border color, i.e., without escaping the value. No checks are performed. The
+   * calling code should be carefully reviewed to ensure the argument will satisfy the {@link
+   * SafeStyles} contract when they are composed into the form: "&lt;name&gt;:&lt;value&gt;;".
    *
    * <p>
-   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
-   * could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
-   * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
-   * containing "
+   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it could be unsafe to
+   * place a {@link SafeStyles} into a &lt;style&gt; tag (where it can't be HTML escaped). For
+   * example, if the {@link SafeStyles} containing "
    * <code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
-   * used in a style sheet in a &lt;style&gt; tag, this could then break out of
-   * the style context into HTML.
+   * used in a style sheet in a &lt;style&gt; tag, this could then break out of the style context
+   * into HTML.
    *
    * @param value the property value
    * @return a {@link SafeStyles} instance
@@ -478,19 +466,17 @@ public final class SafeStylesBuilder {
 
   /**
    * <p>
-   * Append the trusted font color, i.e., without escaping the value. No checks
-   * are performed. The calling code should be carefully reviewed to ensure the
-   * argument will satisfy the {@link SafeStyles} contract when they are
-   * composed into the form: "&lt;name&gt;:&lt;value&gt;;".
+   * Append the trusted font color, i.e., without escaping the value. No checks are performed. The
+   * calling code should be carefully reviewed to ensure the argument will satisfy the {@link
+   * SafeStyles} contract when they are composed into the form: "&lt;name&gt;:&lt;value&gt;;".
    *
    * <p>
-   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
-   * could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
-   * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
-   * containing "
+   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it could be unsafe to
+   * place a {@link SafeStyles} into a &lt;style&gt; tag (where it can't be HTML escaped). For
+   * example, if the {@link SafeStyles} containing "
    * <code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
-   * used in a style sheet in a &lt;style&gt; tag, this could then break out of
-   * the style context into HTML.
+   * used in a style sheet in a &lt;style&gt; tag, this could then break out of the style context
+   * into HTML.
    *
    * @param value the property value
    * @return a {@link SafeStyles} instance
@@ -501,20 +487,18 @@ public final class SafeStylesBuilder {
 
   /**
    * <p>
-   * Append a {@link SafeStyles} constructed from a trusted name and a trusted
-   * value, i.e., without escaping the name and value. No checks are performed.
-   * The calling code should be carefully reviewed to ensure the argument will
-   * satisfy the {@link SafeStyles} contract when they are composed into the
-   * form: "&lt;name&gt;:&lt;value&gt;;".
+   * Append a {@link SafeStyles} constructed from a trusted name and a trusted value, i.e., without
+   * escaping the name and value. No checks are performed. The calling code should be carefully
+   * reviewed to ensure the argument will satisfy the {@link SafeStyles} contract when they are
+   * composed into the form: "&lt;name&gt;:&lt;value&gt;;".
    *
    * <p>
-   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
-   * could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
-   * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
-   * containing "
+   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it could be unsafe to
+   * place a {@link SafeStyles} into a &lt;style&gt; tag (where it can't be HTML escaped). For
+   * example, if the {@link SafeStyles} containing "
    * <code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
-   * used in a style sheet in a &lt;style&gt; tag, this could then break out of
-   * the style context into HTML.
+   * used in a style sheet in a &lt;style&gt; tag, this could then break out of the style context
+   * into HTML.
    * </p>
    *
    * <p>
@@ -531,20 +515,18 @@ public final class SafeStylesBuilder {
 
   /**
    * <p>
-   * Append a {@link SafeStyles} constructed from a trusted name and a trusted
-   * value, i.e., without escaping the name and value. No checks are performed.
-   * The calling code should be carefully reviewed to ensure the argument will
-   * satisfy the {@link SafeStyles} contract when they are composed into the
-   * form: "&lt;name&gt;:&lt;value&gt;;".
+   * Append a {@link SafeStyles} constructed from a trusted name and a trusted value, i.e., without
+   * escaping the name and value. No checks are performed. The calling code should be carefully
+   * reviewed to ensure the argument will satisfy the {@link SafeStyles} contract when they are
+   * composed into the form: "&lt;name&gt;:&lt;value&gt;;".
    *
    * <p>
-   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
-   * could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
-   * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
-   * containing "
+   * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it could be unsafe to
+   * place a {@link SafeStyles} into a &lt;style&gt; tag (where it can't be HTML escaped). For
+   * example, if the {@link SafeStyles} containing "
    * <code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
-   * used in a style sheet in a &lt;style&gt; tag, this could then break out of
-   * the style context into HTML.
+   * used in a style sheet in a &lt;style&gt; tag, this could then break out of the style context
+   * into HTML.
    * </p>
    *
    * <p>
