@@ -15,6 +15,7 @@
  */
 package org.gwtproject.safecss.shared;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
 import org.gwtproject.dom.client.Style.Clear;
 import org.gwtproject.dom.client.Style.Display;
@@ -186,7 +187,7 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
   }
 
   public void testFromTrustedNameAndValueInvalidName() {
-    if (!isClientMode()) {
+    if (GWT.isProdMode()) {
       // fromTrustedNameAndValue only catches errors in dev mode.
       return;
     }
@@ -209,7 +210,7 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
   }
 
   public void testFromTrustedNameAndValueInvalidValue() {
-    if (!isClientMode()) {
+    if (GWT.isProdMode()) {
       // fromTrustedNameAndValue only catches errors in dev mode.
       return;
     }
@@ -232,7 +233,7 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
   }
 
   public void testFromTrustedNameAndValueValidName() {
-    if (!isClientMode()) {
+    if (GWT.isProdMode()) {
       // fromTrustedNameAndValue only catches errors in dev mode.
       return;
     }
@@ -248,7 +249,7 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
   }
 
   public void testFromTrustedNameAndValueValidValue() {
-    if (isClientMode()) {
+    if (GWT.isProdMode()) {
       // fromTrustedNameAndValue only catches errors in dev mode.
       return;
     }
@@ -271,10 +272,10 @@ public class GwtSafeStylesUtilsTest extends GWTTestCase {
     assertEquals(cssValue, safeStyles.asString());
   }
 
-  private boolean isClientMode() {
-    if (System.getProperty("superdevmode") == null) {
-      return false;
-    }
-    return System.getProperty("superdevmode").equals("on") || System.getProperty("superdevmode").equals("off");
-  }
+//  private boolean isClientMode() {
+//    if (System.getProperty("superdevmode") == null) {
+//      return false;
+//    }
+//    return System.getProperty("superdevmode").equals("on") || System.getProperty("superdevmode").equals("off");
+//  }
 }

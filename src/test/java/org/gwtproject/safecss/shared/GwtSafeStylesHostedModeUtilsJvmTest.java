@@ -15,6 +15,7 @@
  */
 package org.gwtproject.safecss.shared;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
 
 /**
@@ -31,7 +32,7 @@ public class GwtSafeStylesHostedModeUtilsJvmTest extends GWTTestCase {
   }
 
   public void testIsValidStyleName() {
-    if (isProdMode()) {
+    if (GWT.isProdMode()) {
       // isValidStyleName always returns true in prod mode.
       return;
     }
@@ -50,7 +51,7 @@ public class GwtSafeStylesHostedModeUtilsJvmTest extends GWTTestCase {
   }
 
   public void testIsValidStyleValue() {
-    if (isProdMode()) {
+    if (GWT.isProdMode()) {
       // isValidStyleValue always returns true in prod mode.
       return;
     }
@@ -69,7 +70,7 @@ public class GwtSafeStylesHostedModeUtilsJvmTest extends GWTTestCase {
   }
 
   public void testMaybeCheckValidStyleName() {
-    if (isProdMode()) {
+    if (GWT.isProdMode()) {
       /*
        * SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleName is a no-op in prod
        * mode.
@@ -110,7 +111,7 @@ public class GwtSafeStylesHostedModeUtilsJvmTest extends GWTTestCase {
   }
 
   public void testMaybeCheckValidStyleValue() {
-    if (isProdMode()) {
+    if (GWT.isProdMode()) {
       /*
        * SafeStylesHostedModeUtilsJvm.maybeCheckValidStyleValue is a no-op in prod
        * mode.
@@ -149,9 +150,4 @@ public class GwtSafeStylesHostedModeUtilsJvmTest extends GWTTestCase {
       }
     }
   }
-
-  private boolean isProdMode() {
-    return System.getProperty("superdevmode") != null;
-  }
-
 }

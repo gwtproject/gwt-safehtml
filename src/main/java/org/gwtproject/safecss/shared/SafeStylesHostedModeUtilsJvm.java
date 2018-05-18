@@ -18,7 +18,7 @@ package org.gwtproject.safecss.shared;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 
-import org.gwtproject.safehtml.shared.annotations.GwtIncompatible;
+import org.gwtproject.safecss.shared.annotations.GwtIncompatible;
 
 import java.util.HashMap;
 import java.util.Stack;
@@ -250,7 +250,7 @@ public class SafeStylesHostedModeUtilsJvm
    */
   @GwtIncompatible
   public static void maybeCheckValidStyleName(String name) {
-    if (isClient() || forceCheck) {
+    if (forceCheck) {
       String errorText = isValidStyleName(name);
       Preconditions.checkArgument(errorText == null, errorText);
     } else {
@@ -267,7 +267,7 @@ public class SafeStylesHostedModeUtilsJvm
    */
   @GwtIncompatible
   public static void maybeCheckValidStyleValue(String value) {
-    if (isClient() || forceCheck) {
+    if (forceCheck) {
       String errorText = isValidStyleValue(value);
       Preconditions.checkArgument(errorText == null, errorText);
     } else {
@@ -295,14 +295,5 @@ public class SafeStylesHostedModeUtilsJvm
   @GwtIncompatible
   static void setForceCheckValidStyleFromProperty() {
     forceCheck = System.getProperty(FORCE_CHECK_VALID_STYLES) != null;
-  }
-
-  @GwtIncompatible
-  private static boolean isClient() {
-    if (System.getProperty("superdevmode") == null) {
-      return false;
-    }
-    return System.getProperty("superdevmode").equals("on") || System.getProperty("superdevmode")
-        .equals("off");
   }
 }

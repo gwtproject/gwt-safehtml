@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.gwtproject</groupId>
   <artifactId>gwt-safecss</artifactId>
   <packaging>gwt-lib</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>GWT Safe CSS</name>
-
+  
   <properties>
     <!-- Convenience property to set the GWT version -->
     <gwt.version>2.8.2</gwt.version>
-  
+    
     <dom.version>1.0-SNAPSHOT</dom.version>
     <safehtml.version>1.0-SNAPSHOT</safehtml.version>
     
     <guava.version>25.0-jre</guava.version>
     <junit.version>4.11</junit.version>
-  
+    
     <!-- GWT 2.8 requires 1.8 -->
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-
+    
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+    
     <!-- CI -->
     <vertispan.snapshot.repo.id>vertispan-snapshot-repository</vertispan.snapshot.repo.id>
     <vertispan.snapshot.repo.name>Vertispan Snapshot Repository</vertispan.snapshot.repo.name>
-    <vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/</vertispan.snapshot.repo.url>
+    <vertispan.snapshot.repo.url>https://repo.vertispan.com/gwt-snapshot/
+    </vertispan.snapshot.repo.url>
   </properties>
-
+  
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -43,7 +44,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
+  
   <dependencies>
     <dependency>
       <groupId>org.gwtproject.dom</groupId>
@@ -65,7 +66,7 @@
       <artifactId>guava-gwt</artifactId>
       <version>${guava.version}</version>
     </dependency>
-  
+    
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
@@ -74,7 +75,7 @@
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-dev</artifactId>
     </dependency>
-  
+    
     <!-- only for test -->
     <dependency>
       <groupId>junit</groupId>
@@ -95,7 +96,7 @@
           <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
-  
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -116,28 +117,7 @@
           </execution>
         </executions>
       </plugin>
-  
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.20.1</version>
-        <configuration>
-          <excludes>
-            <exclude>**/client/*.java</exclude>
-          </excludes>
-          <excludedGroups>
-            org.gwtproject.safecss.SafeCssGwtSuite
-          </excludedGroups>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>test</phase>
-            <goals>
-              <goal>test</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-  
+      
       <plugin>
         <!--
         The integration-test phase runs after regular test phase (but before verify/install).
@@ -151,11 +131,11 @@
             <include>**/*.class</include>
           </includes>
           <groups>
-            org.gwtproject.typedarrays.shared.IntegrationTest
+            org.gwtproject.safecss.shared.IntegrationTest
           </groups>
         </configuration>
       </plugin>
-  
+      
       <plugin>
         <groupId>net.ltgt.gwt.maven</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
@@ -163,29 +143,16 @@
         <extensions>true</extensions>
         <configuration>
           <moduleName>org.gwtproject.safecss.SafeCss</moduleName>
-          <!--
-        Because we expressly disable asserts in tests to avoid a compiler bug, we also must run surefire manually
-        on the JRE tests
-         -->
-          <includes>
-            <include>**/SafeCssGwtSuite.java</include>
-          </includes>
-  
-          <!-- disable JVM asserts, but enable JS asserts for tests -->
-          <enableAssertions>false</enableAssertions>
-          <testArgs>
-            <testArg>-checkAssertions</testArg>
-          </testArgs>
-        </configuration>
+         </configuration>
       </plugin>
     </plugins>
   </build>
-
-  <distributionManagement>
-    <snapshotRepository>
+  
+  <repositories>
+    <repository>
       <id>${vertispan.snapshot.repo.id}</id>
       <name>${vertispan.snapshot.repo.name}</name>
       <url>${vertispan.snapshot.repo.url}</url>
-    </snapshotRepository>
-  </distributionManagement>
+    </repository>
+  </repositories>
 </project>
