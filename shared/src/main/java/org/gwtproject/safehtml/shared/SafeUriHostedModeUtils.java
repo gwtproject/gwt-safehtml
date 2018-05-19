@@ -15,8 +15,6 @@
  */
 package org.gwtproject.safehtml.shared;
 
-import com.google.gwt.core.shared.GWT;
-
 import org.gwtproject.safehtml.shared.annotations.GwtIncompatible;
 
 import java.net.URI;
@@ -131,7 +129,7 @@ public class SafeUriHostedModeUtils {
    * @param uri the URL to check
    */
   public static void maybeCheckValidUri(String uri) {
-    if (GWT.isClient() || forceCheckValidUri) {
+    if (forceCheckValidUri) {
       checkArgument(impl.isValidUri(uri), "String is not a valid URI: " + uri);
     } else {
       assert impl.isValidUri(uri) : "String is not a valid URI: " + uri;

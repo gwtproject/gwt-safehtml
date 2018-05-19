@@ -9,9 +9,9 @@
     <artifactId>safehtml-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  
+
   <artifactId>safehtml-template-processor</artifactId>
-  
+
   <dependencies>
     <dependency>
       <groupId>com.google.gwt</groupId>
@@ -20,15 +20,8 @@
     </dependency>
 
     <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-servlet</artifactId>
-      <version>2.8.2</version>
-    </dependency>
-
-    <dependency>
       <groupId>com.google.jsilver</groupId>
       <artifactId>jsilver</artifactId>
-      <version>1.0.0</version>
     </dependency>
 
     <dependency>

@@ -16,9 +16,9 @@
 package org.gwtproject.safehtml.apt;
 
 import com.google.common.base.Preconditions;
-import com.google.gwt.thirdparty.streamhtmlparser.HtmlParser;
-import com.google.gwt.thirdparty.streamhtmlparser.HtmlParserFactory;
-import com.google.gwt.thirdparty.streamhtmlparser.ParseException;
+import com.google.streamhtmlparser.HtmlParser;
+import com.google.streamhtmlparser.HtmlParserFactory;
+import com.google.streamhtmlparser.ParseException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

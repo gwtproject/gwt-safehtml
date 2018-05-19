@@ -60,7 +60,7 @@ import java.io.Serializable;
  * <p>
  * Implementations must not return {@code null} from {@link #asString()}.
  */
-public interface SafeHtml extends Serializable, com.google.gwt.safehtml.shared.SafeHtml {
+public interface SafeHtml extends Serializable {
   /*
    * Notes regarding serialization:
    * 

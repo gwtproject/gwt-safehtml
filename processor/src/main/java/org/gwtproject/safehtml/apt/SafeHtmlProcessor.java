@@ -34,11 +34,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
 
   private class T {
     DeclaredType jlObject = (DeclaredType) processingEnv.getElementUtils().getTypeElement(Object.class.getCanonicalName()).asType();
-    @Deprecated
-    DeclaredType safeHtmlOld = (DeclaredType) processingEnv.getElementUtils().getTypeElement(com.google.gwt.safehtml.shared.SafeHtml.class.getCanonicalName()).asType();
     DeclaredType safeHtml = (DeclaredType) processingEnv.getElementUtils().getTypeElement(SafeHtml.class.getCanonicalName()).asType();
-    @Deprecated
-    DeclaredType safeHtmlTemplatesOld = (DeclaredType) processingEnv.getElementUtils().getTypeElement(com.google.gwt.safehtml.client.SafeHtmlTemplates.class.getCanonicalName()).asType();
     DeclaredType safeHtmlTemplates = (DeclaredType) processingEnv.getElementUtils().getTypeElement(SafeHtmlTemplates.class.getCanonicalName()).asType();
 
     boolean isSameType(TypeMirror t1, TypeMirror t2) {
@@ -59,9 +55,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
     @Override
     public Void visitType(TypeElement e, Set<TypeElement> templateTypes) {
       if (e.getKind().equals(ElementKind.INTERFACE) &&
-              (types.isAssignable(e.asType(), types.safeHtmlTemplates)
-                      || types.isAssignable(e.asType(), types.safeHtmlTemplatesOld)
-              )) {
+              types.isAssignable(e.asType(), types.safeHtmlTemplates)) {
         templateTypes.add(e);
       }
       return super.visitType(e, templateTypes);
@@ -117,8 +111,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
               templateString = template.value();
             }
 
-            if (!types.isSameType(method.getReturnType(), types.safeHtml) &&
-                    !types.isSameType(method.getReturnType(), types.safeHtmlOld)) {
+            if (!types.isSameType(method.getReturnType(), types.safeHtml)) {
               messager.printMessage(Kind.ERROR, "SafeHtmlTemplates method must return SafeHtml", method);
               continue;
             }

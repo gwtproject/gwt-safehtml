@@ -15,10 +15,9 @@
  */
 package org.gwtproject.safehtml.shared;
 
-import com.google.gwt.core.shared.GWT;
-import com.google.gwt.thirdparty.streamhtmlparser.HtmlParser;
-import com.google.gwt.thirdparty.streamhtmlparser.HtmlParserFactory;
-import com.google.gwt.thirdparty.streamhtmlparser.ParseException;
+import com.google.streamhtmlparser.HtmlParser;
+import com.google.streamhtmlparser.HtmlParserFactory;
+import com.google.streamhtmlparser.ParseException;
 
 import org.gwtproject.safehtml.shared.annotations.GwtIncompatible;
 
@@ -59,7 +58,7 @@ public class SafeHtmlHostedModeUtils {
     @GwtIncompatible
     @Override
     public void maybeCheckCompleteHtml(String html) {
-      if (GWT.isClient() || forceCheckCompleteHtml) {
+      if (forceCheckCompleteHtml) {
         checkArgument(isCompleteHtml(html),
                 "String is not complete HTML (ends in non-inner-HTML context): " +
                         html);
@@ -142,9 +141,9 @@ public class SafeHtmlHostedModeUtils {
    *
    * <p>
    * This check is intended to assert a convention-of-use constraint of {@link
-   * com.google.gwt.safehtml.shared.SafeHtmlBuilder#appendHtmlConstant(String)}
+   * org.gwtproject.safehtml.shared.SafeHtmlBuilder#appendHtmlConstant(String)}
    * and {@link
-   * com.google.gwt.safehtml.shared.SafeHtmlUtils#fromSafeConstant(String)}.
+   * org.gwtproject.safehtml.shared.SafeHtmlUtils#fromSafeConstant(String)}.
    * Since the check is somewhat expensive, it is intended to run only in the
    * context of unit-tests or test environments, and not in production
    * environments. Hence this check will only execute under the following
