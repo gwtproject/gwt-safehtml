@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.gwtproject</groupId>
+  <groupId>org.gwtproject.safecss</groupId>
   <artifactId>gwt-safecss</artifactId>
   <packaging>gwt-lib</packaging>
   <version>1.0-SNAPSHOT</version>
@@ -143,7 +143,7 @@
         <extensions>true</extensions>
         <configuration>
           <moduleName>org.gwtproject.safecss.SafeCss</moduleName>
-         </configuration>
+        </configuration>
       </plugin>
     </plugins>
   </build>
