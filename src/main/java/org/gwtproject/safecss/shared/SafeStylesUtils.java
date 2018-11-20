@@ -15,28 +15,29 @@
  */
 package org.gwtproject.safecss.shared;
 
-import org.gwtproject.dom.client.Style.BorderStyle;
-import org.gwtproject.dom.client.Style.Clear;
-import org.gwtproject.dom.client.Style.Cursor;
-import org.gwtproject.dom.client.Style.Display;
-import org.gwtproject.dom.client.Style.Float;
-import org.gwtproject.dom.client.Style.FontStyle;
-import org.gwtproject.dom.client.Style.FontWeight;
-import org.gwtproject.dom.client.Style.ListStyleType;
-import org.gwtproject.dom.client.Style.OutlineStyle;
-import org.gwtproject.dom.client.Style.Overflow;
-import org.gwtproject.dom.client.Style.Position;
-import org.gwtproject.dom.client.Style.TableLayout;
-import org.gwtproject.dom.client.Style.TextAlign;
-import org.gwtproject.dom.client.Style.TextDecoration;
-import org.gwtproject.dom.client.Style.TextJustify;
-import org.gwtproject.dom.client.Style.TextOverflow;
-import org.gwtproject.dom.client.Style.TextTransform;
-import org.gwtproject.dom.client.Style.Unit;
-import org.gwtproject.dom.client.Style.VerticalAlign;
-import org.gwtproject.dom.client.Style.Visibility;
-import org.gwtproject.dom.client.Style.WhiteSpace;
+import org.gwtproject.dom.style.shared.BorderStyle;
+import org.gwtproject.dom.style.shared.Clear;
+import org.gwtproject.dom.style.shared.Cursor;
+import org.gwtproject.dom.style.shared.Display;
+import org.gwtproject.dom.style.shared.Float;
+import org.gwtproject.dom.style.shared.FontStyle;
+import org.gwtproject.dom.style.shared.FontWeight;
+import org.gwtproject.dom.style.shared.ListStyleType;
+import org.gwtproject.dom.style.shared.OutlineStyle;
+import org.gwtproject.dom.style.shared.Overflow;
+import org.gwtproject.dom.style.shared.Position;
+import org.gwtproject.dom.style.shared.TableLayout;
+import org.gwtproject.dom.style.shared.TextAlign;
+import org.gwtproject.dom.style.shared.TextDecoration;
+import org.gwtproject.dom.style.shared.TextJustify;
+import org.gwtproject.dom.style.shared.TextOverflow;
+import org.gwtproject.dom.style.shared.TextTransform;
+import org.gwtproject.dom.style.shared.Unit;
+import org.gwtproject.dom.style.shared.VerticalAlign;
+import org.gwtproject.dom.style.shared.Visibility;
+import org.gwtproject.dom.style.shared.WhiteSpace;
 import org.gwtproject.safehtml.shared.SafeUri;
+
 
 /**
  * Utility class containing static methods for creating {@link SafeStyles}.

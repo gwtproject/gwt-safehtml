@@ -48,7 +48,7 @@
   <dependencies>
     <dependency>
       <groupId>org.gwtproject.dom</groupId>
-      <artifactId>gwt-dom</artifactId>
+      <artifactId>gwt-dom-style-definitions</artifactId>
       <version>${dom.version}</version>
     </dependency>
     <dependency>
@@ -56,6 +56,7 @@
       <artifactId>safehtml</artifactId>
       <version>${safehtml.version}</version>
     </dependency>
+
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
@@ -66,21 +67,23 @@
       <artifactId>guava-gwt</artifactId>
       <version>${guava.version}</version>
     </dependency>
-    
-    <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-user</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-dev</artifactId>
-    </dependency>
-    
+
     <!-- only for test -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -139,7 +142,7 @@
       <plugin>
         <groupId>net.ltgt.gwt.maven</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
-        <version>1.0-rc-9</version>
+        <version>1.0-rc-10</version>
         <extensions>true</extensions>
         <configuration>
           <moduleName>org.gwtproject.safecss.SafeCss</moduleName>

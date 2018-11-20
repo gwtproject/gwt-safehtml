@@ -17,7 +17,7 @@
 <!-- SafeCss - facilities for avoiding XSS attacks                         -->
 <!--                                                                       -->
 <module>
-    <inherits name="org.gwtproject.dom.DOM"/>
+    <inherits name="org.gwtproject.dom.style.Style"/>
     <inherits name="org.gwtproject.safehtml.SafeHtml"/>
     
     <source path="shared"/>

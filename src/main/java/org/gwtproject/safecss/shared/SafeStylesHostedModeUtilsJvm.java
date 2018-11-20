@@ -63,6 +63,7 @@ public class SafeStylesHostedModeUtilsJvm
    * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier">CSS 2.1
    * identifiers</a>
    */
+  // TODO El Hoss: do we need this method?
   @VisibleForTesting
   @GwtIncompatible
   public static String isValidStyleName(String name) {
@@ -113,6 +114,7 @@ public class SafeStylesHostedModeUtilsJvm
    * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#declaration">CSS 2.1
    * declarations and properties</a>
    */
+  // TODO El Hoss: do we need this method?
   @VisibleForTesting
   @GwtIncompatible
   public static String isValidStyleValue(String value) {

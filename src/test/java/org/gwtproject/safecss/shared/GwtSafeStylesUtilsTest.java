@@ -17,14 +17,14 @@ package org.gwtproject.safecss.shared;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
-import org.gwtproject.dom.client.Style.Clear;
-import org.gwtproject.dom.client.Style.Display;
-import org.gwtproject.dom.client.Style.TextAlign;
-import org.gwtproject.dom.client.Style.TextDecoration;
-import org.gwtproject.dom.client.Style.TextJustify;
-import org.gwtproject.dom.client.Style.TextOverflow;
-import org.gwtproject.dom.client.Style.TextTransform;
-import org.gwtproject.dom.client.Style.WhiteSpace;
+import org.gwtproject.dom.style.shared.Display;
+import org.gwtproject.dom.style.shared.TextAlign;
+import org.gwtproject.dom.style.shared.TextDecoration;
+import org.gwtproject.dom.style.shared.TextJustify;
+import org.gwtproject.dom.style.shared.TextOverflow;
+import org.gwtproject.dom.style.shared.TextTransform;
+import org.gwtproject.dom.style.shared.WhiteSpace;
+import org.gwtproject.dom.style.shared.Clear;
 import org.gwtproject.safehtml.shared.SafeUri;
 import org.gwtproject.safehtml.shared.UriUtils;
 

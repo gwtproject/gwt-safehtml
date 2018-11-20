@@ -18,7 +18,7 @@
 <!--                                                                       -->
 <module>
   <inherits name="org.gwtproject.safecss.SafeCss"/>
-  <inherits name="org.gwtproject.dom.DOM"/>
+  <inherits name="org.gwtproject.dom.style.Style"/>
   
   <source path="shared"/>
 </module>
