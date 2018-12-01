@@ -1,9 +1,9 @@
 package org.gwtproject.safehtml.apt;
 
-import com.google.gwt.codegen.server.AbortablePrintWriter;
-import com.google.gwt.codegen.server.JavaSourceWriterBuilder;
-import com.google.gwt.codegen.server.SourceWriter;
 import com.squareup.javapoet.ClassName;
+import org.gwtproject.safehtml.apt.source.AbortablePrintWriter;
+import org.gwtproject.safehtml.apt.source.JavaSourceWriterBuilder;
+import org.gwtproject.safehtml.apt.source.SourceWriter;
 
 import java.io.IOException;
 import java.io.PrintWriter;

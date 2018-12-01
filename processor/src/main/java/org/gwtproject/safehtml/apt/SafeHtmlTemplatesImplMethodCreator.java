@@ -16,8 +16,8 @@
 package org.gwtproject.safehtml.apt;
 
 import com.google.common.primitives.Primitives;
-import com.google.gwt.codegen.server.SourceWriter;
 import com.google.gwt.safecss.shared.SafeStyles;
+import org.gwtproject.safehtml.apt.source.SourceWriter;
 import org.gwtproject.safehtml.shared.SafeHtml;
 import org.gwtproject.safehtml.shared.SafeHtmlUtils;
 import org.gwtproject.safehtml.shared.SafeUri;
@@ -32,7 +32,7 @@ import javax.tools.Diagnostic;
 
 /**
  * Method body code generator for implementations of
- * {@link com.google.gwt.safehtml.client.SafeHtmlTemplates}.
+ * {@link org.gwtproject.safehtml.client.SafeHtmlTemplates}.
  */
 public class SafeHtmlTemplatesImplMethodCreator {
 
@@ -189,7 +189,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * of the {@link SafeHtml} type.
    *
    * <p>The template is parsed as a HTML template (see
-   * {@link com.google.gwt.safehtml.rebind.HtmlTemplateParser}).  From the template's parsed form, code is
+   * {@link HtmlTemplateParser}).  From the template's parsed form, code is
    * generated that, when executed, will emit an instantiation of the template.
    * The generated code appropriately escapes and/or sanitizes template
    * parameters such that evaluating the emitted string as HTML in a browser

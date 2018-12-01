@@ -117,6 +117,13 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+    <repositories>
+        <repository>
+            <id>vertispan-snapshot-repository</id>
+            <name>Vertispan Snapshot Repository</name>
+            <url>https://repo.vertispan.com/gwt-snapshot/</url>
+        </repository>
+    </repositories>
 
     <profiles>
         <!-- release profile to create sources, javadoc, and sign all artifacts before uploading -->
