@@ -25,6 +25,9 @@ import org.gwtproject.safehtml.shared.UriUtils;
 import org.gwtproject.safehtml.shared.OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml;
 
 import javax.annotation.processing.Messager;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
 import javax.tools.Diagnostic;
 
 /**
@@ -97,9 +100,19 @@ public class SafeHtmlTemplatesImplMethodCreator {
     return writer;
   }
 
-  public void createMethodFor(String templateString, String[] params) throws UnableToCompleteException {
-    emitMethodBodyFromTemplate(templateString, params);
+  public void createMethodFor(String templateString, ExecutableElement method) throws UnableToCompleteException {
+    emitMethodBodyFromTemplate(templateString, getParamTypes(method), method);
   }
+
+  private String[] getParamTypes(ExecutableElement method) {
+    String[] params = new String[method.getParameters().size()];
+    int i = 0;
+    for (VariableElement variableElement : method.getParameters()) {
+      params[i++] = variableElement.asType().toString();
+    }
+    return params;
+  }
+
 
   /**
    * Emits an expression corresponding to a template variable in "attribute"
@@ -188,10 +201,11 @@ public class SafeHtmlTemplatesImplMethodCreator {
    *
    * @param template the (X)HTML template to generate code for
    * @param params the parameters of the corresponding template method
+   * @param method
    * @throws UnableToCompleteException if an error occurred that prevented
    *         code generation for the template
    */
-  private void emitMethodBodyFromTemplate(String template, String[] params)
+  private void emitMethodBodyFromTemplate(String template, String[] params, ExecutableElement method)
           throws UnableToCompleteException {
     println("StringBuilder sb = new java.lang.StringBuilder();");
 
@@ -207,14 +221,14 @@ public class SafeHtmlTemplatesImplMethodCreator {
         int formalParameterIndex = parameterChunk.getParameterIndex();
         if (formalParameterIndex < 0 || formalParameterIndex >= params.length) {
           throw error("Argument " + formalParameterIndex + " beyond range of arguments: "
-                  + template);
+                  + template, method);
         }
         String formalParameterName = "arg" + formalParameterIndex;
         String paramType = params[formalParameterIndex];
 
-        emitParameterExpression(parameterChunk.getContext(), formalParameterName, paramType);
+        emitParameterExpression(parameterChunk.getContext(), formalParameterName, paramType, method);
       } else {
-        throw error("Unexpected chunk kind in parsed template " + template);
+        throw error("Unexpected chunk kind in parsed template " + template, method);
       }
     }
     outdent();
@@ -236,11 +250,13 @@ public class SafeHtmlTemplatesImplMethodCreator {
    *          parameter corresponding to the expression being emitted
    * @param parameterType the Java type of the corresponding template method's
    *          parameter
+   * @param method
    * @throws UnableToCompleteException if the parameterType is not valid for the
    *           htmlContext
    */
   private void emitParameterExpression(ParsedHtmlTemplate.HtmlContext htmlContext,
-                                       String formalParameterName, String parameterType) throws UnableToCompleteException {
+                                       String formalParameterName, String parameterType,
+                                       ExecutableElement method) throws UnableToCompleteException {
 
     /*
      * Verify that the parameter type is used in the correct context. Safe
@@ -254,12 +270,12 @@ public class SafeHtmlTemplatesImplMethodCreator {
        * safe.
        */
       throw error(SAFE_HTML_CN + " used in a non-text context. Did you mean to use "
-              + JAVA_LANG_STRING_FQCN + " or " + SAFE_STYLES_CN + " instead?");
+              + JAVA_LANG_STRING_FQCN + " or " + SAFE_STYLES_CN + " instead?", method);
     } else if (isSafeStyles(parameterType) && ParsedHtmlTemplate.HtmlContext.Type.CSS_ATTRIBUTE_START != contextType) {
       if (ParsedHtmlTemplate.HtmlContext.Type.CSS_ATTRIBUTE == contextType) {
         // SafeStyles can only be used at the start of a CSS attribute.
         throw error(SAFE_STYLES_CN + " cannot be used in the middle of a CSS attribute. "
-                + "It must be used at the start a CSS attribute.");
+                + "It must be used at the start a CSS attribute.", method);
       } else {
         /*
          * SafeStyles used in a non-css attribute context. SafeStyles is only
@@ -269,14 +285,14 @@ public class SafeHtmlTemplatesImplMethodCreator {
          */
         throw error(SAFE_STYLES_CN
                 + " used in a non-CSS attribute context. Did you mean to use " + JAVA_LANG_STRING_FQCN
-                + " or " + SAFE_HTML_CN + " instead?");
+                + " or " + SAFE_HTML_CN + " instead?", method);
       }
     } else if (isSafeUri(parameterType) && ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_ENTIRE != contextType) {
       // TODO(xtof): refactor HtmlContext with isStart/isEnd/isEntire accessors and simplified type.
       if (ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_START == contextType) {
         // SafeUri can only be used as the entire value of an URL attribute.
         throw error(SAFE_URI_CN + " cannot be used in a URL attribute if it isn't the "
-                + "entire attribute value.");
+                + "entire attribute value.", method);
       } else {
         /*
          * SafeUri outside a URL-attribute context (or in a URL-attribute, but
@@ -287,7 +303,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
          */
         throw error(SAFE_URI_CN + " can only be used as the entire value of a URL "
                 + "attribute. Did you mean to use " + JAVA_LANG_STRING_FQCN + " or " + SAFE_HTML_CN
-                + " instead?");
+                + " instead?", method);
       }
     }
 
@@ -307,7 +323,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
          */
         messager.printMessage(Diagnostic.Kind.MANDATORY_WARNING, "Template with variable in CSS context: "
                 + "The template code generator cannot guarantee HTML-safety of "
-                + "the template -- please inspect manually");
+                + "the template -- please inspect manually", method);
         emitTextContextParameterExpression(formalParameterName, parameterType);
         break;
       case TEXT:
@@ -326,7 +342,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
           messager.printMessage(Diagnostic.Kind.MANDATORY_WARNING,
                   "Template with variable in CSS attribute context: The template code generator cannot"
                           + " guarantee HTML-safety of the template -- please inspect manually or use "
-                          + SAFE_STYLES_CN + " to specify arguments in a CSS attribute context");
+                          + SAFE_STYLES_CN + " to specify arguments in a CSS attribute context", method);
         }
         emitAttributeContextParameterExpression(htmlContext, formalParameterName,
                 parameterType);
@@ -340,11 +356,11 @@ public class SafeHtmlTemplatesImplMethodCreator {
          */
         if (!isSafeUri(parameterType)) {
           // WARNING against using unsafe parameters in a URL attribute context.
-          messager.printMessage(Diagnostic.Kind.WARNING,
+          messager.printMessage(Diagnostic.Kind.MANDATORY_WARNING,
                   "Template with variable in URL attribute context: The template code generator will"
                           + " sanitize the URL.  Use " + SAFE_URI_CN
                           + " to specify arguments in a URL attribute context that should not be"
-                          + " sanitized.");
+                          + " sanitized.", method);
         }
         emitAttributeContextParameterExpression(htmlContext, formalParameterName,
                 parameterType);
@@ -356,7 +372,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
 
       default:
         throw error("unknown HTML context for formal template parameter "
-                + formalParameterName + ": " + htmlContext);
+                + formalParameterName + ": " + htmlContext, method);
     }
     println(");");
   }
@@ -534,8 +550,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @param msg msg
    * @return the exception to throw
    */
-  protected UnableToCompleteException error(String msg) {
-    messager.printMessage(Diagnostic.Kind.ERROR, msg);
+  protected UnableToCompleteException error(String msg, Element elt) {
+    messager.printMessage(Diagnostic.Kind.ERROR, msg, elt);
     return new UnableToCompleteException();
   }
 
@@ -544,8 +560,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @param msg msg
    * @return the exception to throw
    */
-  protected UnableToCompleteException error(String msg, Throwable cause) {
-    messager.printMessage(Diagnostic.Kind.ERROR, msg + ": " + cause.getMessage());
+  protected UnableToCompleteException error(String msg, Throwable cause, Element elt) {
+    messager.printMessage(Diagnostic.Kind.ERROR, msg + ": " + cause.getMessage(), elt);
     return new UnableToCompleteException();
   }
 
@@ -554,8 +570,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @param e throwable
    * @return th exception to throw
    */
-  protected UnableToCompleteException error(Throwable e) {
-    messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage() + ": " + e.getMessage());
+  protected UnableToCompleteException error(Throwable e, Element elt) {
+    messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage() + ": " + e.getMessage(), elt);
     return new UnableToCompleteException();
   }
 

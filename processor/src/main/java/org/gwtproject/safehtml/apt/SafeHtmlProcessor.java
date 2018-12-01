@@ -3,8 +3,7 @@ package org.gwtproject.safehtml.apt;
 import com.google.gwt.codegen.server.AbortablePrintWriter;
 import com.google.gwt.codegen.server.JavaSourceWriterBuilder;
 import com.google.gwt.codegen.server.SourceWriter;
-import org.gwtproject.safehtml.client.SafeHtmlTemplates;
-import org.gwtproject.safehtml.shared.SafeHtml;
+import com.squareup.javapoet.ClassName;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +16,7 @@ import javax.annotation.processing.Messager;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -29,13 +29,19 @@ import javax.lang.model.util.ElementScanner7;
 import javax.tools.Diagnostic.Kind;
 import javax.tools.JavaFileObject;
 
-@SupportedAnnotationTypes("*")
+@SupportedAnnotationTypes({
+        SafeHtmlProcessor.TEMPLATE_ANNOTATION_NAME,
+        SafeHtmlProcessor.OLD_TEMPLATE_ANNOTATION_NAME,
+})
 public class SafeHtmlProcessor extends AbstractProcessor {
+
+  public static final String TEMPLATE_ANNOTATION_NAME = "org.gwtproject.safehtml.client.SafeHtmlTemplates.Template";
+  public static final String OLD_TEMPLATE_ANNOTATION_NAME = "com.google.gwt.safehtml.client.SafeHtmlTemplates.Template";
 
   private class T {
     DeclaredType jlObject = (DeclaredType) processingEnv.getElementUtils().getTypeElement(Object.class.getCanonicalName()).asType();
-    DeclaredType safeHtml = (DeclaredType) processingEnv.getElementUtils().getTypeElement(SafeHtml.class.getCanonicalName()).asType();
-    DeclaredType safeHtmlTemplates = (DeclaredType) processingEnv.getElementUtils().getTypeElement(SafeHtmlTemplates.class.getCanonicalName()).asType();
+    DeclaredType safeHtml = (DeclaredType) processingEnv.getElementUtils().getTypeElement("org.gwtproject.safehtml.shared.SafeHtml").asType();
+    DeclaredType safeHtmlTemplates = (DeclaredType) processingEnv.getElementUtils().getTypeElement("org.gwtproject.safehtml.client.SafeHtmlTemplates").asType();
 
     boolean isSameType(TypeMirror t1, TypeMirror t2) {
       return processingEnv.getTypeUtils().isSameType(t1, t2);
@@ -93,22 +99,22 @@ public class SafeHtmlProcessor extends AbstractProcessor {
               continue;
             }
 
-            SafeHtmlTemplates.Template template = method.getAnnotation(SafeHtmlTemplates.Template.class);
-            com.google.gwt.safehtml.client.SafeHtmlTemplates.Template templateOld = method.getAnnotation(com.google.gwt.safehtml.client.SafeHtmlTemplates.Template.class);
+            AnnotationMirror template = getAnnotationWithName(method, TEMPLATE_ANNOTATION_NAME);
+            AnnotationMirror templateOld = getAnnotationWithName(method, OLD_TEMPLATE_ANNOTATION_NAME);
             if (template == null && templateOld == null) {
               messager.printMessage(Kind.ERROR, "SafeHtmlTemplates method is missing @Template annotation", method);
               continue;
             }
             if (template != null && templateOld != null) {
-              messager.printMessage(Kind.ERROR, "Cannot use both old and new template");
+              messager.printMessage(Kind.ERROR, "Cannot use both old and new template", method);
               continue;
             }
             String templateString;
             if (templateOld != null) {
-              messager.printMessage(Kind.MANDATORY_WARNING, "Using old @Template, please update to new");
-              templateString = templateOld.value();
+              messager.printMessage(Kind.MANDATORY_WARNING, "Using old @Template, please update to new", method);
+              templateString = templateOld.getElementValues().values().iterator().next().getValue().toString();
             } else {
-              templateString = template.value();
+              templateString = template.getElementValues().values().iterator().next().getValue().toString();
             }
 
             if (!types.isSameType(method.getReturnType(), types.safeHtml)) {
@@ -126,7 +132,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
             sourceWriter.println(" {");
             sourceWriter.indent();
 
-            methodCreator.createMethodFor(templateString, getParamTypes(method));
+            methodCreator.createMethodFor(templateString, method);
 
             sourceWriter.outdent();
             sourceWriter.println("}");
@@ -136,21 +142,18 @@ public class SafeHtmlProcessor extends AbstractProcessor {
         }
         sourceWriter.close();
       } catch (IOException | UnableToCompleteException e) {
-        messager.printMessage(Kind.ERROR, e.getMessage());
+        messager.printMessage(Kind.ERROR, e.getMessage(), templateType);
         e.printStackTrace();
       }
     }
 
     return true;
   }
-
-  private String[] getParamTypes(ExecutableElement method) {
-    String[] params = new String[method.getParameters().size()];
-    int i = 0;
-    for (VariableElement variableElement : method.getParameters()) {
-      params[i++] = variableElement.asType().toString();
-    }
-    return params;
+  private AnnotationMirror getAnnotationWithName(ExecutableElement elt, String name) {
+    return elt.getAnnotationMirrors().stream()
+            .filter(a -> name.equals(ClassName.get(a.getAnnotationType()).toString()))
+            .findAny()
+            .orElse(null);
   }
 
   private void printMethodDecl(SourceWriter sourceWriter, ExecutableElement method) {
