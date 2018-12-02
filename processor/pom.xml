@@ -17,9 +17,16 @@
   </properties>
 
   <dependencies>
+    <!-- HTML parser used to read template contents -->
     <dependency>
       <groupId>com.google.jsilver</groupId>
       <artifactId>jsilver</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -29,11 +36,24 @@
     </dependency>
 
     <dependency>
+      <groupId>com.squareup</groupId>
+      <artifactId>javapoet</artifactId>
+      <version>${javapoet.version}</version>
+    </dependency>
+
+    <!-- used to test new packages -->
+    <dependency>
       <groupId>org.gwtproject.safehtml</groupId>
       <artifactId>gwt-safehtml</artifactId>
       <version>${project.version}</version>
       <optional>true</optional>
     </dependency>
+
+    <!--
+      While this does help with testing, it causes a cycle - we
+      should move tests to another module to guarantee nothing
+      dumb happens between safehtml and safecss
+    -->
     <dependency>
       <groupId>org.gwtproject.safecss</groupId>
       <artifactId>gwt-safecss</artifactId>
@@ -41,22 +61,21 @@
       <scope>test</scope>
     </dependency>
 
+
     <dependency>
-      <groupId>com.squareup</groupId>
-      <artifactId>javapoet</artifactId>
-      <version>${javapoet.version}</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
     </dependency>
 
-
+    <!--
+      Used to test old packages, should probably also move to a
+      test module
+    -->
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
       <version>2.8.2</version>
-      <!--<scope>test</scope>-->
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
