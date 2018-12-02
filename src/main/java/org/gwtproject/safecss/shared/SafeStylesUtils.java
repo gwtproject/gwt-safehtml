@@ -38,7 +38,6 @@ import org.gwtproject.dom.style.shared.Visibility;
 import org.gwtproject.dom.style.shared.WhiteSpace;
 import org.gwtproject.safehtml.shared.SafeUri;
 
-
 /**
  * Utility class containing static methods for creating {@link SafeStyles}.
  */
