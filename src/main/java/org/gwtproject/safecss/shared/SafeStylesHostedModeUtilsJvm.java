@@ -15,10 +15,8 @@
  */
 package org.gwtproject.safecss.shared;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
-
 import org.gwtproject.safecss.shared.annotations.GwtIncompatible;
+import org.gwtproject.safecss.shared.annotations.VisibleForTesting;
 
 import java.util.HashMap;
 import java.util.Stack;
@@ -254,7 +252,9 @@ public class SafeStylesHostedModeUtilsJvm
   public static void maybeCheckValidStyleName(String name) {
     if (forceCheck) {
       String errorText = isValidStyleName(name);
-      Preconditions.checkArgument(errorText == null, errorText);
+      if (errorText != null) {
+        throw new IllegalArgumentException(errorText);
+      }
     } else {
       assert isValidStyleName(name) == null : isValidStyleName(name);
     }
@@ -271,7 +271,9 @@ public class SafeStylesHostedModeUtilsJvm
   public static void maybeCheckValidStyleValue(String value) {
     if (forceCheck) {
       String errorText = isValidStyleValue(value);
-      Preconditions.checkArgument(errorText == null, errorText);
+      if (errorText != null) {
+        throw new IllegalArgumentException(errorText);
+      }
     } else {
       assert isValidStyleValue(value) == null : isValidStyleValue(value);
     }
