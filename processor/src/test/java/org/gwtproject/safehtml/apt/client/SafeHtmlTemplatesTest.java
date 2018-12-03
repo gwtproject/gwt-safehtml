@@ -15,8 +15,8 @@
  */
 package org.gwtproject.safehtml.apt.client;
 
-import com.google.gwt.safecss.shared.SafeStylesUtils;
 import junit.framework.TestCase;
+import org.gwtproject.safecss.shared.SafeStylesUtils;
 import org.gwtproject.safehtml.shared.SafeHtmlUtils;
 import org.gwtproject.safehtml.shared.UriUtils;
 

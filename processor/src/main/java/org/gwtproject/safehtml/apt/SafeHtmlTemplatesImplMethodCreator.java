@@ -16,13 +16,11 @@
 package org.gwtproject.safehtml.apt;
 
 import com.google.common.primitives.Primitives;
-import com.google.gwt.safecss.shared.SafeStyles;
 import org.gwtproject.safehtml.apt.source.SourceWriter;
 import org.gwtproject.safehtml.shared.SafeHtml;
 import org.gwtproject.safehtml.shared.SafeHtmlUtils;
 import org.gwtproject.safehtml.shared.SafeUri;
 import org.gwtproject.safehtml.shared.UriUtils;
-import org.gwtproject.safehtml.shared.OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml;
 
 import javax.annotation.processing.Messager;
 import javax.lang.model.element.Element;
@@ -41,59 +39,14 @@ public class SafeHtmlTemplatesImplMethodCreator {
    */
   private static final String JAVA_LANG_STRING_FQCN = String.class.getName();
 
-  /**
-   * Simple class name of the {@link com.google.gwt.safehtml.shared.SafeUri} interface.
-   */
-  private static final String SAFE_URI_CN = SafeUri.class.getSimpleName();
-
-  /**
-   * Fully-qualified class name of the {@link SafeUri} interface.
-   */
-  private static final String SAFE_URI_FQCN = SafeUri.class.getName();
-
-  /**
-   * Simple class name of the {@link com.google.gwt.safecss.shared.SafeStyles} interface.
-   */
-  private static final String SAFE_STYLES_CN = SafeStyles.class.getSimpleName();
-
-  /**
-   * Fully-qualified class name of the {@link SafeStyles} interface.
-   */
-  private static final String SAFE_STYLES_FQCN = SafeStyles.class.getName();
-
-  /**
-   * Simple class name of the {@link com.google.gwt.safehtml.shared.SafeHtml} interface.
-   */
-  private static final String SAFE_HTML_CN = SafeHtml.class.getSimpleName();
-
-  /**
-   * Fully-qualified class name of the {@link SafeHtml} interface.
-   */
-  private static final String SAFE_HTML_FQCN = SafeHtml.class.getName();
-
-  /**
-   * Fully-qualified class name of the StringBlessedAsSafeHtml class.
-   */
-  private static final String BLESSED_STRING_FQCN =
-          OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml.class.getName();
-
-  /**
-   * Fully-qualified class name of the {@link com.google.gwt.safehtml.shared.SafeHtmlUtils} class.
-   */
-  private static final String SAFE_HTML_UTILS_FQCN = SafeHtmlUtils.class.getName();
-
-  /**
-   * Fully-qualified class name of the {@link com.google.gwt.safehtml.shared.UriUtils} class.
-   */
-  private static final String URI_UTILS_FQCN = UriUtils.class.getName();
-
-
   private final SourceWriter writer;
   private final Messager messager;
+  private final SafeApiPackage api;
 
-  public SafeHtmlTemplatesImplMethodCreator(SourceWriter writer, Messager messager) {
+  public SafeHtmlTemplatesImplMethodCreator(SourceWriter writer, Messager messager, SafeApiPackage api) {
     this.writer = writer;
     this.messager = messager;
+    this.api = api;
   }
 
   public SourceWriter getWriter() {
@@ -173,13 +126,13 @@ public class SafeHtmlTemplatesImplMethodCreator {
 
       if ((htmlContext.getType() == ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_START) ||
               (htmlContext.getType() == ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_ENTIRE)) {
-        expression = URI_UTILS_FQCN + ".sanitizeUri(" + expression + ")";
+        expression = api.getUriUtilsFqn() + ".sanitizeUri(" + expression + ")";
       }
     }
 
     // TODO(xtof): Handle EscapedString subtype of SafeHtml, once it's been
     //     introduced.
-    expression = SAFE_HTML_UTILS_FQCN + ".htmlEscape(" + expression + ")";
+    expression = api.getSafeHtmlUtilsFQN() + ".htmlEscape(" + expression + ")";
 
     print(expression);
   }
@@ -233,7 +186,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
     }
     outdent();
     outdent();
-    println("return new " + BLESSED_STRING_FQCN + "(sb.toString());");
+    println("return new " + api.getBlessedStringFQN() + "(sb.toString());");
   }
 
   /**
@@ -269,12 +222,12 @@ public class SafeHtmlTemplatesImplMethodCreator {
        * context. In a non-text context, the string is not guaranteed to be
        * safe.
        */
-      throw error(SAFE_HTML_CN + " used in a non-text context. Did you mean to use "
-              + JAVA_LANG_STRING_FQCN + " or " + SAFE_STYLES_CN + " instead?", method);
+      throw error(api.getSafeHtmlInterfaceFQN() + " used in a non-text context. Did you mean to use "
+              + JAVA_LANG_STRING_FQCN + " or " + api.getSafeStylesInterfaceFQN() + " instead?", method);
     } else if (isSafeStyles(parameterType) && ParsedHtmlTemplate.HtmlContext.Type.CSS_ATTRIBUTE_START != contextType) {
       if (ParsedHtmlTemplate.HtmlContext.Type.CSS_ATTRIBUTE == contextType) {
         // SafeStyles can only be used at the start of a CSS attribute.
-        throw error(SAFE_STYLES_CN + " cannot be used in the middle of a CSS attribute. "
+        throw error(api.getSafeStylesInterfaceFQN() + " cannot be used in the middle of a CSS attribute. "
                 + "It must be used at the start a CSS attribute.", method);
       } else {
         /*
@@ -283,15 +236,15 @@ public class SafeHtmlTemplatesImplMethodCreator {
          * parameter and escape the string value of the parameter, but it almost
          * definitely isn't what the developer intended to do.
          */
-        throw error(SAFE_STYLES_CN
+        throw error(api.getSafeStylesInterfaceFQN()
                 + " used in a non-CSS attribute context. Did you mean to use " + JAVA_LANG_STRING_FQCN
-                + " or " + SAFE_HTML_CN + " instead?", method);
+                + " or " + api.getSafeHtmlInterfaceFQN() + " instead?", method);
       }
     } else if (isSafeUri(parameterType) && ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_ENTIRE != contextType) {
       // TODO(xtof): refactor HtmlContext with isStart/isEnd/isEntire accessors and simplified type.
       if (ParsedHtmlTemplate.HtmlContext.Type.URL_ATTRIBUTE_START == contextType) {
         // SafeUri can only be used as the entire value of an URL attribute.
-        throw error(SAFE_URI_CN + " cannot be used in a URL attribute if it isn't the "
+        throw error(api.getSafeUriInterfaceFQN() + " cannot be used in a URL attribute if it isn't the "
                 + "entire attribute value.", method);
       } else {
         /*
@@ -301,8 +254,8 @@ public class SafeHtmlTemplatesImplMethodCreator {
          * the string value of the parameter, but it almost definitely isn't
          * what the developer intended to do.
          */
-        throw error(SAFE_URI_CN + " can only be used as the entire value of a URL "
-                + "attribute. Did you mean to use " + JAVA_LANG_STRING_FQCN + " or " + SAFE_HTML_CN
+        throw error(api.getSafeUriInterfaceFQN() + " can only be used as the entire value of a URL "
+                + "attribute. Did you mean to use " + JAVA_LANG_STRING_FQCN + " or " + api.getSafeHtmlInterfaceFQN()
                 + " instead?", method);
       }
     }
@@ -342,7 +295,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
           messager.printMessage(Diagnostic.Kind.MANDATORY_WARNING,
                   "Template with variable in CSS attribute context: The template code generator cannot"
                           + " guarantee HTML-safety of the template -- please inspect manually or use "
-                          + SAFE_STYLES_CN + " to specify arguments in a CSS attribute context", method);
+                          + api.getSafeStylesInterfaceFQN() + " to specify arguments in a CSS attribute context", method);
         }
         emitAttributeContextParameterExpression(htmlContext, formalParameterName,
                 parameterType);
@@ -358,7 +311,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
           // WARNING against using unsafe parameters in a URL attribute context.
           messager.printMessage(Diagnostic.Kind.MANDATORY_WARNING,
                   "Template with variable in URL attribute context: The template code generator will"
-                          + " sanitize the URL.  Use " + SAFE_URI_CN
+                          + " sanitize the URL.  Use " + api.getSafeUriInterfaceFQN()
                           + " to specify arguments in a URL attribute context that should not be"
                           + " sanitized.", method);
         }
@@ -430,7 +383,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
       if (parameterIsNotStringTyped) {
         expression = "String.valueOf(" + expression + ")";
       }
-      print(SAFE_HTML_UTILS_FQCN + ".htmlEscape(" + expression + ")");
+      print(api.getSafeHtmlUtilsFQN() + ".htmlEscape(" + expression + ")");
     }
   }
 
@@ -449,7 +402,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @return true if the type represents a {@link SafeHtml}
    */
   private boolean isSafeHtml(String parameterType) {
-    return parameterType.equals(SAFE_HTML_FQCN);
+    return parameterType.equals(api.getSafeHtmlInterfaceFQN());
   }
 
   /**
@@ -459,7 +412,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @return true if the type represents a {@link SafeStyles}
    */
   private boolean isSafeStyles(String parameterType) {
-    return parameterType.equals(SAFE_STYLES_FQCN);
+    return parameterType.equals(api.getSafeStylesInterfaceFQN());
   }
 
   /**
@@ -469,7 +422,7 @@ public class SafeHtmlTemplatesImplMethodCreator {
    * @return true if the type represents a {@link SafeUri}
    */
   private boolean isSafeUri(String parameterType) {
-    return parameterType.equals(SAFE_URI_FQCN);
+    return parameterType.equals(api.getSafeUriInterfaceFQN());
   }
   
   

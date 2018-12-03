@@ -1,6 +1,6 @@
 package org.gwtproject.safehtml.apt.client;
 
-import com.google.gwt.safecss.shared.SafeStyles;
+import org.gwtproject.safecss.shared.SafeStyles;
 import org.gwtproject.safehtml.client.SafeHtmlTemplates;
 import org.gwtproject.safehtml.shared.SafeHtml;
 import org.gwtproject.safehtml.shared.SafeUri;

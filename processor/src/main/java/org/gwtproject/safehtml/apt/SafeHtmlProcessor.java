@@ -40,28 +40,16 @@ public class SafeHtmlProcessor extends AbstractProcessor {
 
   private class T {
     DeclaredType jlObject = (DeclaredType) processingEnv.getElementUtils().getTypeElement(Object.class.getCanonicalName()).asType();
-    DeclaredType safeHtml = (DeclaredType) processingEnv.getElementUtils().getTypeElement("org.gwtproject.safehtml.shared.SafeHtml").asType();
-    DeclaredType safeHtmlTemplates = (DeclaredType) processingEnv.getElementUtils().getTypeElement("org.gwtproject.safehtml.client.SafeHtmlTemplates").asType();
 
     boolean isSameType(TypeMirror t1, TypeMirror t2) {
       return processingEnv.getTypeUtils().isSameType(t1, t2);
     }
-    boolean isAssignable(TypeMirror t1, TypeMirror t2) {
-      return processingEnv.getTypeUtils().isAssignable(t1, t2);
-    }
   }
 
   private class TemplatesFinder extends ElementScanner7<Void, Set<TypeElement>> {
-    private final T types;
-
-    private TemplatesFinder(T types) {
-      this.types = types;
-    }
-
     @Override
     public Void visitType(TypeElement e, Set<TypeElement> templateTypes) {
-      if (e.getKind().equals(ElementKind.INTERFACE) &&
-              types.isAssignable(e.asType(), types.safeHtmlTemplates)) {
+      if (e.getKind().equals(ElementKind.INTERFACE)) {
         templateTypes.add(e);
       }
       return super.visitType(e, templateTypes);
@@ -74,7 +62,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
     T types = new T();
     Set<TypeElement> templateTypes = new HashSet<>();
 
-    new TemplatesFinder(types).scan(ElementFilter.typesIn(roundEnv.getRootElements()), templateTypes);
+    new TemplatesFinder().scan(ElementFilter.typesIn(roundEnv.getRootElements()), templateTypes);
 
     for (TypeElement templateType : templateTypes) {
       try {
@@ -90,7 +78,6 @@ public class SafeHtmlProcessor extends AbstractProcessor {
 
         SourceWriter sourceWriter = writerBuilder.createSourceWriter();
 
-        SafeHtmlTemplatesImplMethodCreator methodCreator = new SafeHtmlTemplatesImplMethodCreator(sourceWriter, messager);
         for (Element element : templateType.getEnclosedElements()) {
           if (element instanceof ExecutableElement) {
             ExecutableElement method = (ExecutableElement) element;
@@ -109,15 +96,18 @@ public class SafeHtmlProcessor extends AbstractProcessor {
               messager.printMessage(Kind.ERROR, "Cannot use both old and new template", method);
               continue;
             }
-            String templateString;
+            final String templateString;
+            final SafeApiPackage api;
             if (templateOld != null) {
               messager.printMessage(Kind.MANDATORY_WARNING, "Using old @Template, please update to new", method);
               templateString = templateOld.getElementValues().values().iterator().next().getValue().toString();
+              api = SafeApiPackage.COM_GOOGLE_GWT_SAFEHTML;
             } else {
               templateString = template.getElementValues().values().iterator().next().getValue().toString();
+              api = SafeApiPackage.ORG_GWTPROJECT_SAFEHTML;
             }
 
-            if (!types.isSameType(method.getReturnType(), types.safeHtml)) {
+            if (!types.isSameType(method.getReturnType(), processingEnv.getElementUtils().getTypeElement(api.getSafeHtmlInterfaceFQN()).asType())) {
               messager.printMessage(Kind.ERROR, "SafeHtmlTemplates method must return SafeHtml", method);
               continue;
             }
@@ -132,6 +122,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
             sourceWriter.println(" {");
             sourceWriter.indent();
 
+            SafeHtmlTemplatesImplMethodCreator methodCreator = new SafeHtmlTemplatesImplMethodCreator(sourceWriter, messager, api);
             methodCreator.createMethodFor(templateString, method);
 
             sourceWriter.outdent();
