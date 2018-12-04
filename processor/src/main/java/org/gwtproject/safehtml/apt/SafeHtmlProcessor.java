@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Messager;
@@ -46,23 +47,16 @@ public class SafeHtmlProcessor extends AbstractProcessor {
     }
   }
 
-  private class TemplatesFinder extends ElementScanner7<Void, Set<TypeElement>> {
-    @Override
-    public Void visitType(TypeElement e, Set<TypeElement> templateTypes) {
-      if (e.getKind().equals(ElementKind.INTERFACE)) {
-        templateTypes.add(e);
-      }
-      return super.visitType(e, templateTypes);
-    }
-  }
-
   @Override
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
     Messager messager = processingEnv.getMessager();
     T types = new T();
     Set<TypeElement> templateTypes = new HashSet<>();
 
-    new TemplatesFinder().scan(ElementFilter.typesIn(roundEnv.getRootElements()), templateTypes);
+    templateTypes.addAll(roundEnv.getElementsAnnotatedWith(processingEnv.getElementUtils().getTypeElement(TEMPLATE_ANNOTATION_NAME))
+            .stream().map(Element::getEnclosingElement).map(TypeElement.class::cast).collect(Collectors.toSet()));
+    templateTypes.addAll(roundEnv.getElementsAnnotatedWith(processingEnv.getElementUtils().getTypeElement(OLD_TEMPLATE_ANNOTATION_NAME))
+            .stream().map(Element::getEnclosingElement).map(TypeElement.class::cast).collect(Collectors.toSet()));
 
     for (TypeElement templateType : templateTypes) {
       try {
@@ -81,6 +75,10 @@ public class SafeHtmlProcessor extends AbstractProcessor {
         for (Element element : templateType.getEnclosedElements()) {
           if (element instanceof ExecutableElement) {
             ExecutableElement method = (ExecutableElement) element;
+
+            if (method.isDefault()) {
+              continue;
+            }
 
             if (types.isSameType(method.getEnclosingElement().asType(), types.jlObject)) {
               continue;
