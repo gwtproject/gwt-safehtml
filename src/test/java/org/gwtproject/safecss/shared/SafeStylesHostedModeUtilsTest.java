@@ -16,9 +16,10 @@
 package org.gwtproject.safecss.shared;
 
 /**
- * JUnit tests for {@link SafeStylesHostedModeUtilsJvm}.
+ * JUnit tests for {@link SafeStylesHostedModeUtils}.
  */
-public class SafeStylesHostedModeUtilsTest extends GwtSafeStylesHostedModeUtilsJvmTest {
+public class SafeStylesHostedModeUtilsTest
+    extends GwtSafeStylesHostedModeUtilsTest {
 
   // This forces a GWTTestCase to run as a vanilla JUnit TestCase.
   @Override
@@ -27,10 +28,11 @@ public class SafeStylesHostedModeUtilsTest extends GwtSafeStylesHostedModeUtilsJ
   }
 
   @Override
-  protected void gwtSetUp() throws Exception {
+  protected void gwtSetUp()
+      throws Exception {
     super.gwtSetUp();
     // Since we can't assume assertions are enabled, force
     // SafeStylesHostedModeUtilsJvm to perform its check when running in JRE.
-    SafeStylesHostedModeUtilsJvm.setForceCheckValidStyle(true);
+    SafeStylesHostedModeUtils.setForceCheckValidStyle(true);
   }
 }

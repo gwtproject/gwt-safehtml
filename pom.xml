@@ -17,8 +17,7 @@
     <dom.version>1.0-SNAPSHOT</dom.version>
     <safehtml.version>1.0-SNAPSHOT</safehtml.version>
     
-    <guava.version>25.0-jre</guava.version>
-    <junit.version>4.11</junit.version>
+    <junit.version>4.12</junit.version>
     
     <!-- GWT 2.8 requires 1.8 -->
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -73,6 +72,12 @@
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-dev</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.4.01</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

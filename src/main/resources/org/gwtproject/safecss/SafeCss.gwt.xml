@@ -19,6 +19,8 @@
 <module>
     <inherits name="org.gwtproject.dom.style.Style"/>
     <inherits name="org.gwtproject.safehtml.SafeHtml"/>
-    
+
+    <define-configuration-property name="org.gwtproject.safecss.ForceCheckValidStyles" is-multi-valued="false"/>
+
     <source path="shared"/>
 </module>
