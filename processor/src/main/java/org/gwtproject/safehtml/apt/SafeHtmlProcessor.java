@@ -55,9 +55,11 @@ public class SafeHtmlProcessor extends AbstractProcessor {
 
     templateTypes.addAll(roundEnv.getElementsAnnotatedWith(processingEnv.getElementUtils().getTypeElement(TEMPLATE_ANNOTATION_NAME))
             .stream().map(Element::getEnclosingElement).map(TypeElement.class::cast).collect(Collectors.toSet()));
-    templateTypes.addAll(roundEnv.getElementsAnnotatedWith(processingEnv.getElementUtils().getTypeElement(OLD_TEMPLATE_ANNOTATION_NAME))
-            .stream().map(Element::getEnclosingElement).map(TypeElement.class::cast).collect(Collectors.toSet()));
-
+    TypeElement oldTemplateAnnotationName = processingEnv.getElementUtils().getTypeElement(OLD_TEMPLATE_ANNOTATION_NAME);
+    if (oldTemplateAnnotationName != null) {
+      templateTypes.addAll(roundEnv.getElementsAnnotatedWith(oldTemplateAnnotationName)
+                                   .stream().map(Element::getEnclosingElement).map(TypeElement.class::cast).collect(Collectors.toSet()));
+    }
     for (TypeElement templateType : templateTypes) {
       try {
         String packageName = processingEnv.getElementUtils().getPackageOf(templateType).getQualifiedName().toString();
