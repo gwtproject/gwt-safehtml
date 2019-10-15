@@ -45,7 +45,6 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <maven.compiler.plugin>3.7.0</maven.compiler.plugin>
-    <maven.fmt.plugin>2.5.1</maven.fmt.plugin>
     <maven.gpg.plugin>1.6</maven.gpg.plugin>
     <maven.javadoc.plugin>3.1.1</maven.javadoc.plugin>
     <maven.licence.plugin>3.0</maven.licence.plugin>
@@ -98,18 +97,7 @@
           <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>com.coveo</groupId>
-        <artifactId>fmt-maven-plugin</artifactId>
-        <version>${maven.fmt.plugin}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
