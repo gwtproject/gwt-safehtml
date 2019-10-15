@@ -21,8 +21,7 @@ import static junit.framework.TestCase.fail;
 import com.google.j2cl.junit.apt.J2clTestInput;
 import org.junit.Test;
 
-/** GWT Unit tests for {@link org.gwtproject.safecss.shared.SafeStylesBuilder}. */
-@J2clTestInput(SafeStylesUtilsJ2clTest.class)
+@J2clTestInput(SafeStylesBuilderJ2clTest.class)
 public class SafeStylesBuilderJ2clTest {
 
   private static final String CSS0 = "foo:bar;";

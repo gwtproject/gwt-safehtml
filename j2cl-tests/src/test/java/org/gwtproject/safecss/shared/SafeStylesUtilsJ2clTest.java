@@ -24,7 +24,6 @@ import org.gwtproject.safehtml.shared.SafeUri;
 import org.gwtproject.safehtml.shared.UriUtils;
 import org.junit.Test;
 
-/** GWT Unit tests for {@link org.gwtproject.safecss.shared.SafeStylesUtils}. */
 @J2clTestInput(SafeStylesUtilsJ2clTest.class)
 public class SafeStylesUtilsJ2clTest {
 

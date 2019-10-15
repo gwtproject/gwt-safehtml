@@ -60,6 +60,8 @@
     <google.snapshot.repo.url>https://oss.sonatype.org/content/repositories/google-snapshots/</google.snapshot.repo.url>
 
     <elemental2.version>1.0.0-RC1</elemental2.version>
+    <gwt.dom.style.definitions.version>1.0-SNAPSHOT</gwt.dom.style.definitions.version>
+    <gwt.safehtml.version>1.0-SNAPSHOT</gwt.safehtml.version>
     <jsinterop.base.version>1.0.0-SNAPSHOT</jsinterop.base.version>
     <j2cl.version>0.3-SNAPSHOT</j2cl.version>
     <slf4j.version>1.7.5</slf4j.version>
@@ -87,12 +89,25 @@
       <version>${elemental2.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.gwtproject.dom</groupId>
+      <artifactId>gwt-dom-style-definitions</artifactId>
+      <version>${gwt.dom.style.definitions.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.gwtproject.safehtml</groupId>
+      <artifactId>gwt-safehtml</artifactId>
+      <version>${gwt.safehtml.version}</version>
+      <scope>test</scope>
+    </dependency>
 
     <!-- As the other projects are gwt2, we need to explicitly depend on a j2cl-compatible version of jsinterop-base -->
     <dependency>
       <groupId>com.vertispan.jsinterop</groupId>
       <artifactId>base</artifactId>
       <version>${jsinterop.base.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
