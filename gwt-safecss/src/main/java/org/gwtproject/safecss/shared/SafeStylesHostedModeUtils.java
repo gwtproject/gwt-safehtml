@@ -29,13 +29,6 @@ import org.gwtproject.safecss.shared.annotations.VisibleForTesting;
  */
 public class SafeStylesHostedModeUtils {
 
-  /**
-   * Name of system property that if set, enables checks in server-side code (even if assertions are
-   * disabled).
-   */
-  public static final String FORCE_CHECK_VALID_STYLES =
-      "org.gwtproject.safecss.ForceCheckValidStyles";
-
   private static boolean forceCheck;
 
   /**
@@ -292,13 +285,15 @@ public class SafeStylesHostedModeUtils {
   /**
    * Sets a global flag that controls whether or not {@link #maybeCheckValidStyleName(String)} and
    * {@link #maybeCheckValidStyleValue(String)} should perform their checks in a server-side
-   * environment from the value of the {@value #FORCE_CHECK_VALID_STYLES} property.
+   * environment from the value of the {org.gwtproject.safecss.ForceCheckValidStyles} property.
+   *
+   * For J2CL compatibility we need to use a String isntead of a variable!
    */
   static void setForceCheckValidStyleFromProperty() {
     System.out.println(
-        "setForceCheckValidStyleFromProperty - System.getProperty(FORCE_CHECK_VALID_STYLES) >>"
-            + System.getProperty(FORCE_CHECK_VALID_STYLES)
+        "setForceCheckValidStyleFromProperty - System.getProperty(org.gwtproject.safecss.ForceCheckValidStyles) >>"
+            + System.getProperty("org.gwtproject.safecss.ForceCheckValidStyles")
             + "<<");
-    forceCheck = System.getProperty(FORCE_CHECK_VALID_STYLES) != null;
+    forceCheck = System.getProperty("org.gwtproject.safecss.ForceCheckValidStyles") != null;
   }
 }
