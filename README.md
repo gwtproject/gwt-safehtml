@@ -2,5 +2,5 @@
 
 GWT SafeCss: facilities for avoiding XSS attacks.
 
-[travis]: https://travis-ci.org/mincong-h/gwt-safecss
-[travis-img]: https://travis-ci.org/mincong-h/gwt-safecss.svg?branch=master
+[travis]: https://travis-ci.org/frankhossfeld/gwt-safecss
+[travis-img]: https://travis-ci.org/frankhossfeld/gwt-safecss.svg?branch=master
