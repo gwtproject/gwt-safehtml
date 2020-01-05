@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.gwtproject.safecss</groupId>
-  <artifactId>j2cl-tests</artifactId>
+  <artifactId>gwt-safecss-j2cl-tests</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <name>GWT Safe CSS J2CL Tests</name>
