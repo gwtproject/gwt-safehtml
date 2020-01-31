@@ -24,6 +24,7 @@
         <dependency>
             <groupId>com.google.jsilver</groupId>
             <artifactId>jsilver</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
