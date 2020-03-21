@@ -3,9 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.gwtproject.safecss</groupId>
+  <parent>
+    <groupId>org.gwtproject.safecss</groupId>
+    <artifactId>gwt-safecss-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
   <artifactId>gwt-safecss-gwt2-tests</artifactId>
+
   <version>1.0-SNAPSHOT</version>
+
   <packaging>gwt-lib</packaging>
 
   <name>GWT Safe CSS GWT 2 Tests</name>
@@ -64,12 +70,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.gwtproject.safecss</groupId>
-      <artifactId>gwt-safecss</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
       <version>${gwt.version}</version>
@@ -88,19 +88,9 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven.compiler.plugin}</version>
-        <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
-        </configuration>
-      </plugin>
-
       <plugin>
         <groupId>net.ltgt.gwt.maven</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
@@ -109,99 +99,13 @@
         <configuration>
           <sourceLevel>${maven.compiler.source}</sourceLevel>
           <failOnError>true</failOnError>
-          <moduleName>org.gwtproject.safecss.SafeCssGwt2Test</moduleName>
+          <moduleName>org.gwtproject.aria.AriaTest</moduleName>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
-        <version>${maven.licence.plugin}</version>
-        <configuration>
-          <header>LICENSE.header</header>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <skipExistingHeaders>true</skipExistingHeaders>
-          <mapping>
-            <java>SLASHSTAR_STYLE</java>
-          </mapping>
-          <excludes>
-            <exclude>LICENSE.header</exclude>
-            <exclude>**/*.xml</exclude>
-            <exclude>src/test/resources/**</exclude>
-            <exclude>src/main/resources/**</exclude>
-          </excludes>
-          <properties>
-            <year>${project.inceptionYear}</year>
-            <name>${project.organization.name}</name>
-          </properties>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven.jar.plugin}</version>
-        <executions>
-          <execution>
-            <id>default-jar</id>
-            <phase>none</phase>
-            <configuration>
-              <finalName>unwanted</finalName>
-              <classifier>unwanted</classifier>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-install-plugin</artifactId>
-        <version>${maven.install.plugin}</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
       </plugin>
     </plugins>
-
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>${maven.deploy.plugin}</version>
-          <configuration>
-            <skip>true</skip>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>vertispan-releases</id>
-      <name>Vertispan hosted artifacts-releases</name>
-      <url>${vertispan.j2cl.repo.url}</url>
-    </pluginRepository>
-  </pluginRepositories>
-
-  <distributionManagement>
-    <repository>
-      <id>vertispan-releases</id>
-      <name>Vertispan hosted artifacts-releases</name>
-      <url>${vertispan.j2cl.repo.url}</url>
-    </repository>
-    <snapshotRepository>
-      <id>vertispan-snapshots</id>
-      <name>Vertispan hosted artifacts-snapshots</name>
-      <url>${vertispan.j2cl.repo.url}</url>
-    </snapshotRepository>
-  </distributionManagement>
 </project>

@@ -5,10 +5,11 @@
   <groupId>org.gwtproject.safecss</groupId>
   <artifactId>gwt-safecss</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>gwt-lib</packaging>
 
   <name>GWT Safe CSS</name>
-  <description>TBD</description>
+  <description>POM for the gwt-safecss module</description>
+
   <url>https://github.com/gwtproject/gwt-safecss</url>
   <organization>
     <name>The GWT Authors</name>
@@ -45,7 +46,9 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <maven.compiler.plugin>3.7.0</maven.compiler.plugin>
+    <maven.deploy.plugin>3.0.0-M1</maven.deploy.plugin>
     <maven.gpg.plugin>1.6</maven.gpg.plugin>
+    <maven.gwt.plugin>1.0.0</maven.gwt.plugin>
     <maven.javadoc.plugin>3.1.1</maven.javadoc.plugin>
     <maven.licence.plugin>3.0</maven.licence.plugin>
     <maven.source.plugin>3.1.0</maven.source.plugin>
@@ -68,36 +71,16 @@
   </dependencies>
 
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/java</directory>
-        <includes>
-          <include>**/safecss/**</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-        <includes>
-          <include>**/safecss/**</include>
-          <include>**/*.gwt.xml</include>
-          <include>**/*.html</include>
-          <include>**/public/**</include>
-        </includes>
-      </resource>
-    </resources>
-
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven.compiler.plugin}</version>
+        <groupId>net.ltgt.gwt.maven</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>${maven.gwt.plugin}</version>
+        <extensions>true</extensions>
         <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
+          <moduleName>org.gwtproject.safecss.SafeCss</moduleName>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
@@ -130,6 +113,11 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven.deploy.plugin}</version>
       </plugin>
     </plugins>
   </build>

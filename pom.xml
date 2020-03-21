@@ -42,12 +42,6 @@
 
   <inceptionYear>2019</inceptionYear>
 
-  <modules>
-    <module>gwt-safecss</module>
-    <module>gwt-safecss-gwt2-tests</module>
-    <module>gwt-safecss-j2cl-tests</module>
-  </modules>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -55,6 +49,20 @@
     <maven.fmt.plugin>2.5.1</maven.fmt.plugin>
   </properties>
 
+  <modules>
+    <module>gwt-safecss</module>
+    <module>gwt-safecss-gwt2-tests</module>
+    <module>gwt-safecss-j2cl-tests</module>
+  </modules>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.gwtproject.safecss</groupId>
+      <artifactId>gwt-safecss</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
   <build>
     <plugins>
       <plugin>
@@ -69,16 +77,43 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven.deploy.plugin}</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>${maven.deploy.plugin}</version>
+          <groupId>com.mycila</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <version>${maven.licence.plugin}</version>
           <configuration>
-            <skip>true</skip>
+            <header>LICENSE.header</header>
+            <encoding>${project.build.sourceEncoding}</encoding>
+            <skipExistingHeaders>true</skipExistingHeaders>
+            <mapping>
+              <java>SLASHSTAR_STYLE</java>
+            </mapping>
+            <includes>
+              <include>sec/test/java</include>
+            </includes>
+            <properties>
+              <year>${project.inceptionYear}</year>
+              <name>${project.organization.name}</name>
+            </properties>
           </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>

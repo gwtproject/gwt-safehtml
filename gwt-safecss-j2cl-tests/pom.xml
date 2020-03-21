@@ -3,8 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.gwtproject.safecss</groupId>
+  <parent>
+    <groupId>org.gwtproject.safecss</groupId>
+    <artifactId>gwt-safecss-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
   <artifactId>gwt-safecss-j2cl-tests</artifactId>
+
   <version>1.0-SNAPSHOT</version>
 
   <name>GWT Safe CSS J2CL Tests</name>
@@ -50,7 +55,7 @@
     <maven.findbugs.plugin>3.0.5</maven.findbugs.plugin>
     <maven.install.plugin>3.0.0-M1</maven.install.plugin>
     <maven.jar.plugin>3.1.2</maven.jar.plugin>
-    <maven.j2cl.plugin>0.10-SNAPSHOT</maven.j2cl.plugin>
+    <maven.j2cl.plugin>0.13-SNAPSHOT</maven.j2cl.plugin>
     <maven.licence.plugin>3.0</maven.licence.plugin>
     <maven.surfire.plugin>3.0.0-M1</maven.surfire.plugin>
 
@@ -67,14 +72,6 @@
   </properties>
 
   <dependencies>
-    <!-- library under test -->
-    <dependency>
-      <groupId>org.gwtproject.safecss</groupId>
-      <artifactId>gwt-safecss</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>test</scope>
-    </dependency>
-
     <!-- transitive dependencies that aren't correctly available at runtime -->
     <dependency>
       <groupId>com.google.elemental2</groupId>
@@ -101,21 +98,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- As the other projects are gwt2, we need to explicitly depend on a j2cl-compatible version of jsinterop-base -->
-    <dependency>
-      <groupId>com.vertispan.jsinterop</groupId>
-      <artifactId>base</artifactId>
-      <version>${jsinterop.base.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
-      <scope>test</scope>
-    </dependency>
-
     <!-- test dependencies -->
     <dependency>
       <groupId>com.vertispan.j2cl</groupId>
@@ -125,123 +107,44 @@
     </dependency>
     <dependency>
       <groupId>com.vertispan.j2cl</groupId>
-      <artifactId>gwttestcase-emul</artifactId>
+      <artifactId>junit-emul</artifactId>
       <version>${j2cl.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.vertispan.j2cl</groupId>
-      <artifactId>gwttestcase-emul</artifactId>
-      <version>${j2cl.version}</version>
-      <classifier>sources</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.vertispan.j2cl</groupId>
       <artifactId>junit-emul</artifactId>
       <version>${j2cl.version}</version>
+      <classifier>sources</classifier>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
   <build>
-    <testResources>
-      <testResource>
-        <directory>${project.basedir}/src/test/java</directory>
-      </testResource>
-      <testResource>
-        <directory>${project.basedir}/src/test/resources</directory>
-      </testResource>
-    </testResources>
-
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven.compiler.plugin}</version>
-        <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
-        </configuration>
-        <executions>
-          <execution>
-            <id>default-Compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <phase>compile</phase>
-          </execution>
-          <execution>
-            <id>default-testCompile</id>
-            <goals>
-              <goal>testCompile</goal>
-            </goals>
-            <phase>test-compile</phase>
-          </execution>
-        </executions>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
       </plugin>
-
       <plugin>
         <groupId>com.vertispan.j2cl</groupId>
         <artifactId>j2cl-maven-plugin</artifactId>
         <version>${maven.j2cl.plugin}</version>
+        <configuration>
+<!-- TODO: as long as ADVANCED compilationLevel will remove Assertions, we stay with BUNDLE -->
+<!--                    <compilationLevel>ADVANCED</compilationLevel>-->
+          <compilationLevel>BUNDLE</compilationLevel>
+        </configuration>
         <executions>
+          <!-- to run this from command line, use mvn j2cl:test@j2cl-test -->
           <execution>
             <id>j2cl-test</id>
             <goals>
               <goal>test</goal>
             </goals>
-            <!--            <phase>test</phase>-->
-            <configuration>
-              <defines>
-                <gwt.enableDebugId>true</gwt.enableDebugId>
-                <gwt.cspCompatModeEnabled>true</gwt.cspCompatModeEnabled>
-                <gwt.strictCspTestingEnabled>true</gwt.strictCspTestingEnabled>
-              </defines>
-              <compilationLevel>BUNDLE</compilationLevel>
-              <tests>
-                <test>org.gwtproject.safecss.shared.SafeStylesBuilderJ2clTest</test>
-                <test>org.gwtproject.safecss.shared.SafeStylesHostedModeUtilsJ2clTest</test>
-                <test>org.gwtproject.safecss.shared.SafeStylesStringJ2clTest</test>
-                <test>org.gwtproject.safecss.shared.SafeStylesUtilsJ2clTest</test>
-              </tests>
-            </configuration>
           </execution>
         </executions>
       </plugin>
-
-      <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <version>${maven.licence.plugin}</version>
-        <configuration>
-          <header>LICENSE.header</header>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <skipExistingHeaders>true</skipExistingHeaders>
-          <mapping>
-            <java>SLASHSTAR_STYLE</java>
-          </mapping>
-          <excludes>
-            <exclude>LICENSE.header</exclude>
-            <exclude>**/*.xml</exclude>
-            <exclude>src/test/resources/**</exclude>
-            <exclude>src/main/resources/**</exclude>
-          </excludes>
-          <properties>
-            <year>${project.inceptionYear}</year>
-            <name>${project.organization.name}</name>
-          </properties>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -250,67 +153,14 @@
           <skipTests>true</skipTests>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven.jar.plugin}</version>
-        <executions>
-          <execution>
-            <id>default-jar</id>
-            <phase>none</phase>
-            <configuration>
-              <finalName>unwanted</finalName>
-              <classifier>unwanted</classifier>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-install-plugin</artifactId>
-        <version>${maven.install.plugin}</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
     </plugins>
-
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>${maven.deploy.plugin}</version>
-          <configuration>
-            <skip>true</skip>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
 
   <repositories>
     <repository>
-      <id>${vertispan.j2cl.repo.id}</id>
-      <name>${vertispan.j2cl.repo.name}</name>
-      <url>${vertispan.j2cl.repo.url}</url>
-    </repository>
-    <repository>
-      <id>vertispan-releases</id>
+      <id>vertispan-snapshots</id>
       <name>Vertispan hosted artifacts-releases</name>
       <url>${vertispan.j2cl.repo.url}</url>
-    </repository>
-    <repository>
-      <id>vertispan-snapshots</id>
-      <name>Vertispan hosted artifacts-snapshots</name>
-      <url>${vertispan.j2cl.repo.url}</url>
-    </repository>
-    <repository>
-      <id>google-snapshot-repo</id>
-      <name>Google SnapShot Repo</name>
-      <url>${google.snapshot.repo.url}</url>
     </repository>
   </repositories>
 
@@ -321,17 +171,4 @@
       <url>${vertispan.j2cl.repo.url}</url>
     </pluginRepository>
   </pluginRepositories>
-
-  <distributionManagement>
-    <repository>
-      <id>vertispan-releases</id>
-      <name>Vertispan hosted artifacts-releases</name>
-      <url>${vertispan.j2cl.repo.url}</url>
-    </repository>
-    <snapshotRepository>
-      <id>vertispan-snapshots</id>
-      <name>Vertispan hosted artifacts-snapshots</name>
-      <url>${vertispan.j2cl.repo.url}</url>
-    </snapshotRepository>
-  </distributionManagement>
 </project>
