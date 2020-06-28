@@ -166,8 +166,18 @@
     <dependencies>
       <!-- Internal dependencies -->
       <dependency>
+        <groupId>org.gwtproject.safecss</groupId>
+        <artifactId>gwt-safecss</artifactId>
+        <version>${revision}</version>
+      </dependency>
+     <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>gwt-safehtml</artifactId>
+        <version>${revision}</version>
+      </dependency>
+     <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>gwt-safehtml-processor</artifactId>
         <version>${revision}</version>
       </dependency>
     </dependencies>
