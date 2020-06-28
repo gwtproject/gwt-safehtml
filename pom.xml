@@ -1,180 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.gwtproject.safehtml</groupId>
-    <artifactId>safehtml-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+  <groupId>org.gwtproject.safehtml</groupId>
+  <artifactId>gwt-safehtml-parent</artifactId>
 
-    <name>safehtml parent project</name>
-    <description>The purpose of this module, what it provides and how it can be used</description>
-    <url>https://github.com/niloc132/gwt-safehtml</url>
+  <version>dev</version>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
+  <packaging>pom</packaging>
 
-    <developers>
-        <developer>
-            <name>Colin Alworth</name>
-            <email>colin@vertispan.com</email>
-            <organization>Vertispan LLC</organization>
-            <organizationUrl>https://vertispan.com</organizationUrl>
-        </developer>
-    </developers>
+  <name>GWT Safe HTML Parent</name>
+  <description>Parent POM containing the gwt-safehtml module and the test modules (gwt2-tests and j2cl-tests)</description>
+  <url>https://github.com/gwtproject/gwt-safehtml</url>
 
-    <scm>
-        <connection>scm:git:git://github.com/niloc132/gwt-safehtml.git</connection>
-        <developerConnection>scm:git:ssh://github.com:niloc132/gwt-safehtml.git</developerConnection>
-        <url>https://github.com/niloc132/gwt-safehtml/tree/master</url>
-    </scm>
+  <organization>
+    <name>The GWT Project Authors</name>
+    <url>https://github.com/gwtproject</url>
+  </organization>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
 
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+  <developers>
+    <developer>
+      <name>The GWT Project Authors</name>
+      <organization>The GWT Project Authors</organization>
+      <url>https://github.com/gwtproject</url>
+    </developer>
+  </developers>
 
-    <modules>
-        <module>shared</module>
-        <module>processor</module>
-    </modules>
+  <scm>
+    <connection>scm:git:git://github.com/gwtproject/gwt-safehtml.git</connection>
+    <developerConnection>scm:git:ssh://github.com/gwtproject/gwt-safehtml.git</developerConnection>
+    <url>https://github.com/gwtproject/gwt-safehtml/tree/master</url>
+  </scm>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.google.jsilver</groupId>
-                <artifactId>jsilver</artifactId>
-                <version>1.0.0</version>
-            </dependency>
+  <inceptionYear>2019</inceptionYear>
 
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.11</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+  <modules>
+    <module>gwt-safehtml</module>
+    <module>gwt-safecss</module>
+    <module>gwt-safecss-gwt2-tests</module>
+    <module>gwt-safecss-j2cl-tests</module>
+    <module>gwt-safehtml-processor</module>
+    <module>gwt-safehtml-gwt2-tests</module>
+    <module>gwt-safehtml-j2cl-tests</module>
+  </modules>
 
-    <build>
-        <pluginManagement>
+  <properties>
+    <revision>HEAD-SNAPSHOT</revision>
 
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5.1</version>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                    </configuration>
-                </plugin>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.17</version>
-                    <executions>
-                        <execution>
-                            <id>validate</id>
-                            <phase>validate</phase>
-                            <configuration>
-                                <encoding>UTF-8</encoding>
-                                <consoleOutput>true</consoleOutput>
-                                <failsOnError>true</failsOnError>
-                                <configLocation>gwt-checkstyle.xml</configLocation>
-                            </configuration>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
 
-            </plugins>
-        </pluginManagement>
+    <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
+    <maven.deploy.plugin>3.0.0-M1</maven.deploy.plugin>
+    <maven.flatten.plugin>1.2.2</maven.flatten.plugin>
+    <maven.fmt.plugin>2.9</maven.fmt.plugin>
+    <maven.install.plugin>3.0.0-M1</maven.install.plugin>
+    <maven.license.plugin>3.0</maven.license.plugin>
+    <maven.surfire.plugin>3.0.0-M1</maven.surfire.plugin>
 
+    <elemental2.version>1.1.0</elemental2.version>
+    <jsilver.version>1.0.0</jsilver.version>
+  </properties>
 
-    </build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.coveo</groupId>
+        <artifactId>fmt-maven-plugin</artifactId>
+        <version>${maven.fmt.plugin}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>${maven.license.plugin}</version>
+        <configuration>
+          <header>LICENSE.header</header>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <skipExistingHeaders>true</skipExistingHeaders>
+          <mapping>
+            <java>SLASHSTAR_STYLE</java>
+          </mapping>
+          <excludes>
+            <exclude>**/README.md</exclude>
+            <exclude>**/LICENSE</exclude>
+            <exclude>**/LICENSE.header</exclude>
+            <exclude>**/AUTHORS</exclude>
+            <exclude>**/src/test/resources/**</exclude>
+            <exclude>**/src/main/resources/**</exclude>
+            <exclude>**/pom.xml</exclude>
+            <exclude>**/.flattened-pom.xml</exclude>
+            <exclude>**/war</exclude>
+            <exclude>**/gwt-unitcache</exclude>
+          </excludes>
+          <properties>
+            <year>${project.inceptionYear}</year>
+            <name>${project.organization.name}</name>
+          </properties>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <version>${maven.flatten.plugin}</version>
+        <configuration>
+          <flattenMode>oss</flattenMode>
+        </configuration>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>flatten.clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven.compiler.plugin}</version>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.target}</target>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
-    <!-- Specify that we will push snapshots and releases to sonatype's repos -->
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-    <repositories>
-        <repository>
-            <id>vertispan-snapshot-repository</id>
-            <name>Vertispan Snapshot Repository</name>
-            <url>https://repo.vertispan.com/gwt-snapshot/</url>
-        </repository>
-    </repositories>
+  <dependencyManagement>
+    <dependencies>
+      <!-- Internal dependencies -->
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>gwt-safehtml</artifactId>
+        <version>${revision}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-    <profiles>
-        <!-- release profile to create sources, javadoc, and sign all artifacts before uploading -->
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- see http://central.sonatype.org/pages/working-with-pgp-signatures.html for more detail -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 </project>
