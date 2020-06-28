@@ -35,26 +35,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- transitive dependencies that aren't correctly available at runtime -->
-    <!--    <dependency>-->
-    <!--      <groupId>com.google.elemental2</groupId>-->
-    <!--      <artifactId>elemental2-promise</artifactId>-->
-    <!--      <version>${elemental2.version}</version>-->
-    <!--      <scope>test</scope>-->
-    <!--    </dependency>-->
-    <!--    <dependency>-->
-    <!--      <groupId>com.google.elemental2</groupId>-->
-    <!--      <artifactId>elemental2-dom</artifactId>-->
-    <!--      <version>${elemental2.version}</version>-->
-    <!--      <scope>test</scope>-->
-    <!--    </dependency>-->
-    <!--    <dependency>-->
-    <!--      <groupId>org.gwtproject.dom</groupId>-->
-    <!--      <artifactId>gwt-dom-style-definitions</artifactId>-->
-    <!--      <version>${gwt.dom.style.definitions.version}</version>-->
-    <!--      <scope>test</scope>-->
-    <!--    </dependency>-->
-
     <!-- test dependencies -->
     <dependency>
       <groupId>com.vertispan.j2cl</groupId>
@@ -75,13 +55,6 @@
       <version>${j2cl.version}</version>
       <scope>test</scope>
     </dependency>
-
-    <!--    <dependency>-->
-    <!--      <groupId>org.gwtproject.timer</groupId>-->
-    <!--      <artifactId>gwt-timer</artifactId>-->
-    <!--      <version>${revision}</version>-->
-    <!--      <scope>test</scope>-->
-    <!--    </dependency>-->
   </dependencies>
 
   <build>
