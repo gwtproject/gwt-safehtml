@@ -9,7 +9,7 @@
     <artifactId>gwt-safehtml-parent</artifactId>
     <version>dev</version>
   </parent>
-  <groupId>org.gwtproject.safecss</groupId>
+  <groupId>org.gwtproject.safehtml</groupId>
   <artifactId>gwt-safecss</artifactId>
   <packaging>gwt-lib</packaging>
   <version>${revision}</version>

@@ -63,7 +63,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.gwtproject.safecss</groupId>
+      <groupId>org.gwtproject.safehtml</groupId>
       <artifactId>gwt-safecss</artifactId>
       <version>${project.version}</version>
     </dependency>

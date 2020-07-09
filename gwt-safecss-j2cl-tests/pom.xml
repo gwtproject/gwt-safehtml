@@ -8,7 +8,7 @@
     <artifactId>gwt-safehtml-parent</artifactId>
     <version>dev</version>
   </parent>
-  <groupId>org.gwtproject.safecss</groupId>
+  <groupId>org.gwtproject.safehtml</groupId>
   <artifactId>gwt-safecss-j2cl-tests</artifactId>
   <version>${revision}</version>
 
@@ -30,7 +30,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.gwtproject.safecss</groupId>
+      <groupId>org.gwtproject.safehtml</groupId>
       <artifactId>gwt-safecss</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
