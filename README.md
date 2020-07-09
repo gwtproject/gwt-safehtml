@@ -6,11 +6,11 @@ A future-proof port of the `com.google.gwt.safehtml.SafeHtml` and `com.google.gw
 
 ##  Migrating from `com.google.gwt.safehtml.SafeHtml`
 
-See: [SafeHTML-Module](https://github.com/gwtproject/gwt-safehtml/gwt-safehtml/README.md)
+See: [SafeHTML-Module](https://github.com/FrankHossfeld/gwt-safehtml/tree/master/gwt-safecss)
 
 ##  Migrating from `com.google.gwt.safecss.SafeCss`
 
-See: [SafeCSS-Module](https://github.com/gwtproject/gwt-safehtml/gwt-safecss/README.md)
+See: [SafeCSS-Module](https://github.com/FrankHossfeld/gwt-safehtml/tree/master/gwt-safehtml)
 
 ## Instructions
 
