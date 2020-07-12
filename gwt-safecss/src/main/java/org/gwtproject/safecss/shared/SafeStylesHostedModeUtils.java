@@ -104,14 +104,6 @@ public class SafeStylesHostedModeUtils {
    *     properties</a>
    */
   public static void maybeCheckValidStyleValue(String value) {
-    //    System.out.println(
-    //        "method: maybeCheckValidStyleValue - value >>"
-    //            + value
-    //            + "<< - forceCheck >>"
-    //            + forceCheck
-    //            + "<< - System.getProperty(\"superdevmode\" >>"
-    //            + System.getProperty("superdevmode")
-    //            + "<<");
     if ("on".equals(System.getProperty("superdevmode")) || forceCheck) {
       String errorText = isValidStyleValue(value);
       if (errorText != null) {
@@ -279,7 +271,6 @@ public class SafeStylesHostedModeUtils {
    * @param check if true, perform server-side checks.
    */
   public static void setForceCheckValidStyle(boolean check) {
-    //    System.out.println("setForceCheckValidStyle - check >>" + check + "<<");
     forceCheck = check;
   }
 
@@ -291,11 +282,6 @@ public class SafeStylesHostedModeUtils {
    * <p>For J2CL compatibility we need to use a String isntead of a variable!
    */
   static void setForceCheckValidStyleFromProperty() {
-    //    System.out.println(
-    //        "setForceCheckValidStyleFromProperty -
-    // System.getProperty(org.gwtproject.safecss.ForceCheckValidStyles) >>"
-    //            + System.getProperty("org.gwtproject.safecss.ForceCheckValidStyles")
-    //            + "<<");
     forceCheck = System.getProperty("org.gwtproject.safecss.ForceCheckValidStyles") != null;
   }
 }
