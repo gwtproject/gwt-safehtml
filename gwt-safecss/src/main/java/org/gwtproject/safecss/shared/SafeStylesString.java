@@ -19,7 +19,7 @@ package org.gwtproject.safecss.shared;
  * A string wrapped as an object of type {@link SafeStyles}.
  *
  * <p>This class is package-private and intended for internal use by the {@link
- * com.google.gwt.safecss} package.
+ * org.gwtproject.safecss} package.
  *
  * <p>All implementors must implement .equals and .hashCode so that they operate just like
  * String.equals() and String.hashCode().

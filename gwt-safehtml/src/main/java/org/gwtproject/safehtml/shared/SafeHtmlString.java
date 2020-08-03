@@ -22,7 +22,7 @@ import org.gwtproject.safehtml.shared.annotations.SuppressIsSafeHtmlCastCheck;
  * A string wrapped as an object of type {@link SafeHtml}.
  *
  * <p>This class is package-private and intended for internal use by the {@link
- * com.google.gwt.safehtml} package.
+ * org.gwtproject.safehtml} package.
  *
  * <p>All implementors must implement .equals and .hashCode so that they operate just like
  * String.equals() and String.hashCode().
