@@ -189,8 +189,8 @@ public final class UriUtils {
   /**
    * Encodes the URL.
    *
-   * <p>In client code, this method delegates to {@link URL#encode(String)} and then unescapes
-   * brackets, as they might be used for IPv6 addresses.
+   * <p>In client code, this method delegates to the browser's {@code encodeURI} function and then
+   * unescapes brackets, as they might be used for IPv6 addresses.
    *
    * @param uri the URL to encode
    * @return the %-escaped URL

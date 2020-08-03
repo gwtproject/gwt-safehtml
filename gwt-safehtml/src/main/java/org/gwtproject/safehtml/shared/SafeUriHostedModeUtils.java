@@ -56,7 +56,13 @@ public class SafeUriHostedModeUtils {
     setForceCheckValidUriFromProperty();
   }
 
-  /** Tests whether all characters in the given URI are valid Web Addresses characters. */
+  /**
+   * Tests whether all characters in the given URI are valid Web Addresses characters.
+   *
+   * @param uri the string to test
+   * @return true if all characters are part of the charset that can be in a web address, false if
+   *     any doesn't match
+   */
   // @VisibleForTesting
   public static boolean isValidUriCharset(String uri) {
     int len = uri.length();

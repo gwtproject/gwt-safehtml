@@ -36,8 +36,8 @@ import org.gwtproject.safehtml.shared.annotations.IsSafeUri;
  *
  * <p>In determining safety of a URL both the value itself as well as its provenance matter. An
  * arbitrary URI, including e.g. a <code>javascript:</code> URI, can be deemed safe in the sense of
- * this type's contract if it is entirely under the program's control (e.g., a string literal, {@see
- * UriUtils#fromSafeConstant}).
+ * this type's contract if it is entirely under the program's control (e.g., a string literal,
+ * {@link UriUtils#fromSafeConstant}).
  *
  * <p>All implementations must implement equals() and hashCode() to behave consistently with the
  * result of asString().equals() and asString.hashCode().
