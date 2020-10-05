@@ -100,12 +100,23 @@ public final class SafeStylesUtils {
     return new SafeStylesString(s);
   }
 
-  /** Sets the border-style CSS property. */
+  /**
+   * Sets the border-style CSS property.
+   *
+   * @param value the border-style value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forBorderStyle(BorderStyle value) {
     return fromTrustedNameAndValue("border-style", value.getCssName());
   }
 
-  /** Set the border-width css property. */
+  /**
+   * Set the border-width css property.
+   *
+   * @param value the border-width value
+   * @param unit the border-width unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forBorderWidth(double value, Unit unit) {
     return fromTrustedNameAndValue("border-width", value, unit);
   }
@@ -134,192 +145,401 @@ public final class SafeStylesUtils {
     return new SafeStylesString(name + ":" + value + unit.getType() + ";");
   }
 
-  /** Set the bottom css property. */
+  /**
+   * Set the bottom css property.
+   *
+   * @param value the bottom value
+   * @param unit the bottom unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forBottom(double value, Unit unit) {
     return fromTrustedNameAndValue("bottom", value, unit);
   }
 
-  /** Sets the 'clear' CSS property. */
+  /**
+   * Sets the 'clear' CSS property.
+   *
+   * @param value the clear value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forClear(Clear value) {
     return fromTrustedNameAndValue("clear", value.getCssName());
   }
 
-  /** Sets the cursor CSS property. */
+  /**
+   * Sets the cursor CSS property.
+   *
+   * @param value the cursor value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forCursor(Cursor value) {
     return fromTrustedNameAndValue("cursor", value.getCssName());
   }
 
-  /** Sets the display CSS property. */
+  /**
+   * Sets the display CSS property.
+   *
+   * @param value the display value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forDisplay(Display value) {
     return fromTrustedNameAndValue("display", value.getCssName());
   }
 
-  /** Set the float css property. */
+  /**
+   * Set the float css property.
+   *
+   * @param value the float value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forFloat(Float value) {
     return fromTrustedNameAndValue("float", value.getCssName());
   }
 
-  /** Set the font-size css property. */
+  /**
+   * Set the font-size css property.
+   *
+   * @param value the font-size value
+   * @param unit the font-size unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forFontSize(double value, Unit unit) {
     return fromTrustedNameAndValue("font-size", value, unit);
   }
 
-  /** Sets the font-style CSS property. */
+  /**
+   * Sets the font-style CSS property.
+   *
+   * @param value the font-style value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forFontStyle(FontStyle value) {
     return fromTrustedNameAndValue("font-style", value.getCssName());
   }
 
-  /** Sets the font-weight CSS property. */
+  /**
+   * Sets the font-weight CSS property.
+   *
+   * @param value the font-weight value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forFontWeight(FontWeight value) {
     return fromTrustedNameAndValue("font-weight", value.getCssName());
   }
 
-  /** Set the height css property. */
+  /**
+   * Set the height css property.
+   *
+   * @param value the height value
+   * @param unit the height unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forHeight(double value, Unit unit) {
     return fromTrustedNameAndValue("height", value, unit);
   }
 
-  /** Set the left css property. */
+  /**
+   * Set the left css property.
+   *
+   * @param value the left value
+   * @param unit the left unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forLeft(double value, Unit unit) {
     return fromTrustedNameAndValue("left", value, unit);
   }
 
-  /** Set the line-height css property. */
+  /**
+   * Set the line-height css property.
+   *
+   * @param value the line-height value
+   * @param unit the line-height unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forLineHeight(double value, Unit unit) {
     return fromTrustedNameAndValue("line-height", value, unit);
   }
 
-  /** Sets the list-style-type CSS property. */
+  /**
+   * Sets the list-style-type CSS property.
+   *
+   * @param value the list-style-type value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forListStyleType(ListStyleType value) {
     return fromTrustedNameAndValue("list-style-type", value.getCssName());
   }
 
-  /** Set the margin css property. */
+  /**
+   * Set the margin css property.
+   *
+   * @param value the margin value
+   * @param unit the margin unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forMargin(double value, Unit unit) {
     return fromTrustedNameAndValue("margin", value, unit);
   }
 
-  /** Set the margin-bottom css property. */
+  /**
+   * Set the margin-bottom css property.
+   *
+   * @param value the margin-bottom value
+   * @param unit the margin-bottom unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forMarginBottom(double value, Unit unit) {
     return fromTrustedNameAndValue("margin-bottom", value, unit);
   }
 
-  /** Set the margin-left css property. */
+  /**
+   * Set the margin-left css property.
+   *
+   * @param value the margin-left value
+   * @param unit the margin-left unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forMarginLeft(double value, Unit unit) {
     return fromTrustedNameAndValue("margin-left", value, unit);
   }
 
-  /** Set the margin-right css property. */
+  /**
+   * Set the margin-right css property.
+   *
+   * @param value the margin-right value
+   * @param unit the margin-right unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forMarginRight(double value, Unit unit) {
     return fromTrustedNameAndValue("margin-right", value, unit);
   }
 
-  /** Set the margin-top css property. */
+  /**
+   * Set the margin-top css property.
+   *
+   * @param value the margin-top value
+   * @param unit the margin-top unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forMarginTop(double value, Unit unit) {
     return fromTrustedNameAndValue("margin-top", value, unit);
   }
 
-  /** Set the opacity css property. */
+  /**
+   * Set the opacity css property.
+   *
+   * @param value the opacity value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forOpacity(double value) {
     return fromTrustedNameAndValue("opacity", Double.toString(value));
   }
 
-  /** Sets the outline-style CSS property. */
+  /**
+   * Sets the outline-style CSS property.
+   *
+   * @param value the outline-style value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forOutlineStyle(OutlineStyle value) {
     return fromTrustedNameAndValue("outline-style", value.getCssName());
   }
 
-  /** Set the outline-width css property. */
+  /**
+   * Set the outline-width css property.
+   *
+   * @param value the outline-width value
+   * @param unit the outline-width unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forOutlineWidth(double value, Unit unit) {
     return fromTrustedNameAndValue("outline-width", value, unit);
   }
 
-  /** Sets the overflow CSS property. */
+  /**
+   * Sets the overflow CSS property.
+   *
+   * @param value the overflow value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forOverflow(Overflow value) {
     return fromTrustedNameAndValue("overflow", value.getCssName());
   }
 
-  /** Sets the overflow-x CSS property. */
+  /**
+   * Sets the overflow-x CSS property.
+   *
+   * @param value the overflow-x value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forOverflowX(Overflow value) {
     return fromTrustedNameAndValue("overflow-x", value.getCssName());
   }
 
-  /** Sets the overflow-y CSS property. */
+  /**
+   * Sets the overflow-y CSS property.
+   *
+   * @param value the overflow-y value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forOverflowY(Overflow value) {
     return fromTrustedNameAndValue("overflow-y", value.getCssName());
   }
 
-  /** Set the padding css property. */
+  /**
+   * Set the padding css property.
+   *
+   * @param value the padding value
+   * @param unit the padding unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forPadding(double value, Unit unit) {
     return fromTrustedNameAndValue("padding", value, unit);
   }
 
-  /** Set the padding-bottom css property. */
+  /**
+   * Set the padding-bottom css property.
+   *
+   * @param value the padding-bottom value
+   * @param unit the padding-bottom unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forPaddingBottom(double value, Unit unit) {
     return fromTrustedNameAndValue("padding-bottom", value, unit);
   }
 
-  /** Set the padding-left css property. */
+  /**
+   * Set the padding-left css property.
+   *
+   * @param value the padding-left value
+   * @param unit the padding-left unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forPaddingLeft(double value, Unit unit) {
     return fromTrustedNameAndValue("padding-left", value, unit);
   }
 
-  /** Set the padding-right css property. */
+  /**
+   * Set the padding-right css property.
+   *
+   * @param value the padding-right value
+   * @param unit the padding-right unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forPaddingRight(double value, Unit unit) {
     return fromTrustedNameAndValue("padding-right", value, unit);
   }
 
-  /** Set the padding-top css property. */
+  /**
+   * Set the padding-top css property.
+   *
+   * @param value the padding-top value
+   * @param unit the padding-top unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forPaddingTop(double value, Unit unit) {
     return fromTrustedNameAndValue("padding-top", value, unit);
   }
 
-  /** Sets the position CSS property. */
+  /**
+   * Sets the position CSS property.
+   *
+   * @param value the position value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forPosition(Position value) {
     return fromTrustedNameAndValue("position", value.getCssName());
   }
 
-  /** Set the right css property. */
+  /**
+   * Set the right css property.
+   *
+   * @param value the right value
+   * @param unit the right unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forRight(double value, Unit unit) {
     return fromTrustedNameAndValue("right", value, unit);
   }
 
-  /** Set the table-layout CSS property. */
+  /**
+   * Set the table-layout CSS property.
+   *
+   * @param value the table-layout value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forTableLayout(TableLayout value) {
     return fromTrustedNameAndValue("table-layout", value.getCssName());
   }
 
-  /** Sets the 'text-align' CSS property. */
+  /**
+   * Sets the 'text-align' CSS property.
+   *
+   * @param value the text-align value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forTextAlign(TextAlign value) {
     return fromTrustedNameAndValue("text-align", value.getCssName());
   }
 
-  /** Sets the 'text-decoration' CSS property. */
+  /**
+   * Sets the 'text-decoration' CSS property.
+   *
+   * @param value the text-decoration value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forTextDecoration(TextDecoration value) {
     return fromTrustedNameAndValue("text-decoration", value.getCssName());
   }
 
-  /** Set the 'text-indent' CSS property. */
+  /**
+   * Set the 'text-indent' CSS property.
+   *
+   * @param value the text-indent value
+   * @param unit the text-indent unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forTextIndent(double value, Unit unit) {
     return fromTrustedNameAndValue("text-indent", value + unit.getType());
   }
 
-  /** Set the 'text-justify' CSS3 property. */
+  /**
+   * Set the 'text-justify' CSS3 property.
+   *
+   * @param value the text-justify value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forTextJustify(TextJustify value) {
     return fromTrustedNameAndValue("text-justify", value.getCssName());
   }
 
-  /** Set the 'text-overflow' CSS3 property. */
+  /**
+   * Set the 'text-overflow' CSS3 property.
+   *
+   * @param value the text-overflow value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forTextOverflow(TextOverflow value) {
     return fromTrustedNameAndValue("text-overflow", value.getCssName());
   }
 
-  /** Set the 'text-transform' CSS property. */
+  /**
+   * Set the 'text-transform' CSS property.
+   *
+   * @param value the text-transform value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forTextTransform(TextTransform value) {
     return fromTrustedNameAndValue("text-transform", value.getCssName());
   }
 
-  /** Set the top css property. */
+  /**
+   * Set the top css property.
+   *
+   * @param value the top value
+   * @param unit the top unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forTop(double value, Unit unit) {
     return fromTrustedNameAndValue("top", value, unit);
   }
@@ -420,32 +640,64 @@ public final class SafeStylesUtils {
     return fromTrustedNameAndValue("outline-color", value);
   }
 
-  /** Sets the vertical-align CSS property. */
+  /**
+   * Sets the vertical-align CSS property.
+   *
+   * @param value the vertical-align value
+   * @param unit the vertical-align unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forVerticalAlign(double value, Unit unit) {
     return fromTrustedNameAndValue("vertical-align", value, unit);
   }
 
-  /** Sets the vertical-align CSS property. */
+  /**
+   * Sets the vertical-align CSS property.
+   *
+   * @param value the vertical-align enum value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forVerticalAlign(VerticalAlign value) {
     return fromTrustedNameAndValue("vertical-align", value.getCssName());
   }
 
-  /** Sets the visibility CSS property. */
+  /**
+   * Sets the visibility CSS property.
+   *
+   * @param value the visibility value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forVisibility(Visibility value) {
     return fromTrustedNameAndValue("visibility", value.getCssName());
   }
 
-  /** Set the 'white-space' CSS property. */
+  /**
+   * Set the 'white-space' CSS property.
+   *
+   * @param value the white-space value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forWhiteSpace(WhiteSpace value) {
     return fromTrustedNameAndValue("white-space", value.getCssName());
   }
 
-  /** Set the width css property. */
+  /**
+   * Set the width css property.
+   *
+   * @param value the width value
+   * @param unit the width unit
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forWidth(double value, Unit unit) {
     return fromTrustedNameAndValue("width", value, unit);
   }
 
-  /** Set the z-index css property. */
+  /**
+   * Set the z-index css property.
+   *
+   * @param value the z-index value
+   * @return a {@link SafeStyles} instance
+   */
   public static SafeStyles forZIndex(int value) {
     return new SafeStylesString("z-index: " + value + ";");
   }
