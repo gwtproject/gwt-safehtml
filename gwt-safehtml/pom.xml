@@ -14,7 +14,7 @@
   <version>${revision}</version>
 
   <name>GWT Safe HTML</name>
-  <description></description>
+  <description>A future-proof port of the com.google.gwt.safehtml.SafeHtml GWT module, with no dependency on gwt-user (besides the Java Runtime Emulation), to prepare for GWT 3 / J2Cl.</description>
   <url>https://github.com/gwtproject/gwt-safehtml</url>
 
   <organization>
