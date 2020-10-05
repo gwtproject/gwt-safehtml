@@ -24,8 +24,8 @@
 
     <j2cl.version>0.8-SNAPSHOT</j2cl.version>
 
-    <gwt.dom.style.definitions.version>HEAD-SNAPSHOT</gwt.dom.style.definitions.version>
-    <gwt.safehtml.version>HEAD-SNAPSHOT</gwt.safehtml.version>
+    <gwt.dom.style.definitions.version>1.0.0-RC1</gwt.dom.style.definitions.version>
+    <gwt.safehtml.version>1.0.0-RC1</gwt.safehtml.version>
   </properties>
 
   <dependencies>

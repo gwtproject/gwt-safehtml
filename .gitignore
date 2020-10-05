@@ -8,3 +8,4 @@ target/
 # gwt caches and compiled units #
 war/
 gwt-unitCache/
+/gwt-safehtml-processor/dependency-reduced-pom.xml
