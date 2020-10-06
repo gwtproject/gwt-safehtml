@@ -14,7 +14,7 @@
   <version>${revision}</version>
 
   <name>GWT Safe HTML</name>
-  <description>GWT UI SafeHTML Module</description>
+  <description>GWT SafeHTML Module</description>
   <url>https://github.com/gwtproject/gwt-safehtml</url>
 
   <organization>
