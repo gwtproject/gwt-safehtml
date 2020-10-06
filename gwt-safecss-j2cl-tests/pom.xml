@@ -32,13 +32,13 @@
     <dependency>
       <groupId>org.gwtproject.safehtml</groupId>
       <artifactId>gwt-safecss</artifactId>
-      <version>${project.version}</version>
+      <version>${revision}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.gwtproject.safehtml</groupId>
       <artifactId>gwt-safehtml</artifactId>
-      <version>${project.version}</version>
+      <version>${revision}</version>
       <scope>test</scope>
     </dependency>
 
