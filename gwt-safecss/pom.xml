@@ -15,7 +15,7 @@
   <version>${revision}</version>
 
   <name>GWT Safe CSS</name>
-  <description></description>
+  <description>GWT XML SafeCSS Module</description>
   <url>https://github.com/gwtproject/gwt-safecss</url>
 
   <organization>
