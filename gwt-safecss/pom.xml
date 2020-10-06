@@ -53,7 +53,7 @@
     <maven.source.plugin>3.2.1</maven.source.plugin>
 
     <dom.version>HEAD-SNAPSHOT</dom.version>
-    <safehtml.version>HEAD-SNAPSHOT</safehtml.version>
+    <safehtml.version>${revision}</safehtml.version>
   </properties>
 
   <dependencies>
