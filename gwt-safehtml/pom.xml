@@ -14,7 +14,7 @@
   <version>${revision}</version>
 
   <name>GWT Safe HTML</name>
-  <description></description>
+  <description>Tools to safely escape text for use in HTML</description>
   <url>https://github.com/gwtproject/gwt-safehtml</url>
 
   <organization>
