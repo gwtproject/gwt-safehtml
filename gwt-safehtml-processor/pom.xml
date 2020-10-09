@@ -13,7 +13,7 @@
   <packaging>jar</packaging>
 
   <name>GWT Safe HTML Processor</name>
-  <!--    <description></description>-->
+  <description>Code generator to allow declaring templated html strings where params will be safely escaped automatically</description>
   <url>https://github.com/gwtproject/gwt-editor</url>
 
   <organization>

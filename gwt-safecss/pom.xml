@@ -15,7 +15,7 @@
   <version>${revision}</version>
 
   <name>GWT Safe CSS</name>
-  <description></description>
+  <description>Tools to safely escape text for use in CSS</description>
   <url>https://github.com/gwtproject/gwt-safecss</url>
 
   <organization>
