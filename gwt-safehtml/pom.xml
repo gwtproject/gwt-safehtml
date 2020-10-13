@@ -48,7 +48,7 @@
   <properties>
     <maven.gwt.plugin>1.0.0</maven.gwt.plugin>
 
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
 
     <deploy.skip>false</deploy.skip>
   </properties>
