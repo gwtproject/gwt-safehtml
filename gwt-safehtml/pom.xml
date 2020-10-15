@@ -46,10 +46,6 @@
   <inceptionYear>2019</inceptionYear>
 
   <properties>
-    <maven.gwt.plugin>1.0.0</maven.gwt.plugin>
-
-    <junit.version>4.12</junit.version>
-
     <deploy.skip>false</deploy.skip>
   </properties>
 
