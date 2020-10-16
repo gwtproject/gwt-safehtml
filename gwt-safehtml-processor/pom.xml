@@ -56,7 +56,6 @@
     <gwt.version>2.8.2</gwt.version>
     <javapoet.version>1.12.1</javapoet.version>
     <compile.testing.version>0.18</compile.testing.version>
-    <junit.version>4.13</junit.version>
     <org.truth.version>0.23</org.truth.version>
     <truth.version>1.0</truth.version>
   </properties>
@@ -129,7 +128,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.1</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>

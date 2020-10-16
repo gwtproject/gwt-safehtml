@@ -68,14 +68,18 @@
     <maven.license.plugin>3.0</maven.license.plugin>
     <maven.surfire.plugin>3.0.0-M1</maven.surfire.plugin>
 
+    <maven.gwt.plugin>1.0.0</maven.gwt.plugin>
+
     <maven.gpg.plugin>1.6</maven.gpg.plugin>
     <maven.javadoc.plugin>3.2.0</maven.javadoc.plugin>
     <maven.source.plugin>3.2.1</maven.source.plugin>
 
     <deploy.skip>true</deploy.skip>
 
+    <gwt.version>2.9.0</gwt.version>
     <elemental2.version>1.1.0</elemental2.version>
     <jsilver.version>1.0.0</jsilver.version>
+    <junit.version>4.13.1</junit.version>
   </properties>
 
   <build>
