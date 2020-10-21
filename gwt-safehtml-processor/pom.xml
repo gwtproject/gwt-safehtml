@@ -105,7 +105,7 @@
       <groupId>com.google.auto.service</groupId>
       <artifactId>auto-service</artifactId>
       <version>${auto.service.version}</version>
-      <optional>true</optional>
+      <scope>provided</scope>
     </dependency>
 
     <!-- only for testing -->
@@ -201,9 +201,11 @@
             <configuration>
               <artifactSet>
                 <excludes>
+                  <exclude>org.gwtproject.dom:*</exclude>
                   <exclude>org.gwtproject.safehtml:gwt-safehtml</exclude>
-                  <exclude>com.google.auto.service:*</exclude>
-                  <exclude>com.squareup.javapoet:*</exclude>
+                  <exclude>org.gwtproject.safehtml:gwt-safecss</exclude>
+                  <exclude>com.google.elemental2:*</exclude>
+                  <exclude>com.google.jsinterop:*</exclude>
                   <exclude>javax.annotation:javax.annotation-api</exclude>
                   <exclude>com.google.code.findbugs:jsr305</exclude>
                   <exclude>com.google.j2objc:j2objc-annotations</exclude>
@@ -212,8 +214,12 @@
               </artifactSet>
               <relocations>
                 <relocation>
-                  <pattern>com.google.auto.common</pattern>
-                  <shadedPattern>org.gwtproject.editor.shaded.auto.common</shadedPattern>
+                  <pattern>com</pattern>
+                  <shadedPattern>org.gwtproject.safehtml.shaded.com</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>org.clearsilver</pattern>
+                  <shadedPattern>org.gwtproject.safehtml.shaded.org.clearsilver</shadedPattern>
                 </relocation>
               </relocations>
             </configuration>
