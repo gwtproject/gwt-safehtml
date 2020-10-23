@@ -25,7 +25,6 @@
     <j2cl.version>0.8-SNAPSHOT</j2cl.version>
 
     <gwt.dom.style.definitions.version>1.0.0-RC1</gwt.dom.style.definitions.version>
-    <gwt.safehtml.version>HEAD-SNAPSHOT</gwt.safehtml.version>
   </properties>
 
   <dependencies>
@@ -59,12 +58,6 @@
       <groupId>org.gwtproject.dom</groupId>
       <artifactId>gwt-dom-style-definitions</artifactId>
       <version>${gwt.dom.style.definitions.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.gwtproject.safehtml</groupId>
-      <artifactId>gwt-safehtml</artifactId>
-      <version>${gwt.safehtml.version}</version>
       <scope>test</scope>
     </dependency>
 
