@@ -1,4 +1,4 @@
-# GWT Safe-HTML & Safe-CSS
+# GWT Safe-HTML
 
 A future-proof port of the `org.gwtproject.safehtml.SafeHtml` GWT module, with no dependency on `gwt-user` (besides the Java Runtime Emulation), to prepare for GWT 3 / J2Cl.
 
@@ -25,7 +25,7 @@ A future-proof port of the `org.gwtproject.safehtml.SafeHtml` GWT module, with n
 2. Update your GWT module to use
 
    ```xml
-   <inherits name="org.gwtproject.safehtml.SafeHTML" />
+   <inherits name="org.gwtproject.safehtml.SafeHtml" />
    ```
 
 3. Change the `import`s in your Java source files:

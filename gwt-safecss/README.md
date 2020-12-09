@@ -25,7 +25,7 @@ A future-proof port of the `org.gwtproject.safehtml.SafeCss` GWT module, with no
 2. Update your GWT module to use
 
    ```xml
-   <inherits name="org.gwtproject.safecss.SafeCSS" />
+   <inherits name="org.gwtproject.safecss.SafeCss" />
    ```
 
 3. Change the `import`s in your Java source files:
