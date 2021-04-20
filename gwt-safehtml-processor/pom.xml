@@ -14,7 +14,7 @@
 
   <name>GWT Safe HTML Processor</name>
   <description>Code generator to allow declaring templated html strings where params will be safely escaped automatically</description>
-  <url>https://github.com/gwtproject/gwt-editor</url>
+  <url>https://github.com/gwtproject/gwt-safehtml</url>
 
   <organization>
     <name>The GWT Project Authors</name>
@@ -37,9 +37,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/gwtproject/gwt-editor.git</connection>
-    <developerConnection>scm:git:ssh://github.com/gwtproject/gwt-editor.git</developerConnection>
-    <url>https://github.com/gwtproject/gwt-editor/tree/master</url>
+    <connection>scm:git:git://github.com/gwtproject/gwt-safehtml.git</connection>
+    <developerConnection>scm:git:ssh://github.com/gwtproject/gwt-safehtml.git</developerConnection>
+    <url>https://github.com/gwtproject/gwt-safehtml/tree/master</url>
   </scm>
 
   <inceptionYear>2018</inceptionYear>
@@ -225,6 +225,11 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <!-- we need to tell Maven to run the flatten-plugin after the shade-plugin -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
