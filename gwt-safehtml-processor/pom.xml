@@ -50,13 +50,11 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
-    <auto.common.version>0.10</auto.common.version>
-    <auto.service.version>1.0-rc7</auto.service.version>
-    <compile-testing.version>0.18</compile-testing.version>
-    <guava.version>27.0.1-jre</guava.version>
-    <gwt.version>2.8.2</gwt.version>
-    <javapoet.version>1.12.1</javapoet.version>
-    <compile.testing.version>0.18</compile.testing.version>
+    <auto.common.version>1.1</auto.common.version>
+    <auto.service.version>1.0</auto.service.version>
+    <compile.testing.version>0.19</compile.testing.version>
+    <gwt.version>2.9.0</gwt.version>
+    <javapoet.version>1.13.0</javapoet.version>
     <org.truth.version>0.23</org.truth.version>
     <truth.version>1.0</truth.version>
   </properties>
@@ -107,12 +105,6 @@
       <artifactId>auto-service</artifactId>
       <version>${auto.service.version}</version>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
     </dependency>
 
     <!-- only for testing -->
