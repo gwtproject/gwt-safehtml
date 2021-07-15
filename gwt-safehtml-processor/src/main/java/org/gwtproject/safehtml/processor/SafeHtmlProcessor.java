@@ -18,9 +18,12 @@ package org.gwtproject.safehtml.processor;
 import static java.util.stream.Collectors.toSet;
 
 import com.google.auto.service.AutoService;
-import com.google.common.base.Stopwatch;
 import com.google.common.primitives.Primitives;
-import com.squareup.javapoet.*;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -33,7 +36,6 @@ import javax.lang.model.element.*;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import javax.tools.Diagnostic.Kind;
 import org.gwtproject.safecss.shared.SafeStyles;
@@ -45,9 +47,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
 
   private Messager messager;
   private Filer filer;
-  private Types types;
   private Elements elements;
-  private Stopwatch stopwatch;
 
   @Override
   public Set<String> getSupportedAnnotationTypes() {
@@ -65,22 +65,14 @@ public class SafeHtmlProcessor extends AbstractProcessor {
 
     this.messager = processingEnv.getMessager();
     this.filer = processingEnv.getFiler();
-    this.types = processingEnv.getTypeUtils();
     this.elements = processingEnv.getElementUtils();
 
-    this.createMessage(Kind.NOTE, "GWT-SafeHTML-Processor (version: HEAD-SNAPSHOT) started ...");
-
-    this.stopwatch = Stopwatch.createStarted();
+    this.createMessage(Kind.NOTE, "GWT-SafeHTML-Processor started ...");
   }
 
   @Override
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-    if (roundEnv.processingOver()) {
-      this.createMessage(
-          Kind.NOTE,
-          "GWT-editor-Processor finished ... processing takes: "
-              + this.stopwatch.stop().toString());
-    } else {
+    if (!roundEnv.processingOver()) {
       if (annotations.size() > 0) {
         T types = new T();
         Set<TypeElement> templateTypes =
@@ -143,7 +135,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
                 continue;
               }
               try {
-                templateTypeSpec.addMethod(this.generateMethod(templateType, template, method));
+                templateTypeSpec.addMethod(this.generateMethod(template, method));
               } catch (SafeHtmlProcessorException e) {
                 this.createMessage(
                     Kind.ERROR,
@@ -186,8 +178,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
         .orElse(null);
   }
 
-  private MethodSpec generateMethod(
-      TypeElement templateType, AnnotationMirror template, ExecutableElement method)
+  private MethodSpec generateMethod(AnnotationMirror template, ExecutableElement method)
       throws SafeHtmlProcessorException {
     final String templateString = getTemplateString(template);
     MethodSpec.Builder templateMethod =
@@ -623,7 +614,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
   /**
    * Escapes string content to be a valid string literal.
    *
-   * @param unescaped
+   * @param unescaped the string to escape
    * @return an escaped version of <code>unescaped</code>, suitable for being enclosed in double
    *     quotes in Java source
    */
@@ -684,7 +675,6 @@ public class SafeHtmlProcessor extends AbstractProcessor {
   private void createMessage(Kind kind, String message, ExecutableElement method) {
     StringWriter sw = new StringWriter();
     PrintWriter pw = new PrintWriter(sw);
-    String messageValue = message;
     if (method != null) {
       message = message + " --> " + method.toString();
     }
@@ -693,41 +683,7 @@ public class SafeHtmlProcessor extends AbstractProcessor {
     this.messager.printMessage(kind, sw.toString());
   }
 
-  private String[] getParamTypes(ExecutableElement method) {
-    String[] params = new String[method.getParameters().size()];
-    int i = 0;
-    for (VariableElement variableElement : method.getParameters()) {
-      params[i++] = variableElement.asType().toString();
-    }
-    return params;
-  }
-
-  /**
-   * Convenience method to use TreeLogger error pattern.
-   *
-   * @param msg msg
-   * @param element element causing error
-   * @return the exception to throw
-   */
-  private SafeHtmlProcessorException error(String msg, Throwable cause, Element element) {
-    messager.printMessage(Diagnostic.Kind.ERROR, msg + ": " + cause.getMessage(), element);
-    return new SafeHtmlProcessorException();
-  }
-
-  /**
-   * Convenience method to use TreeLogger error pattern.
-   *
-   * @param e throwable
-   * @param element element causing error
-   * @return th exception to throw
-   */
-  private SafeHtmlProcessorException error(Throwable e, Element element) {
-    messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage() + ": " + e.getMessage(), element);
-    return new SafeHtmlProcessorException();
-  }
-
   private class T {
-
     DeclaredType jlObject =
         (DeclaredType)
             processingEnv
