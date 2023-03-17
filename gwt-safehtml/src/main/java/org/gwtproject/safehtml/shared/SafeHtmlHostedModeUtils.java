@@ -174,7 +174,7 @@ public class SafeHtmlHostedModeUtils {
     @GwtIncompatible
     @Override
     public boolean getForceCheckCompleteHtmlFromProperty() {
-      return System.getProperty(FORCE_CHECK_COMPLETE_HTML) != null;
+      return "true".equals(System.getProperty(FORCE_CHECK_COMPLETE_HTML));
     }
   }
 }

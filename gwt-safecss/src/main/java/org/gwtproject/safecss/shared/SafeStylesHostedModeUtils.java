@@ -31,6 +31,10 @@ public class SafeStylesHostedModeUtils {
 
   private static boolean forceCheck;
 
+  static {
+    setForceCheckValidStyleFromProperty();
+  }
+
   /**
    * Checks if the provided string is a valid style property name.
    *

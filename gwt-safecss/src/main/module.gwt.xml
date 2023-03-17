@@ -22,6 +22,6 @@
   <inherits name="org.gwtproject.safehtml.SafeHtml"/>
 
   <define-configuration-property name="org.gwtproject.safecss.ForceCheckValidStyles" is-multi-valued="false"/>
-
+  <set-configuration-property name="org.gwtproject.safecss.ForceCheckValidStyles" value="false"/>
   <source path="shared"/>
 </module>

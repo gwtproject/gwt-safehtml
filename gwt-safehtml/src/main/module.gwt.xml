@@ -22,4 +22,9 @@
   <!-- sources -->
   <source path="client"/>
   <source path="shared"/>
+
+  <define-configuration-property name="com.google.gwt.safehtml.ForceCheckCompleteHtml" is-multi-valued="false"/>
+  <set-configuration-property name="com.google.gwt.safehtml.ForceCheckCompleteHtml" value="false"/>
+  <define-configuration-property name="com.google.gwt.safehtml.ForceCheckValidUri" is-multi-valued="false"/>
+  <set-configuration-property name="com.google.gwt.safehtml.ForceCheckValidUri" value="false"/>
 </module>
