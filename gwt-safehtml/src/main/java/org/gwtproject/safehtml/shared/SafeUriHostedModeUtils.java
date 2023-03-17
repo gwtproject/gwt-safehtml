@@ -134,7 +134,7 @@ public class SafeUriHostedModeUtils {
   //
   // @VisibleForTesting
   public static void setForceCheckValidUriFromProperty() {
-    forceCheckValidUri = impl.getForceCheckValieUriFromProperty();
+    forceCheckValidUri = impl.getForceCheckValidUriFromProperty();
   }
 
   private static class JsImpl {
@@ -143,7 +143,7 @@ public class SafeUriHostedModeUtils {
       return true;
     }
 
-    public boolean getForceCheckValieUriFromProperty() {
+    public boolean getForceCheckValidUriFromProperty() {
       return false;
     }
   }
@@ -169,8 +169,8 @@ public class SafeUriHostedModeUtils {
 
     @GwtIncompatible
     @Override
-    public boolean getForceCheckValieUriFromProperty() {
-      return System.getProperty(FORCE_CHECK_VALID_URI) != null;
+    public boolean getForceCheckValidUriFromProperty() {
+      return "true".equals(System.getProperty(FORCE_CHECK_VALID_URI));
     }
   }
 }
